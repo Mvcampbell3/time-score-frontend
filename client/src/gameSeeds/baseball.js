@@ -66,6 +66,7 @@ const philles = new Answer('Philadelphia Philles', ['philles']);
 const nationals = new Answer('Washington Nationals', ['nationals', 'nats']);
 const cubs = new Answer('Chicago Cubs', ['cubs']);
 const reds = new Answer('Cincinnati Reds', ['reds']);
+const brewers = new Answer('Milwaukee Brewers', ['brewers', 'brew crew'])
 const pirates = new Answer('Pittsburgh Pirates', ['pirates']);
 const cards = new Answer('St. Louis Cardinals', ['cards', 'red birds']);
 const diamondbacks = new Answer('Arizona Diamondbacks', ['diamondbacks', 'dbacks', 'd-backs']);
@@ -74,7 +75,7 @@ const dodgers = new Answer('Los Angeles Dodgers', ['dodgers']);
 const padres = new Answer('San Diego Padres', ['padres']);
 const giants = new Answer('San Francisco Giants', ['giants'])
 
-const baseballTeams = new Game('MLB Teams', 'Name Every MLB Team', 'City names will not be counted towards correct answers, only the actual team name', [rays, yankees, redsox, jays, orioles, whitesox, indians, tigers, royals, twins, astros, angels, mariners, athletics, rangers, braves, marlins, mets, philles, nationals, cubs, reds, pirates, cards, diamondbacks, rockies, dodgers, padres, giants])
+const baseballTeams = new Game('MLB Teams', 'Name Every MLB Team', 'City names will not be counted towards correct answers, only the actual team name', [rays, yankees, redsox, jays, orioles, whitesox, indians, tigers, royals, twins, astros, angels, mariners, athletics, rangers, braves, marlins, mets, philles, nationals, cubs, reds, brewers, pirates, cards, diamondbacks, rockies, dodgers, padres, giants])
 
 
 export default baseballTeams;

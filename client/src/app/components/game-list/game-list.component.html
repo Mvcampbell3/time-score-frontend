@@ -6,19 +6,32 @@
       <p>{{game.description}}</p>
 
       <p>{{game.instructions}}</p>
+      <p *ngIf='play; else score'>{{time}}</p>
+      <ng-template #score>
+        <p>You got {{scoreGame}} right!</p>
+      </ng-template>
+    </div>
+    <div class="hero-footer">
+      <div class="container">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <button class="button is-link is-inverted" (click)='startGame()'>Start</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
+  <div class="level">
+    <div class="level-item">
+      <input #gameInput type="text" class='input' placeholder='enter team name here' disabled
+        (input)='evaluateInput($event)' [(ngModel)]='guess'>
+    </div>
+  </div>
 
   <div *ngFor='let answer of game.answers'>
 
     <p *ngIf='answer.guessed'>{{answer.display_value}}</p>
   </div>
 
-  <div class="level">
-    <div class="level-item">
-      <input type="text" class='input' placeholder='enter team name here' (input)='evaluateInput($event)'
-        [(ngModel)]='guess'>
-    </div>
-  </div>
+
 </div>

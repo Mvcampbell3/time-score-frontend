@@ -10,7 +10,6 @@ export class Answer {
   }
 
   public checkAnswer(text: string): boolean {
-    let right: boolean;
     for (let i = 0; i < this.accepted_values.length; i++) {
       if (this.accepted_values[i] === text) {
         this.guessed = true;
