@@ -8,4 +8,15 @@ export class Answer {
     this.accepted_values = accepted_values;
     this.guessed = false;
   }
+
+  public checkAnswer(text: string): boolean {
+    let right: boolean;
+    for (let i = 0; i < this.accepted_values.length; i++) {
+      if (this.accepted_values[i] === text) {
+        this.guessed = true;
+        return true
+      }
+    }
+    return false;
+  }
 }
