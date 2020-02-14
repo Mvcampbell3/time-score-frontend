@@ -47,6 +47,7 @@ export class GamePageComponent implements OnInit {
       this.firstLoad = false;
       this.initTimer()
     } else {
+      this.guess = '';
       this.game.answers.forEach(answer => answer.guessed = false);
       this.time = 60;
       this.play = true;
@@ -71,7 +72,7 @@ export class GamePageComponent implements OnInit {
     const answerArr: Answer[] = this.game.answers.filter(answer => answer.guessed === false);
     let wasRight: boolean = false;
     answerArr.forEach((item: Answer) => {
-      const rightTeam: boolean = item.checkAnswer(this.guess.toLowerCase());
+      const rightTeam: boolean = item.checkAnswer(this.guess.trim().toLowerCase());
       console.log(rightTeam)
       if (rightTeam && wasRight === false) {
         wasRight = true

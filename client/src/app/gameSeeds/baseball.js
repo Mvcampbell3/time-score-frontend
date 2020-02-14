@@ -33,7 +33,7 @@ const dodgers = new Answer('Los Angeles Dodgers', ['dodgers']);
 const padres = new Answer('San Diego Padres', ['padres']);
 const giants = new Answer('San Francisco Giants', ['giants'])
 
-const baseballTeams = new Game('MLB Teams', 'Name Every MLB Team', 'City names will not be counted towards correct answers, only the actual team name', [rays, yankees, redsox, jays, orioles, whitesox, indians, tigers, royals, twins, astros, angels, mariners, athletics, rangers, braves, marlins, mets, philles, nationals, cubs, reds, brewers, pirates, cards, diamondbacks, rockies, dodgers, padres, giants])
+const baseballTeams = new Game('MLB Teams', 'Enter MLB Team Name...', 'Name Every MLB Team', 'City names will not be counted towards correct answers, only the actual team name', [rays, yankees, redsox, jays, orioles, whitesox, indians, tigers, royals, twins, astros, angels, mariners, athletics, rangers, braves, marlins, mets, philles, nationals, cubs, reds, brewers, pirates, cards, diamondbacks, rockies, dodgers, padres, giants])
 
 
 export default baseballTeams;

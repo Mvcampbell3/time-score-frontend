@@ -1,5 +1,7 @@
 .not-guessed {
-  visibility: hidden;
+  background-color: whitesmoke;
+  color: whitesmoke;
+  user-select: none;
 }
 
 .missed {
@@ -7,8 +9,13 @@
 }
 
 .answer-holder {
-  display: flex;
-  flex-wrap: wrap;
+  // display: flex;
+  // flex-wrap: wrap;
+  display: grid;
+  row-gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+  justify-items: center;
+  align-items: center;
 }
 
 .answer-holder p {

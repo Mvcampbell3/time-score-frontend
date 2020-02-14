@@ -23,8 +23,8 @@
   </div>
   <div class="level">
     <div class="level-item">
-      <input #gameInput type="text" class='input' placeholder='enter team name here' disabled (input)='evaluateInput()'
-        [(ngModel)]='guess'>
+      <input #gameInput type="text" class='input' [placeholder]='game.inputPlaceholder' disabled
+        (input)='evaluateInput()' [(ngModel)]='guess'>
     </div>
   </div>
 
