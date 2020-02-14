@@ -23,15 +23,17 @@
   </div>
   <div class="level">
     <div class="level-item">
-      <input #gameInput type="text" class='input' placeholder='enter team name here' disabled
-        (input)='evaluateInput($event)' [(ngModel)]='guess'>
+      <input #gameInput type="text" class='input' placeholder='enter team name here' disabled (input)='evaluateInput()'
+        [(ngModel)]='guess'>
     </div>
   </div>
 
-  <div *ngFor='let answer of game.answers'>
-
-    <p *ngIf='answer.guessed'>{{answer.display_value}}</p>
+  <div class="answer-holder">
+    <div *ngFor='let answer of game.answers'>
+      <p [ngClass]='answer.guessed ? "": play? "not-guessed": "missed"'>{{answer.display_value}}</p>
+    </div>
   </div>
+
 
 
 </div>

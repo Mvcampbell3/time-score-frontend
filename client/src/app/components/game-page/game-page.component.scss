@@ -1,0 +1,16 @@
+.not-guessed {
+  visibility: hidden;
+}
+
+.missed {
+  color: red;
+}
+
+.answer-holder {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.answer-holder p {
+  margin: 0 5px;
+}

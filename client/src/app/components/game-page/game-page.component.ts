@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { Game } from '../../models/game';
 import { Answer } from '../../models/answer';
-import baseballTeam from '../../gameSeeds/baseball'
+import baseballTeam from '../../gameSeeds/baseball';
+import presidentNames from '../../gameSeeds/presidents';
 
 @Component({
   selector: 'app-game-page',
@@ -17,10 +18,12 @@ export class GamePageComponent implements OnInit {
   time: number = 60;
   scoreGame: number = 0;
   play: boolean = true;
+  firstLoad: boolean = true;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.gameTitle)
     switch (this.gameTitle) {
       case 'baseball':
         this.game = baseballTeam;
@@ -30,7 +33,7 @@ export class GamePageComponent implements OnInit {
         console.log('this is just until we make the football list');
         break;
       case 'presidents':
-        this.game = baseballTeam;
+        this.game = presidentNames;
         console.log('this is just until we make the preisdents list');
         break;
       default:
@@ -40,26 +43,43 @@ export class GamePageComponent implements OnInit {
   }
 
   startGame() {
+    if (this.firstLoad) {
+      this.firstLoad = false;
+      this.initTimer()
+    } else {
+      this.game.answers.forEach(answer => answer.guessed = false);
+      this.time = 60;
+      this.play = true;
+      this.initTimer()
+    }
+
+  }
+
+  initTimer() {
     this.gameInputEl.nativeElement.disabled = false;
     this.timer = setInterval(() => {
       if (this.time <= 0) {
         clearInterval(this.timer);
         this.gameOver()
       } else {
-        this.time--;
+        this.time--
       }
     }, 1000)
   }
 
-  evaluateInput(e) {
-    const answerArr: Answer[] = this.game.answers;
+  evaluateInput() {
+    const answerArr: Answer[] = this.game.answers.filter(answer => answer.guessed === false);
+    let wasRight: boolean = false;
     answerArr.forEach((item: Answer) => {
       const rightTeam: boolean = item.checkAnswer(this.guess.toLowerCase());
       console.log(rightTeam)
-      if (rightTeam) {
-        this.clearInput()
+      if (rightTeam && wasRight === false) {
+        wasRight = true
       }
     })
+    if (wasRight) {
+      this.clearInput();
+    }
   }
 
   clearInput() {
