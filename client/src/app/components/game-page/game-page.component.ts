@@ -58,6 +58,7 @@ export class GamePageComponent implements OnInit {
 
   initTimer() {
     this.gameInputEl.nativeElement.disabled = false;
+    this.gameInputEl.nativeElement.focus()
     this.timer = setInterval(() => {
       if (this.time <= 0) {
         clearInterval(this.timer);
