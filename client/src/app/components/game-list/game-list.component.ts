@@ -17,7 +17,6 @@ export class GameListComponent implements OnInit {
   }
 
   selectGame(gameName) {
-    console.log(gameName)
     this.selectedGame = gameName;
     this.selected = true;
   }
