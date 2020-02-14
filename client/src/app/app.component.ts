@@ -26,9 +26,9 @@ export class AppComponent {
   }
 
   instructionsView() {
+    this.showLanding = true;
     this.showGameList = false;
-    this.showLanding = false;
-    this.showInstructions = true;
+    this.showInstructions = false;
   }
 
   handlePageSend(where: string) {
