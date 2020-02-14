@@ -4,9 +4,9 @@ import { Answer } from '../../../models/answer';
 import baseballTeam from '../../../gameSeeds/baseball'
 
 @Component({
-  selector: 'app-game-list',
-  templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.scss']
+  selector: 'app-game-page',
+  templateUrl: './game-page.component.html',
+  styleUrls: ['./game-page.component.scss']
 })
 export class GamePageComponent implements OnInit {
   @ViewChild('gameInput', { static: true }) gameInput: ElementRef;
@@ -38,7 +38,7 @@ export class GamePageComponent implements OnInit {
   evaluateInput(e) {
     const answerArr: Answer[] = this.game.answers;
     answerArr.forEach((item: Answer) => {
-      const rightTeam: boolean = item.checkAnswer(this.guess);
+      const rightTeam: boolean = item.checkAnswer(this.guess.toLowerCase());
       console.log(rightTeam)
       if (rightTeam) {
         this.clearInput()
