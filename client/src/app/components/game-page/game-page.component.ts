@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Game } from '../../../models/game';
-import { Answer } from '../../../models/answer';
-import baseballTeam from '../../../gameSeeds/baseball'
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Game } from '../../models/game';
+import { Answer } from '../../models/answer';
+import baseballTeam from '../../gameSeeds/baseball'
 
 @Component({
   selector: 'app-game-page',
@@ -9,8 +9,9 @@ import baseballTeam from '../../../gameSeeds/baseball'
   styleUrls: ['./game-page.component.scss']
 })
 export class GamePageComponent implements OnInit {
-  @ViewChild('gameInput', { static: true }) gameInput: ElementRef;
-  game: Game = baseballTeam;
+  @ViewChild('gameInput', { static: true }) gameInputEl: ElementRef;
+  @Input() gameTitle: string;
+  game: Game;
   guess: string;
   timer: any;
   time: number = 60;
@@ -20,11 +21,26 @@ export class GamePageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    switch (this.gameTitle) {
+      case 'baseball':
+        this.game = baseballTeam;
+        break;
+      case 'football':
+        this.game = baseballTeam;
+        console.log('this is just until we make the football list');
+        break;
+      case 'presidents':
+        this.game = baseballTeam;
+        console.log('this is just until we make the preisdents list');
+        break;
+      default:
+        this.game = baseballTeam;
+        console.log('switch for game assign not working')
+    }
   }
 
   startGame() {
-    this.gameInput.nativeElement.disabled = false;
+    this.gameInputEl.nativeElement.disabled = false;
     this.timer = setInterval(() => {
       if (this.time <= 0) {
         clearInterval(this.timer);
@@ -51,8 +67,8 @@ export class GamePageComponent implements OnInit {
   }
 
   gameOver() {
-    console.log(this.gameInput)
-    this.gameInput.nativeElement.disabled = true;
+    console.log(this.gameInputEl)
+    this.gameInputEl.nativeElement.disabled = true;
     this.scoreGame = this.game.answers.filter(answer => answer.guessed === true).length;
     this.play = false;
   }

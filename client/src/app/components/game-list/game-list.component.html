@@ -1,1 +1,27 @@
-<app-game-page></app-game-page>
+<div *ngIf='!selected else gameArea'>
+  <div class="hero is-medium is-transparent">
+    <div class='hero-body'>
+      <h1 class="title has-text-centered">Games List</h1>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <button class="button is-info is-large is-fullwidth" (click)='selectGame("baseball")'>MLB Teams</button>
+      </div>
+      <div class="column">
+        <button class="button is-success is-large is-fullwidth" (click)='selectGame("football")'>NFL Teams</button>
+      </div>
+      <div class="column">
+        <button class="button is-dark is-large is-fullwidth" (click)='selectGame("presidents")'>U.S. Presidents</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #gameArea>
+  <app-game-page [gameTitle]='selecedGame'></app-game-page>
+</ng-template>

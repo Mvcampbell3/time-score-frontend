@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameListComponent implements OnInit {
 
+  gamesArray: string[] = ['MLB Teams', 'NFL Teams', 'U.S. Presidents'];
+  selected: boolean = false;
+  selectedGame: string = '';
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  selectGame(gameName) {
+    console.log(gameName)
+    this.selectedGame = gameName;
+    this.selected = true;
+  }
+
 
 }
