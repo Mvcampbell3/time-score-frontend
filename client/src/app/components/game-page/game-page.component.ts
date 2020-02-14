@@ -3,6 +3,7 @@ import { Game } from '../../models/game';
 import { Answer } from '../../models/answer';
 import baseballTeam from '../../gameSeeds/baseball';
 import presidentNames from '../../gameSeeds/presidents';
+import footballTeams from '../../gameSeeds/football.js'
 
 @Component({
   selector: 'app-game-page',
@@ -29,12 +30,10 @@ export class GamePageComponent implements OnInit {
         this.game = baseballTeam;
         break;
       case 'football':
-        this.game = baseballTeam;
-        console.log('this is just until we make the football list');
+        this.game = footballTeams;
         break;
       case 'presidents':
         this.game = presidentNames;
-        console.log('this is just until we make the preisdents list');
         break;
       default:
         this.game = baseballTeam;
