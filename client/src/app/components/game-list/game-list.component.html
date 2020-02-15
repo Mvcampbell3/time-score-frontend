@@ -22,5 +22,5 @@
 </div>
 
 <ng-template #gameArea>
-  <app-game-page [gameTitle]='selectedGame'></app-game-page>
+  <app-game-page [gameTitle]='selectedGame' (back)='returnFromGame()'></app-game-page>
 </ng-template>

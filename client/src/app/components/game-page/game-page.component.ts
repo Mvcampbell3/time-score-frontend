@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Game } from '../../models/game';
 import { Answer } from '../../models/answer';
 import baseballTeam from '../../gameSeeds/baseball';
@@ -10,9 +10,11 @@ import footballTeams from '../../gameSeeds/football.js'
   templateUrl: './game-page.component.html',
   styleUrls: ['./game-page.component.scss']
 })
-export class GamePageComponent implements OnInit {
+export class GamePageComponent implements OnInit, OnDestroy {
   @ViewChild('gameInput', { static: true }) gameInputEl: ElementRef;
   @Input() gameTitle: string;
+  @Output() back: EventEmitter<void> = new EventEmitter;
+
   game: Game;
   guess: string;
   timer: any;
@@ -25,6 +27,7 @@ export class GamePageComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.gameTitle)
+    console.log(presidentNames);
     switch (this.gameTitle) {
       case 'baseball':
         this.game = baseballTeam;
@@ -41,18 +44,55 @@ export class GamePageComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    console.log('destroying component');
+    this.clearGameAnswers()
+    this.gameTitle = '';
+    this.game = null;
+    this.resetGame()
+  }
+
+  clearGameAnswers() {
+    switch (this.gameTitle) {
+      case 'baseball':
+        baseballTeam.answers.forEach(answer => answer.guessed = false);
+        break;
+      case 'football':
+        footballTeams.answers.forEach(answer => answer.guessed = false);
+        break;
+      case 'presidents':
+        presidentNames.answers.forEach(answer => answer.guessed = false);
+        break;
+      default:
+        console.log('switch for game answer clear not working')
+    }
+  }
+
   startGame() {
     if (this.firstLoad) {
       this.firstLoad = false;
       this.initTimer()
     } else {
-      this.guess = '';
       this.game.answers.forEach(answer => answer.guessed = false);
-      this.time = 60;
-      this.play = true;
+      this.resetGame()
       this.initTimer()
     }
 
+  }
+
+  resetGame() {
+    this.time = 60;
+    this.play = true;
+    this.guess = '';
+    this.timer = null;
+  }
+
+  leaveGame() {
+    this.gameTitle = '';
+    this.game.answers.forEach(answer => answer.guessed === false)
+    this.game = null;
+    this.resetGame()
+    this.back.emit();
   }
 
   initTimer() {

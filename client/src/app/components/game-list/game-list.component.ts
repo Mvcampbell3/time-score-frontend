@@ -20,4 +20,9 @@ export class GameListComponent implements OnInit {
     this.selectedGame = gameName;
     this.selected = true;
   }
+
+  returnFromGame() {
+    this.selectedGame = '';
+    this.selected = false;
+  }
 }
