@@ -1,3 +1,31 @@
+.gameInput {
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.answer-holder {
+  display: grid;
+  row-gap: 2px;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
+  align-items: center;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.answer-holder div {
+  width: 90%;
+  height: 90%;
+  min-height: 50px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 14px;
+  display: grid;
+  place-items: center center;
+}
+
 .not-guessed {
   background-color: whitesmoke;
   color: whitesmoke;
@@ -5,19 +33,28 @@
 }
 
 .missed {
-  color: red;
+  color: white;
+  background-color: rgb(255, 0, 0);
+  opacity: 0;
+  animation-name: popIn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
 
-.answer-holder {
-  // display: flex;
-  // flex-wrap: wrap;
-  display: grid;
-  row-gap: 5px;
-  grid-template-columns: repeat(7, 1fr);
-  justify-items: center;
-  align-items: center;
+.guessed {
+  color: white;
+  background-color: rgb(0, 177, 24);
+  opacity: 0;
+  animation-name: popIn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
 
-.answer-holder p {
-  margin: 0 5px;
+@keyframes popIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

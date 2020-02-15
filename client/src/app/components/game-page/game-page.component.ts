@@ -10,6 +10,7 @@ import footballTeams from '../../gameSeeds/football.js'
   templateUrl: './game-page.component.html',
   styleUrls: ['./game-page.component.scss']
 })
+
 export class GamePageComponent implements OnInit, OnDestroy {
   @ViewChild('gameInput', { static: true }) gameInputEl: ElementRef;
   @Input() gameTitle: string;
@@ -88,6 +89,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   leaveGame() {
+    this.clearGameAnswers();
     this.gameTitle = '';
     this.game.answers.forEach(answer => answer.guessed === false)
     this.game = null;
