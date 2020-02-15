@@ -1,29 +1,30 @@
-<div class="container">
-  <div class="hero is-small is-link">
-    <div class="hero-body">
-      <p class='title has-text-centered'>{{game.name}}</p>
+<div class="hero is-small is-link">
+  <div class="hero-body">
+    <p class='title has-text-centered'>{{game.name}}</p>
 
-      <p class='subtitle has-text-centered'>{{game.description}}</p>
+    <p class='subtitle has-text-centered'>{{game.description}}</p>
 
-      <p class='has-text-centered'>{{game.instructions}}</p>
-      <p class='has-text-centered' *ngIf='play; else score'>Time left: {{time}}</p>
-      <ng-template #score>
-        <p class='has-text-centered'>You got {{scoreGame}} right!</p>
-      </ng-template>
-    </div>
-    <div class="hero-footer">
-      <div class="container">
-        <div class="columns">
-          <div class="column has-text-centered">
-            <button class="button is-link is-inverted mb-3" (click)='startGame()'>Start</button>
-          </div>
+    <p class='has-text-centered'>{{game.instructions}}</p>
+    <p class='has-text-centered' *ngIf='play; else score'>Time left: {{time}}</p>
+    <ng-template #score>
+      <p class='has-text-centered'>You got {{scoreGame}} right!</p>
+    </ng-template>
+  </div>
+  <div class="hero-footer">
+    <div class="container">
+      <div class="columns">
+        <div class="column has-text-centered">
+          <button class="button is-link is-inverted mb-3" (click)='startGame()'>Start</button>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="container">
+
   <div class="level">
     <div class="level-item">
-      <input #gameInput type="text" class='input' [placeholder]='game.inputPlaceholder' disabled
+      <input #gameInput type="text" class='input has-text-centered' [placeholder]='game.inputPlaceholder' disabled
         (input)='evaluateInput()' [(ngModel)]='guess'>
     </div>
   </div>
