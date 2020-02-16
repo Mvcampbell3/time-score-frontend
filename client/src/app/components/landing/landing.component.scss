@@ -1,9 +1,27 @@
+.landing-bg {
+  min-height: calc(100vh - 52px);
+  background: linear-gradient(15deg, #111, rgb(3, 41, 25));
+  position: relative;
+  z-index: -11;
+}
+
 .outputAnimation {
   position: relative;
-  height: 1px;
+  height: 210px;
   width: 150px;
   margin: 0 auto;
-  top: 200px;
+  top: 125px;
+}
+
+.center-ball {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: -10;
+  background-color: white;
+  border-radius: 50%;
+  top: 85px;
+  left: 65px;
 }
 
 .outputItem {
@@ -12,6 +30,15 @@
   font-size: 12px;
   padding: 10px;
 }
+
+$position-0: translate(0px, 0px);
+
+$position-1: translate(0px, -30px);
+$position-2: translate(80px, 34px);
+$position-3: translate(80px, 116px);
+$position-4: translate(0px, 180px);
+$position-5: translate(-80px, 116px);
+$position-6: translate(-80px, 34px);
 
 .a-1 {
   animation-name: loadIn1;
@@ -52,110 +79,111 @@
 
 @keyframes loadIn1 {
   0% {
-    transform: translate(0px, 0px);
+    transform: $position-0;
   }
   50% {
-    transform: translate(0px, -105px);
+    transform: $position-1;
   }
   100% {
-    transform: translate(0px, -105px);
+    transform: $position-1;
   }
 }
 
 @keyframes loadIn2 {
   0% {
-    transform: translate(0px, 0px);
+    transform: $position-0;
   }
   50% {
-    transform: translate(80px, 41px);
+    transform: $position-3;
   }
   100% {
-    transform: translate(80px, 41px);
+    transform: $position-3;
   }
 }
 
 @keyframes loadIn3 {
   0% {
-    transform: translate(0px, 0px);
+    transform: $position-0;
   }
   50% {
-    transform: translate(80px, -41px);
+    transform: $position-2;
   }
   100% {
-    transform: translate(80px, -41px);
+    transform: $position-2;
   }
 }
 
 @keyframes loadIn4 {
   0% {
-    transform: translate(0px, 0px);
+    transform: $position-0;
   }
   50% {
-    transform: translate(-80px, -41px);
+    transform: $position-6;
   }
   100% {
-    transform: translate(-80px, -41px);
+    transform: $position-6;
   }
 }
 
 @keyframes loadIn5 {
   0% {
-    transform: translate(0px, 0px);
+    transform: $position-0;
   }
   50% {
-    transform: translate(-80px, 41px);
+    transform: $position-5;
   }
   100% {
-    transform: translate(-80px, 41px);
+    transform: $position-5;
   }
 }
 
 @keyframes loadIn6 {
   0% {
-    transform: translate(0px, 0px);
+    transform: $position-0;
   }
   50% {
-    transform: translate(0px, 105px);
+    transform: $position-4;
   }
   100% {
-    transform: translate(0px, 105px);
+    transform: $position-4;
   }
 }
 
 // b moves
+
 .b-1 {
-  transform: translate(0px, -105px);
-  animation: rotate1 12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045)
+  transform: $position-1;
+  animation: rotate1 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
     forwards;
 }
 
 .b-2 {
-  transform: translate(80px, 41px);
-  animation: rotate2 12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045)
+  transform: $position-2;
+  animation: rotate2 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
     forwards;
 }
 
 .b-3 {
-  transform: translate(80px, -41px);
-  animation: rotate3 12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045)
+  transform: $position-3;
+  animation: rotate3 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
     forwards;
 }
 
 .b-4 {
-  transform: translate(-80px, -41px);
-  animation: rotate4 12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045)
+  transform: $position-6;
+  animation: rotate4 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
     forwards;
 }
 
 .b-5 {
-  transform: translate(-80px, 41px);
-  animation: rotate5 12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045)
+  transform: $position-5;
+  animation: rotate5 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
     forwards;
 }
 
 .b-6 {
-  transform: translate(0px, 105px);
-  animation: rotate6 12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045)
+  transform: $position-4;
+  animation: rotate6 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
     forwards;
 }
 
@@ -169,139 +197,142 @@
   100% {
     opacity: 1;
   }
-  50% {
+  33% {
     opacity: 0;
+  }
+  75% {
+    opacity: 1;
   }
 }
 
 @keyframes rotate1 {
   0%,
   100% {
-    transform: translate(0px, -105px);
+    transform: $position-1;
   }
   17% {
-    transform: translate(80px, -41px);
+    transform: $position-2;
   }
   33% {
-    transform: translate(80px, 41px);
+    transform: $position-3;
   }
   50% {
-    transform: translate(0px, 105px);
+    transform: $position-4;
   }
   67% {
-    transform: translate(-80px, 41px);
+    transform: $position-5;
   }
   83% {
-    transform: translate(-80px, -41px);
+    transform: $position-6;
   }
 }
 
 @keyframes rotate2 {
   0%,
   100% {
-    transform: translate(80px, 41px);
+    transform: $position-3;
   }
   17% {
-    transform: translate(0px, 105px);
+    transform: $position-4;
   }
   33% {
-    transform: translate(-80px, 41px);
+    transform: $position-5;
   }
   50% {
-    transform: translate(-80px, -41px);
+    transform: $position-6;
   }
   67% {
-    transform: translate(0px, -105px);
+    transform: $position-1;
   }
   83% {
-    transform: translate(80px, -41px);
+    transform: $position-2;
   }
 }
 
 @keyframes rotate3 {
   0%,
   100% {
-    transform: translate(80px, -41px);
+    transform: $position-2;
   }
   17% {
-    transform: translate(80px, 41px);
+    transform: $position-3;
   }
   33% {
-    transform: translate(0px, 105px);
+    transform: $position-4;
   }
   50% {
-    transform: translate(-80px, 41px);
+    transform: $position-5;
   }
   67% {
-    transform: translate(-80px, -41px);
+    transform: $position-6;
   }
   83% {
-    transform: translate(0px, -105px);
+    transform: $position-1;
   }
 }
 
 @keyframes rotate4 {
   0%,
   100% {
-    transform: translate(-80px, -41px);
+    transform: $position-6;
   }
   17% {
-    transform: translate(0px, -105px);
+    transform: $position-1;
   }
   33% {
-    transform: translate(80px, -41px);
+    transform: $position-2;
   }
   50% {
-    transform: translate(80px, 41px);
+    transform: $position-3;
   }
   67% {
-    transform: translate(0px, 105px);
+    transform: $position-4;
   }
   83% {
-    transform: translate(-80px, 41px);
+    transform: $position-5;
   }
 }
 
 @keyframes rotate5 {
   0%,
   100% {
-    transform: translate(-80px, 41px);
+    transform: $position-5;
   }
   17% {
-    transform: translate(-80px, -41px);
+    transform: $position-6;
   }
   33% {
-    transform: translate(0px, -105px);
+    transform: $position-1;
   }
   50% {
-    transform: translate(80px, -41px);
+    transform: $position-2;
   }
   67% {
-    transform: translate(80px, 41px);
+    transform: $position-3;
   }
   83% {
-    transform: translate(0px, 105px);
+    transform: $position-4;
   }
 }
 
 @keyframes rotate6 {
   0%,
   100% {
-    transform: translate(0px, 105px);
+    transform: $position-4;
   }
   17% {
-    transform: translate(-80px, 41px);
+    transform: $position-5;
   }
   33% {
-    transform: translate(-80px, -41px);
+    transform: $position-6;
   }
   50% {
-    transform: translate(0px, -105px);
+    transform: $position-1;
   }
   67% {
-    transform: translate(80px, -41px);
+    transform: $position-2;
   }
   83% {
-    transform: translate(80px, 41px);
+    transform: $position-3;
   }
 }
