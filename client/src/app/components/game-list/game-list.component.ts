@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss']
 })
-export class GameListComponent implements OnInit {
+export class GameListComponent implements OnInit, OnDestroy {
 
   gamesArray: string[] = ['MLB Teams', 'NFL Teams', 'U.S. Presidents'];
   selected: boolean = false;
@@ -16,15 +16,19 @@ export class GameListComponent implements OnInit {
 
   bgClasses: string[] = ['newBG1', 'newBG2', 'newBG3'];
   pos: number = 1;
-  timer: any;
+  timerPlace: any;
 
   constructor() { }
 
   ngOnInit() {
     setTimeout(() => {
       this.setBackgroundColor(0);
-    }, 500)
-    this.timer = setInterval(() => {
+    }, 50)
+    this.startTimer();
+  }
+
+  startTimer() {
+    this.timerPlace = setInterval(() => {
       if (this.pos < this.bgClasses.length) {
         this.setBackgroundColor(this.pos);
         this.pos++;
@@ -36,8 +40,13 @@ export class GameListComponent implements OnInit {
     }, 6000)
   }
 
+  ngOnDestroy() {
+    this.timerPlace = null;
+  }
+
   selectGame(gameName) {
     this.selectedGame = gameName;
+    clearInterval(this.timerPlace);
     this.selected = true;
   }
 
@@ -49,5 +58,6 @@ export class GameListComponent implements OnInit {
   returnFromGame() {
     this.selectedGame = '';
     this.selected = false;
+    this.startTimer()
   }
 }

@@ -21,18 +21,37 @@
   @media screen and (max-width: 1000px) {
     grid-template-columns: repeat(6, 1fr);
   }
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: 400px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .answer-holder div {
   width: 90%;
   height: 90%;
-  min-height: 50px;
+  min-height: 40px;
   margin: 0 auto;
   text-align: center;
   border-radius: 3px;
   font-size: 14px;
   display: grid;
   place-items: center center;
+  @media screen and (max-width: 1000px) {
+    font-size: 12px;
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 10px;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 8px;
+  }
 }
 
 .not-guessed {

@@ -27,8 +27,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.gameTitle)
-    console.log(presidentNames);
     switch (this.gameTitle) {
       case 'baseball':
         this.game = baseballTeam;
@@ -46,14 +44,16 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('destroying component');
-    this.clearGameAnswers()
+    if (this.gameTitle !== '') {
+      this.clearGameAnswers()
+    }
     this.gameTitle = '';
     this.game = null;
     this.resetGame()
   }
 
   clearGameAnswers() {
+    console.log(this.gameTitle)
     switch (this.gameTitle) {
       case 'baseball':
         baseballTeam.answers.forEach(answer => answer.guessed = false);
@@ -91,7 +91,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
   leaveGame() {
     this.clearGameAnswers();
     this.gameTitle = '';
-    this.game.answers.forEach(answer => answer.guessed === false)
     this.game = null;
     this.resetGame()
     this.back.emit();
@@ -115,7 +114,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
     let wasRight: boolean = false;
     answerArr.forEach((item: Answer) => {
       const rightTeam: boolean = item.checkAnswer(this.guess.trim().toLowerCase());
-      console.log(rightTeam)
       if (rightTeam && wasRight === false) {
         wasRight = true
       }
@@ -130,7 +128,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   gameOver() {
-    console.log(this.gameInputEl)
     this.gameInputEl.nativeElement.disabled = true;
     this.scoreGame = this.game.answers.filter(answer => answer.guessed === true).length;
     this.play = false;
