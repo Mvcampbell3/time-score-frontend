@@ -3,9 +3,18 @@
   font-size: 20px;
 }
 
+.game-page-bg {
+  background-color: #333;
+  min-height: calc(100vh - 52px);
+}
+
+.bottom-half {
+  padding-top: 1em;
+}
+
 .answer-holder {
   display: grid;
-  row-gap: 2px;
+  row-gap: 3px;
   grid-template-columns: repeat(7, 1fr);
   justify-items: center;
   align-items: center;
