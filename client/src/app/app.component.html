@@ -19,7 +19,7 @@
 </nav>
 
 <div *ngIf='showLanding'>
-  <app-landing></app-landing>
+  <app-landing (landingClick)='gameListView()'></app-landing>
 </div>
 <div *ngIf='showGameList'>
   <app-game-list></app-game-list>

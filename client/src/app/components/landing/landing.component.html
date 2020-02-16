@@ -1,30 +1,32 @@
-<div class="landing-bg">
-  <section class="hero is-white">
-    <div class="hero-body has-text-centered">
-      <h1 class="title">Time Score</h1>
-      <h2 class="subtitle">60 seconds for glory</h2>
-    </div>
-  </section>
+<div class="page-holder" (click)='toGamesList()'>
+  <div class="landing-bg">
+    <section class="hero is-white">
+      <div class="hero-body has-text-centered">
+        <h1 class="title">Time Score</h1>
+        <h2 class="subtitle">60 seconds for glory</h2>
+      </div>
+    </section>
 
-  <div class="outputAnimation" #outputAnimation>
-    <div class="center-ball"></div>
-    <div #roller1 class="outputItem a-1 notification has-text-centered is-link">
-      <p class="popAni">{{rollerContent1}}</p>
-    </div>
-    <div #roller2 class="outputItem a-2 notification has-text-centered is-danger">
-      <p class="popAni">{{rollerContent2}}</p>
-    </div>
-    <div #roller3 class="outputItem a-3 notification has-text-centered is-danger">
-      <p class="popAni">{{rollerContent3}}</p>
-    </div>
-    <div #roller4 class="outputItem a-4 notification has-text-centered is-success">
-      <p class="popAni">{{rollerContent4}}</p>
-    </div>
-    <div #roller5 class="outputItem a-5 notification has-text-centered is-success">
-      <p class="popAni">{{rollerContent5}}</p>
-    </div>
-    <div #roller6 class="outputItem a-6 notification has-text-centered is-link">
-      <p class="popAni">{{rollerContent6}}</p>
+    <div class="outputAnimation">
+      <div class="center-ball"></div>
+      <div #roller1 class="outputItem a-1 notification has-text-centered is-link" (click)='toGamesList()'>
+        <p class="popAni">{{rollerContent1}}</p>
+      </div>
+      <div #roller2 class="outputItem a-2 notification has-text-centered is-danger">
+        <p class="popAni">{{rollerContent2}}</p>
+      </div>
+      <div #roller3 class="outputItem a-3 notification has-text-centered is-danger">
+        <p class="popAni">{{rollerContent3}}</p>
+      </div>
+      <div #roller4 class="outputItem a-4 notification has-text-centered is-success">
+        <p class="popAni">{{rollerContent4}}</p>
+      </div>
+      <div #roller5 class="outputItem a-5 notification has-text-centered is-success">
+        <p class="popAni">{{rollerContent5}}</p>
+      </div>
+      <div #roller6 class="outputItem a-6 notification has-text-centered is-link">
+        <p class="popAni">{{rollerContent6}}</p>
+      </div>
     </div>
   </div>
 </div>

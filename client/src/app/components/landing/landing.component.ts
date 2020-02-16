@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 import baseballTeams from '../../gameSeeds/baseball';
 import footballTeams from '../../gameSeeds/football';
@@ -11,13 +11,14 @@ import presidents from '../../gameSeeds/presidents';
 })
 export class LandingComponent implements OnInit, OnDestroy {
 
-  @ViewChild('outputAnimation', { static: true }) outputAnimation: ElementRef;
   @ViewChild('roller1', { static: true }) roller1: ElementRef;
   @ViewChild('roller2', { static: true }) roller2: ElementRef;
   @ViewChild('roller3', { static: true }) roller3: ElementRef;
   @ViewChild('roller4', { static: true }) roller4: ElementRef;
   @ViewChild('roller5', { static: true }) roller5: ElementRef;
   @ViewChild('roller6', { static: true }) roller6: ElementRef;
+
+  @Output() landingClick: EventEmitter<void> = new EventEmitter;
 
   rollerContent1: string = 'Theodore Roosevelt';
   rollerContent2: string = 'Tampa Bay Rays';
@@ -78,5 +79,10 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   randomNumberForArray(array: string[]): number {
     return Math.floor(Math.random() * array.length);
+  }
+
+  toGamesList() {
+    console.log('clicked')
+    this.landingClick.emit();
   }
 }

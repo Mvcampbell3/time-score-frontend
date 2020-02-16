@@ -5,6 +5,10 @@
   z-index: -11;
 }
 
+.page-holder {
+  cursor: pointer;
+}
+
 .outputAnimation {
   position: relative;
   height: 210px;
@@ -30,6 +34,7 @@
   width: 150px;
   font-size: 12px;
   padding: 10px;
+  z-index: 5;
 }
 
 $position-0: translate(0px, 0px);
