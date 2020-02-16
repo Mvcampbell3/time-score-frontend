@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 
 import baseballTeams from '../../gameSeeds/baseball';
 import footballTeams from '../../gameSeeds/football';
@@ -9,7 +9,7 @@ import presidents from '../../gameSeeds/presidents';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
 
   @ViewChild('outputAnimation', { static: true }) outputAnimation: ElementRef;
   @ViewChild('roller1', { static: true }) roller1: ElementRef;
@@ -41,8 +41,13 @@ export class LandingComponent implements OnInit {
     this.startNameChangeTimer()
     setTimeout(() => {
       this.rollerRemoveAddClass('a', 'b')
-
     }, 800)
+  }
+
+  ngOnDestroy() {
+    if (this.nameChangeTimer) {
+      clearInterval(this.nameChangeTimer);
+    }
   }
 
   rollerRemoveAddClass(classname1, classname2) {
