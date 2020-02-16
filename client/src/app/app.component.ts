@@ -9,8 +9,8 @@ export class AppComponent {
   @ViewChild('navBurger', { static: true }) navBurger: ElementRef;
   @ViewChild('navMenu', { static: true }) navMenu: ElementRef;
 
-  showLanding: boolean = false;
-  showGameList: boolean = true;
+  showLanding: boolean = true;
+  showGameList: boolean = false;
   showInstructions: boolean = false;
 
   gameListView() {
