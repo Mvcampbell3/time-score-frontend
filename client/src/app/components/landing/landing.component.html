@@ -5,46 +5,23 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="columns has-text-centered">
-      <div class="column">
-        <div class="card">
-          <figure class='image is-4by3'>
-            <img src="../../../assets/images/playblocks.jpg" alt="">
-          </figure>
-          <div class="card-content">
-            <p class="subtitle">
-              Fast-paced fun!
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="card">
-          <figure class='image is-4by3'>
-            <img src="../../../assets/images/keyboard.jpg" alt="">
-          </figure>
-          <div class="card-content">
-            <p class="subtitle">
-              New games added all the time
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="card">
-          <figure class='image is-4by3'>
-            <img src="../../../assets/images/highscore.jpg" alt="">
-          </figure>
-          <div class="card-content">
-            <p class="subtitle">
-              What is your highest score?
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
+<div class="outputAnimation" #outputAnimation>
+  <div #roller1 class="outputItem a-1 notification has-text-centered is-link">
+    <p class="popAni">{{rollerContent1}}</p>
   </div>
-</section>
+  <div #roller2 class="outputItem a-2 notification has-text-centered is-black">
+    <p class="popAni">{{rollerContent2}}</p>
+  </div>
+  <div #roller3 class="outputItem a-3 notification has-text-centered is-black">
+    <p class="popAni">{{rollerContent3}}</p>
+  </div>
+  <div #roller4 class="outputItem a-4 notification has-text-centered is-success">
+    <p class="popAni">{{rollerContent4}}</p>
+  </div>
+  <div #roller5 class="outputItem a-5 notification has-text-centered is-success">
+    <p class="popAni">{{rollerContent5}}</p>
+  </div>
+  <div #roller6 class="outputItem a-6 notification has-text-centered is-link">
+    <p class="popAni">{{rollerContent6}}</p>
+  </div>
+</div>
