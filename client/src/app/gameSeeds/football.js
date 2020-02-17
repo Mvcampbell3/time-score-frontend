@@ -12,7 +12,7 @@ const browns = new Answer('Cleveland Browns', ['browns']);
 const steelers = new Answer('Pittsburgh Steelers', ['steelers']);
 
 const texans = new Answer('Houston Texans', ['texans']);
-const colts = new Answer('Inianapolis Colts', ['colts']);
+const colts = new Answer('Indianapolis Colts', ['colts']);
 const jaguars = new Answer('Jacksonville Jaguars', ['jaguars', 'jags']);
 const titans = new Answer('Tennessee Titans', ['titans']);
 
