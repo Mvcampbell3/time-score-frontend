@@ -14,18 +14,21 @@ export class AppComponent {
   showInstructions: boolean = false;
 
   gameListView() {
+    this.shutNavMobile()
     this.showInstructions = false;
     this.showLanding = false;
     this.showGameList = true;
   }
 
   landingView() {
+    this.shutNavMobile()
     this.showInstructions = false;
     this.showGameList = false;
     this.showLanding = true;
   }
 
   instructionsView() {
+    this.shutNavMobile()
     this.showLanding = false;
     this.showGameList = false;
     this.showInstructions = true;
@@ -46,6 +49,11 @@ export class AppComponent {
         this.landingView();
         console.log('handle page send switch not working as expected')
     }
+  }
+
+  shutNavMobile() {
+    this.navBurger.nativeElement.classList.remove('is-active');
+    this.navMenu.nativeElement.classList.remove('is-active');
   }
 
   toggleNavbar() {
