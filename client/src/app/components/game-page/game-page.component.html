@@ -55,7 +55,7 @@
 
         <div class="level">
           <div class="level-item has-text-centered">
-            <button class="button is-success" (click)='startGame()'>{{play ? "Replay":"Start"}}</button>
+            <button class="button is-success" (click)='startGame()'>{{ongoing ? "Restart":"Start"}}</button>
           </div>
           <div class="level-item has-text-centered">
             <h3 class='has-text-centered' *ngIf='play; else score'>Time left: {{time}}</h3>

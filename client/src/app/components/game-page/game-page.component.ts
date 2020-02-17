@@ -24,6 +24,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   scoreGame: number = 0;
   play: boolean = true;
   firstLoad: boolean = true;
+  ongoing: boolean = false;
 
   constructor() { }
 
@@ -71,6 +72,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   startGame() {
+    this.ongoing = true;
     if (this.firstLoad) {
       this.firstLoad = false;
       this.initTimer()
@@ -129,6 +131,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   gameOver() {
+    this.ongoing = false;
     this.gameInputEl.nativeElement.disabled = true;
     this.scoreGame = this.game.answers.filter(answer => answer.guessed === true).length;
     this.play = false;
