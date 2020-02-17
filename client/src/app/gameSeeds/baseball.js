@@ -1,11 +1,11 @@
 import { Game } from '../models/game';
 import { Answer } from '../models/answer';
 
-const rays = new Answer('Tampa Bay Rays', ['rays']);
-const yankees = new Answer('New York Yankees', ['yankees']);
-const redsox = new Answer('Boston Red Sox', ['red sox']);
-const jays = new Answer('Toronto Blue Jays', ['jays']);
 const orioles = new Answer('Baltimore Orioles', ['orioles']);
+const redsox = new Answer('Boston Red Sox', ['red sox']);
+const yankees = new Answer('New York Yankees', ['yankees']);
+const rays = new Answer('Tampa Bay Rays', ['rays']);
+const jays = new Answer('Toronto Blue Jays', ['jays']);
 const whitesox = new Answer('Chicago White Sox', ['white sox']);
 const indians = new Answer('Cleveland Indians', ['indians']);
 const tigers = new Answer('Detroit Tigers', ['tigers']);
@@ -33,7 +33,7 @@ const dodgers = new Answer('Los Angeles Dodgers', ['dodgers']);
 const padres = new Answer('San Diego Padres', ['padres']);
 const giants = new Answer('San Francisco Giants', ['giants'])
 
-const baseballTeams = new Game('MLB Teams', 'Enter MLB Team Name...', 'Name Every MLB Team', 'City names will not be counted towards correct answers, only the actual team name', [rays, yankees, redsox, jays, orioles, whitesox, indians, tigers, royals, twins, astros, angels, mariners, athletics, rangers, braves, marlins, mets, philles, nationals, cubs, reds, brewers, pirates, cards, diamondbacks, rockies, dodgers, padres, giants])
+const baseballTeams = new Game('MLB Teams', 'Enter MLB Team Name...', 'Name Every MLB Team', 'City names will not be counted towards correct answers, only the actual team name', [orioles, redsox, yankees, rays, jays, whitesox, indians, tigers, royals, twins, astros, angels, mariners, athletics, rangers, braves, marlins, mets, philles, nationals, cubs, reds, brewers, pirates, cards, diamondbacks, rockies, dodgers, padres, giants])
 
 
 export default baseballTeams;
