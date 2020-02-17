@@ -4,7 +4,7 @@
 }
 
 .game-page-bg {
-  background-color: #333;
+  background: linear-gradient(15deg, #111, rgb(3, 41, 25));
   min-height: calc(100vh - 52px);
 }
 
@@ -62,7 +62,7 @@
 
 .missed {
   color: white;
-  background-color: rgb(255, 0, 0);
+  background-color: #f14668;
   opacity: 0;
   animation-name: popIn;
   animation-duration: 0.5s;
@@ -71,7 +71,7 @@
 
 .guessed {
   color: white;
-  background-color: rgb(0, 177, 24);
+  background-color: #48c774;
   opacity: 0;
   animation-name: popIn;
   animation-duration: 0.5s;
