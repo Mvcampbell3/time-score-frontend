@@ -1,5 +1,38 @@
 <div class="game-page-bg">
 
+  <div class="modal" #endGameModal>
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title has-text-centered">Game Over!</p>
+        <button class="delete" aria-label="close" (click)='closeModal(false)'></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="level">
+          <div class="level-item">
+            <p class='subtitle'>You got {{scoreGame}} right</p>
+          </div>
+        </div>
+        <div class="level">
+          <div class="level-item">
+            <p class="subtitle is-6">Thanks for playing!</p>
+          </div>
+        </div>
+        <div class="level">
+          <div class="level-left">
+            <button class="button is-link level-item" (click)='closeModal(false)'>Replay</button>
+          </div>
+          <div class="level-right">
+            <button class="button is-success level-item" (click)='closeModal(true)'>Back to Games List</button>
+          </div>
+        </div>
+      </section>
+      <div class="modal-card-foot">
+      </div>
+    </div>
+  </div>
+
   <div class="hero is-small is-link pb-1">
     <div class="hero-body">
       <div class="container">
@@ -22,7 +55,7 @@
 
         <div class="level">
           <div class="level-item has-text-centered">
-            <button class="button is-success" (click)='startGame()'>Start</button>
+            <button class="button is-success" (click)='startGame()'>{{play ? "Replay":"Start"}}</button>
           </div>
           <div class="level-item has-text-centered">
             <h3 class='has-text-centered' *ngIf='play; else score'>Time left: {{time}}</h3>

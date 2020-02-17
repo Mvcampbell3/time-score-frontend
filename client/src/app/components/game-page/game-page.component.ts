@@ -13,6 +13,7 @@ import footballTeams from '../../gameSeeds/football.js'
 
 export class GamePageComponent implements OnInit, OnDestroy {
   @ViewChild('gameInput', { static: true }) gameInputEl: ElementRef;
+  @ViewChild('endGameModal', { static: true }) endGameModal: ElementRef;
   @Input() gameTitle: string;
   @Output() back: EventEmitter<void> = new EventEmitter;
 
@@ -85,7 +86,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
     this.time = 60;
     this.play = true;
     this.guess = '';
-    this.timer = null;
+    clearInterval(this.timer)
   }
 
   leaveGame() {
@@ -131,6 +132,14 @@ export class GamePageComponent implements OnInit, OnDestroy {
     this.gameInputEl.nativeElement.disabled = true;
     this.scoreGame = this.game.answers.filter(answer => answer.guessed === true).length;
     this.play = false;
+    this.endGameModal.nativeElement.classList.add('is-active')
+  }
+
+  closeModal(goToList: boolean) {
+    this.endGameModal.nativeElement.classList.remove('is-active');
+    if (goToList) {
+      this.leaveGame()
+    }
   }
 
 }
