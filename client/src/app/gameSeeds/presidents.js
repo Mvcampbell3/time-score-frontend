@@ -47,6 +47,6 @@ const bush_43 = new Answer('George W. Bush', ['bush']);
 const obama = new Answer('Barrack Obama', ['obama']);
 const trump = new Answer('Donald Trump', ['trump']);
 
-const presidentNames = new Game('U.S. Presidents', 'Enter President\'s Name...', 'All of the United States Presidents', 'If two presidents share last names, they both will count! First names do not count towards correct answers.', [washington, bigAdams, jefferson, madison, monroe, littleAdams, jackson, buren, whHarrison, tyler, polk, taylor, pierce, fillmore, buchanan, lincoln, aJohnson, grant, hayes, garfield, authur, cleveland, bHarrison, cleveland2, mckinley, tRoosevelt, taft, wilson, harding, coolidge, hoover, fdRoosevelt, truman, eisenhower, kennedy, lbJohnson, nixon, ford, carter, reagan, bush_41, clinton, bush_43, obama, trump])
+const presidentNames = new Game('U.S. Presidents', 'Enter President\'s Name...', 'All of the United States Presidents', 'If two presidents share last names, they both will count! First names do not count towards correct answers.', [washington, bigAdams, jefferson, madison, monroe, littleAdams, jackson, buren, whHarrison, tyler, polk, taylor, fillmore, pierce, buchanan, lincoln, aJohnson, grant, hayes, garfield, authur, cleveland, bHarrison, cleveland2, mckinley, tRoosevelt, taft, wilson, harding, coolidge, hoover, fdRoosevelt, truman, eisenhower, kennedy, lbJohnson, nixon, ford, carter, reagan, bush_41, clinton, bush_43, obama, trump])
 
 export default presidentNames;
