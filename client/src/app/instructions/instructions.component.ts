@@ -15,11 +15,11 @@ export class InstructionsComponent implements OnInit {
   }
 
   toHomePage() {
-    this.sendToPage.emit('home')
+    this.sendToPage.emit('landing')
   }
 
   toGamesList() {
-    this.sendToPage.emit('gamesList');
+    this.sendToPage.emit('list');
   }
 
 }

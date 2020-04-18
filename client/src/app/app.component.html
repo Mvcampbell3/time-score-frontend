@@ -1,6 +1,6 @@
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" (click)='landingView()'>Home</a>
+    <a class="navbar-item" (click)='setDisplay("landing")'>Home</a>
 
     <a (click)="toggleNavbar()" role="button" #navBurger class="navbar-burger burger" aria-label="menu"
       aria-expanded="false" data-target="main-nav">
@@ -12,20 +12,22 @@
 
   <div id="main-nav" class="navbar-menu" #navMenu>
     <div class="navbar-start">
-      <a (click)='gameListView()' class="navbar-item">List of Games</a>
-      <a (click)='instructionsView()' class="navbar-item">How to Play</a>
+      <a (click)='setDisplay("list")' class="navbar-item">List of Games</a>
+      <a (click)='setDisplay("instructions")' class="navbar-item">How to Play</a>
     </div>
   </div>
 </nav>
 
-<div *ngIf='showLanding'>
-  <app-landing (landingClick)='gameListView()'></app-landing>
-</div>
-<div *ngIf='showGameList'>
-  <app-game-list></app-game-list>
-</div>
-<div *ngIf='showInstructions'>
-  <app-instructions (sendToPage)='handlePageSend($event)'></app-instructions>
+<div class="main-panel" [ngSwitch]='displayPage'>
+  <div *ngSwitchCase="'landing'">
+    <app-landing (landingClick)='setDisplay("list")'></app-landing>
+  </div>
+  <div *ngSwitchCase="'list'">
+    <app-game-list></app-game-list>
+  </div>
+  <div *ngSwitchCase="'instructions'">
+    <app-instructions (sendToPage)='setDisplay($event)'></app-instructions>
+  </div>
 </div>
 
 <router-outlet></router-outlet>
