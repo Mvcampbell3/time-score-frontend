@@ -1,4 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import { UserService } from './services/user.service';
+import { User } from 'firebase'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +9,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   @ViewChild('navBurger', { static: true }) navBurger: ElementRef;
   @ViewChild('navMenu', { static: true }) navMenu: ElementRef;
 
@@ -13,42 +17,27 @@ export class AppComponent {
   showGameList: boolean = false;
   showInstructions: boolean = false;
 
-  gameListView() {
-    this.shutNavMobile()
-    this.showInstructions = false;
-    this.showLanding = false;
-    this.showGameList = true;
+  displayPage: string = 'landing';
+
+  public user: User | null;
+  public userSub: Subscription;
+
+  constructor(public userService: UserService) {
+    this.userSub = this.userService.user.subscribe(
+      (user: User | null) => {
+        this.user = user;
+        console.log(user)
+      }
+    )
   }
 
-  landingView() {
+  setDisplay(page) {
+    this.displayPage = page;
     this.shutNavMobile()
-    this.showInstructions = false;
-    this.showGameList = false;
-    this.showLanding = true;
   }
 
-  instructionsView() {
-    this.shutNavMobile()
-    this.showLanding = false;
-    this.showGameList = false;
-    this.showInstructions = true;
-  }
-
-  handlePageSend(where: string) {
-    switch (where) {
-      case 'home':
-        this.landingView();
-        break;
-      case 'gamesList':
-        this.gameListView();
-        break;
-      case 'instructions':
-        this.instructionsView();
-        break;
-      default:
-        this.landingView();
-        console.log('handle page send switch not working as expected')
-    }
+  handlePageSend(e) {
+    console.log(e)
   }
 
   shutNavMobile() {
