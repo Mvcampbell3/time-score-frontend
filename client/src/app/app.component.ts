@@ -36,9 +36,7 @@ export class AppComponent {
     this.shutNavMobile()
   }
 
-  handlePageSend(e) {
-    console.log(e)
-  }
+
 
   shutNavMobile() {
     this.navBurger.nativeElement.classList.remove('is-active');
