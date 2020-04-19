@@ -15,6 +15,7 @@ export class UserService {
     this.test = this.afAuth.authState.subscribe(
       (data: any) => {
         console.log(data);
+        this.user.next(data);
       },
       (err: any) => {
         console.log(err)
@@ -22,5 +23,7 @@ export class UserService {
     )
   }
 
-
+  logoutUser() {
+    this.afAuth.auth.signOut()
+  }
 }

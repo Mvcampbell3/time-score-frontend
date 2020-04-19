@@ -17,18 +17,18 @@ export class AppComponent {
   showGameList: boolean = false;
   showInstructions: boolean = false;
 
-  displayPage: string = 'login';
+  displayPage: string = 'landing';
 
-  public user: User | null;
-  public userSub: Subscription;
+  user: User | null;
+  userSub: Subscription = this.userService.user.subscribe(
+    (user: User | null) => {
+      this.user = user;
+      console.log(user)
+    }
+  );
+
 
   constructor(public userService: UserService) {
-    this.userSub = this.userService.user.subscribe(
-      (user: User | null) => {
-        this.user = user;
-        console.log(user)
-      }
-    )
   }
 
   setDisplay(page) {
@@ -44,5 +44,9 @@ export class AppComponent {
   toggleNavbar() {
     this.navBurger.nativeElement.classList.toggle('is-active');
     this.navMenu.nativeElement.classList.toggle('is-active');
+  }
+
+  logoutUser() {
+    this.userService.logoutUser()
   }
 }

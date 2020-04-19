@@ -15,12 +15,16 @@
       <a (click)='setDisplay("list")' class="navbar-item">List of Games</a>
       <a (click)='setDisplay("instructions")' class="navbar-item">How to Play</a>
     </div>
+    <div class="navbar-end">
+      <a (click)='setDisplay("login")' class='navbar-item' *ngIf='!user'>Login</a>
+      <a (click)='logoutUser()' class='navbar-item' *ngIf='user'>Logout</a>
+    </div>
   </div>
 </nav>
 
 <div class="main-panel" [ngSwitch]='displayPage'>
   <div *ngSwitchCase="'landing'">
-    <app-landing (landingClick)='setDisplay("list")'></app-landing>
+    <app-landing (landingClick)='setDisplay("list")' [user]='user'></app-landing>
   </div>
   <div *ngSwitchCase="'list'">
     <app-game-list></app-game-list>
@@ -29,7 +33,7 @@
     <app-instructions (sendToPage)='setDisplay($event)'></app-instructions>
   </div>
   <div *ngSwitchCase="'login'">
-    <app-login></app-login>
+    <app-login (displayLanding)='setDisplay("landing")'></app-login>
   </div>
 </div>
 

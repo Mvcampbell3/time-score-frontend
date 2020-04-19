@@ -1,34 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'firebase';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  @Output() displayLanding: EventEmitter<void> = new EventEmitter;
 
   email: string;
   password: string;
   login: boolean = true;
   saveEmail: boolean = false;
 
-  user: User | null;
-  userSub: Subscription;
 
-  constructor(public afAuth: AngularFireAuth, public userService: UserService) { }
+  user: User | null;
+  userSub: Subscription = this.userService.user.subscribe(
+    (user: User | null) => {
+      this.user = user;
+      console.log(user)
+    }
+  )
+  subscriptions: Subscription = new Subscription;
+
+  constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router) { }
 
   ngOnInit() {
     this.retrieveEmail();
-    this.userSub = this.userService.user.subscribe(
-      (user: User | null) => {
-        this.user = user;
-        console.log(user)
-      }
-    )
+    this.subscriptions.add(this.userSub);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   toggleLogin() {
@@ -42,6 +50,7 @@ export class LoginComponent implements OnInit {
         this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password)
           .then(result => {
             console.log(result);
+            this.displayLanding.emit()
           })
           .catch(err => {
             console.log(err)
@@ -50,6 +59,7 @@ export class LoginComponent implements OnInit {
         this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password)
           .then(result => {
             console.log(result);
+            this.displayLanding.emit()
           })
           .catch(err => {
             console.log(err)

@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitter, Input } from '@angular/core';
 
 import baseballTeams from '../../gameSeeds/baseball';
 import footballTeams from '../../gameSeeds/football';
 import presidents from '../../gameSeeds/presidents';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-landing',
@@ -10,6 +11,8 @@ import presidents from '../../gameSeeds/presidents';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit, OnDestroy {
+
+  @Input() user: User | null;
 
   @ViewChild('roller1', { static: true }) roller1: ElementRef;
   @ViewChild('roller2', { static: true }) roller2: ElementRef;

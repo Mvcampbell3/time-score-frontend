@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { GameListComponent } from './components/game-list/game-list.component';
 import { GamePageComponent } from './components/game-page/game-page.component';
-import { InstructionsComponent } from './instructions/instructions.component';
+import { InstructionsComponent } from './components/instructions/instructions.component';
 import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
