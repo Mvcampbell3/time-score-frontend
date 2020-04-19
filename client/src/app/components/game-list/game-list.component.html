@@ -9,7 +9,7 @@
 
 
     <div class="container pt-2">
-      <div class="columns">
+      <!-- <div class="columns">
         <div class="column">
           <button class="button is-danger is-large is-fullwidth" (click)='selectGame("baseball")'>MLB Teams</button>
         </div>
@@ -20,6 +20,9 @@
           <button class="button is-info is-large is-fullwidth" (click)='selectGame("presidents")'>U.S.
             Presidents</button>
         </div>
+      </div> -->
+      <div class="game" *ngFor='let game of gamesArrayDisplay' [routerLink]="['/gameinfo/', game.id]">
+        <h3>{{game.title}}</h3>
       </div>
     </div>
   </div>

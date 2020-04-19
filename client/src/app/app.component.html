@@ -1,6 +1,6 @@
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" (click)='setDisplay("landing")'>Home</a>
+    <a class="navbar-item" routerLink=''>Home</a>
 
     <a (click)="toggleNavbar()" role="button" #navBurger class="navbar-burger burger" aria-label="menu"
       aria-expanded="false" data-target="main-nav">
@@ -12,8 +12,9 @@
 
   <div id="main-nav" class="navbar-menu" #navMenu>
     <div class="navbar-start">
-      <a (click)='setDisplay("list")' class="navbar-item">List of Games</a>
-      <a (click)='setDisplay("instructions")' class="navbar-item">How to Play</a>
+      <a routerLink="/list" class="navbar-item">List of Games</a>
+      <a routerLink="/instructions" class="navbar-item">How to Play</a>
+      <a (click)='testingGameGet()' class='navbar-item'>Test</a>
     </div>
     <div class="navbar-end">
       <a (click)='setDisplay("login")' class='navbar-item' *ngIf='!user'>Login</a>
@@ -22,7 +23,7 @@
   </div>
 </nav>
 
-<div class="main-panel" [ngSwitch]='displayPage'>
+<!-- <div class="main-panel" [ngSwitch]='displayPage'>
   <div *ngSwitchCase="'landing'">
     <app-landing (landingClick)='setDisplay("list")' [user]='user'></app-landing>
   </div>
@@ -35,6 +36,6 @@
   <div *ngSwitchCase="'login'">
     <app-login (displayLanding)='setDisplay("landing")'></app-login>
   </div>
-</div>
+</div> -->
 
 <router-outlet></router-outlet>

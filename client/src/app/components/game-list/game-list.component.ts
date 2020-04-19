@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-game-list',
@@ -7,7 +9,6 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 })
 export class GameListComponent implements OnInit, OnDestroy {
 
-  gamesArray: string[] = ['MLB Teams', 'NFL Teams', 'U.S. Presidents'];
   selected: boolean = false;
   selectedGame: string = '';
 
@@ -17,8 +18,19 @@ export class GameListComponent implements OnInit, OnDestroy {
   bgClasses: string[] = ['newBG1', 'newBG2', 'newBG3'];
   pos: number = 1;
   timerPlace: any;
+  gamesArrayDisplay: any[] = [];
+  gamesSubscriptions: any = this.db.list('games').query.once('value')
+    .then(result => {
+      console.log(result);
+      result.forEach(game => { this.gamesArrayDisplay.push({ ...game.val(), id: game.key }) })
+      console.log(this.gamesArrayDisplay)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  subscriptions: Subscription = new Subscription;
 
-  constructor() { }
+  constructor(public db: AngularFireDatabase) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -38,10 +50,12 @@ export class GameListComponent implements OnInit, OnDestroy {
         this.pos++;
       }
     }, 6000)
+
   }
 
   ngOnDestroy() {
     this.timerPlace = null;
+    this.subscriptions.unsubscribe();
   }
 
   selectGame(gameName) {
@@ -59,5 +73,9 @@ export class GameListComponent implements OnInit, OnDestroy {
     this.selectedGame = '';
     this.selected = false;
     this.startTimer()
+  }
+
+  getGames() {
+
   }
 }
