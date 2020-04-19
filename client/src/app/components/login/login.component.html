@@ -1,0 +1,26 @@
+<div class="login-container">
+  <div class="login-wrapper">
+    <h2 class="title has-text-centered">Login/Signup</h2>
+    <div class="field">
+      <div class="control">
+        <input type="text" class="input" placeholder='Email' [(ngModel)]='email'>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input type="password" placeholder="Password" class="input" [(ngModel)]='password'>
+      </div>
+    </div>
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" class="checkbox" (click)='toggleSavedEmail()' [checked]='saveEmail'>
+        Save my email address
+      </label>
+    </div>
+    <div class="button-area">
+      <button [ngClass]='login ? "button is-info":"button is-success"'
+        (click)='handleLoginSignup()'>{{login ? "Login":"Signup"}}</button>
+      <a (click)='toggleLogin()' class="link">{{login ? "I need to create an account":"I already have an account"}}</a>
+    </div>
+  </div>
+</div>

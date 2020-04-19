@@ -17,7 +17,7 @@ export class AppComponent {
   showGameList: boolean = false;
   showInstructions: boolean = false;
 
-  displayPage: string = 'landing';
+  displayPage: string = 'login';
 
   public user: User | null;
   public userSub: Subscription;
@@ -35,8 +35,6 @@ export class AppComponent {
     this.displayPage = page;
     this.shutNavMobile()
   }
-
-
 
   shutNavMobile() {
     this.navBurger.nativeElement.classList.remove('is-active');

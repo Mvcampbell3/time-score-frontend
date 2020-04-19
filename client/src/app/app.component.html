@@ -28,6 +28,9 @@
   <div *ngSwitchCase="'instructions'">
     <app-instructions (sendToPage)='setDisplay($event)'></app-instructions>
   </div>
+  <div *ngSwitchCase="'login'">
+    <app-login></app-login>
+  </div>
 </div>
 
 <router-outlet></router-outlet>
