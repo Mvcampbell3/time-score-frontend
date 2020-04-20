@@ -1,1 +1,8 @@
-<p>game-info works!</p>
+<div class="container">
+  <div class="wrapper" *ngIf='game'>
+    <p class="content">{{game.title}}</p>
+    <p class="content">{{game.description}}</p>
+    <p class="content">{{game.instructions}}</p>
+    <button class="button is-link">Play</button>
+  </div>
+</div>
