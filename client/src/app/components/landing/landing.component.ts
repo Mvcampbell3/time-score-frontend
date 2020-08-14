@@ -42,10 +42,6 @@ export class LandingComponent implements OnInit, OnDestroy {
     baseballTeams.answers.forEach(team => this.mlbArray.push(team.display_value));
     footballTeams.answers.forEach(team => this.nflArray.push(team.display_value))
 
-    this.startNameChangeTimer()
-    setTimeout(() => {
-      this.rollerRemoveAddClass('a', 'b')
-    }, 800)
   }
 
   ngOnDestroy() {

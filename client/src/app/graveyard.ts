@@ -1,0 +1,369 @@
+/*
+<div class="outputAnimation">
+      <div class="center-ball"></div>
+      <div #roller1 class="outputItem a-1 notification has-text-centered is-link">
+        <p class="popAni">{{rollerContent1}}</p>
+      </div>
+      <div #roller2 class="outputItem a-2 notification has-text-centered is-danger">
+        <p class="popAni">{{rollerContent2}}</p>
+      </div>
+      <div #roller3 class="outputItem a-3 notification has-text-centered is-danger">
+        <p class="popAni">{{rollerContent3}}</p>
+      </div>
+      <div #roller4 class="outputItem a-4 notification has-text-centered is-success">
+        <p class="popAni">{{rollerContent4}}</p>
+      </div>
+      <div #roller5 class="outputItem a-5 notification has-text-centered is-success">
+        <p class="popAni">{{rollerContent5}}</p>
+      </div>
+      <div #roller6 class="outputItem a-6 notification has-text-centered is-link">
+        <p class="popAni">{{rollerContent6}}</p>
+      </div>
+    </div>
+
+    // Landing CSS
+    .landing-bg {
+  min-height: 100vh;
+  position: relative;
+  z-index: -11;
+}
+
+.page-holder {
+  cursor: pointer;
+}
+
+.outputAnimation {
+  position: relative;
+  height: 210px;
+  width: 150px;
+  margin: 0 auto;
+  top: 125px;
+}
+
+.center-ball {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: -10;
+  background-color: white;
+  border-radius: 50%;
+  top: 85px;
+  left: 65px;
+  box-shadow: 0px 0px 10px 6px white;
+}
+
+.outputItem {
+  position: absolute;
+  width: 150px;
+  font-size: 12px;
+  padding: 10px;
+  z-index: 5;
+}
+
+$position-0: translate(0px, 0px);
+
+$position-1: translate(0px, -30px);
+$position-2: translate(80px, 34px);
+$position-3: translate(80px, 116px);
+$position-4: translate(0px, 180px);
+$position-5: translate(-80px, 116px);
+$position-6: translate(-80px, 34px);
+
+.a-1 {
+  animation-name: loadIn1;
+  animation-duration: 1.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.a-2 {
+  animation-name: loadIn2;
+  animation-duration: 1.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.a-3 {
+  animation-name: loadIn3;
+  animation-duration: 1.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.a-4 {
+  animation-name: loadIn4;
+  animation-duration: 1.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.a-5 {
+  animation-name: loadIn5;
+  animation-duration: 1.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.a-6 {
+  animation-name: loadIn6;
+  animation-duration: 1.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+@keyframes loadIn1 {
+  0% {
+    transform: $position-0;
+  }
+  50% {
+    transform: $position-1;
+  }
+  100% {
+    transform: $position-1;
+  }
+}
+
+@keyframes loadIn2 {
+  0% {
+    transform: $position-0;
+  }
+  50% {
+    transform: $position-3;
+  }
+  100% {
+    transform: $position-3;
+  }
+}
+
+@keyframes loadIn3 {
+  0% {
+    transform: $position-0;
+  }
+  50% {
+    transform: $position-2;
+  }
+  100% {
+    transform: $position-2;
+  }
+}
+
+@keyframes loadIn4 {
+  0% {
+    transform: $position-0;
+  }
+  50% {
+    transform: $position-6;
+  }
+  100% {
+    transform: $position-6;
+  }
+}
+
+@keyframes loadIn5 {
+  0% {
+    transform: $position-0;
+  }
+  50% {
+    transform: $position-5;
+  }
+  100% {
+    transform: $position-5;
+  }
+}
+
+@keyframes loadIn6 {
+  0% {
+    transform: $position-0;
+  }
+  50% {
+    transform: $position-4;
+  }
+  100% {
+    transform: $position-4;
+  }
+}
+
+// b moves
+
+.b-1 {
+  transform: $position-1;
+  animation: rotate1 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    forwards;
+}
+
+.b-2 {
+  transform: $position-2;
+  animation: rotate2 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    forwards;
+}
+
+.b-3 {
+  transform: $position-3;
+  animation: rotate3 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    forwards;
+}
+
+.b-4 {
+  transform: $position-6;
+  animation: rotate4 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    forwards;
+}
+
+.b-5 {
+  transform: $position-5;
+  animation: rotate5 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    forwards;
+}
+
+.b-6 {
+  transform: $position-4;
+  animation: rotate6 12s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    forwards;
+}
+
+.popAni {
+  animation: popper 2s 0.8s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045)
+    forwards;
+}
+
+@keyframes popper {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+}
+
+@keyframes rotate1 {
+  0%,
+  100% {
+    transform: $position-1;
+  }
+  17% {
+    transform: $position-2;
+  }
+  33% {
+    transform: $position-3;
+  }
+  50% {
+    transform: $position-4;
+  }
+  67% {
+    transform: $position-5;
+  }
+  83% {
+    transform: $position-6;
+  }
+}
+
+@keyframes rotate2 {
+  0%,
+  100% {
+    transform: $position-3;
+  }
+  17% {
+    transform: $position-4;
+  }
+  33% {
+    transform: $position-5;
+  }
+  50% {
+    transform: $position-6;
+  }
+  67% {
+    transform: $position-1;
+  }
+  83% {
+    transform: $position-2;
+  }
+}
+
+@keyframes rotate3 {
+  0%,
+  100% {
+    transform: $position-2;
+  }
+  17% {
+    transform: $position-3;
+  }
+  33% {
+    transform: $position-4;
+  }
+  50% {
+    transform: $position-5;
+  }
+  67% {
+    transform: $position-6;
+  }
+  83% {
+    transform: $position-1;
+  }
+}
+
+@keyframes rotate4 {
+  0%,
+  100% {
+    transform: $position-6;
+  }
+  17% {
+    transform: $position-1;
+  }
+  33% {
+    transform: $position-2;
+  }
+  50% {
+    transform: $position-3;
+  }
+  67% {
+    transform: $position-4;
+  }
+  83% {
+    transform: $position-5;
+  }
+}
+
+@keyframes rotate5 {
+  0%,
+  100% {
+    transform: $position-5;
+  }
+  17% {
+    transform: $position-6;
+  }
+  33% {
+    transform: $position-1;
+  }
+  50% {
+    transform: $position-2;
+  }
+  67% {
+    transform: $position-3;
+  }
+  83% {
+    transform: $position-4;
+  }
+}
+
+@keyframes rotate6 {
+  0%,
+  100% {
+    transform: $position-4;
+  }
+  17% {
+    transform: $position-5;
+  }
+  33% {
+    transform: $position-6;
+  }
+  50% {
+    transform: $position-1;
+  }
+  67% {
+    transform: $position-2;
+  }
+  83% {
+    transform: $position-3;
+  }
+}
+
+*/
