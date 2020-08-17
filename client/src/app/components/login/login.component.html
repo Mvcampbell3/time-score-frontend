@@ -1,6 +1,6 @@
 <div class="login-container">
   <div class="login-wrapper">
-    <h2 class="title has-text-centered">Login/Signup</h2>
+    <h2 class="login-title">Login</h2>
     <mat-form-field appearance="outline" class='full'>
       <mat-label>Email</mat-label>
       <input matInput type="text" autocomplete="email" [(ngModel)]="email">
@@ -8,16 +8,16 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-    <div class="field">
-      <div class="control">
-        <input type="password" placeholder="Password" class="input" [(ngModel)]='password'>
-      </div>
-    </div>
-
+    <mat-form-field appearance="outline" class='full'>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" autocomplete="new-password" [(ngModel)]="password">
+      <button mat-button *ngIf="password" matSuffix aria-label="Clear" (click)="password=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
     <div class="button-area">
-      <button [ngClass]='login ? "button is-info":"button is-success"'
-        (click)='handleLoginSignup()'>{{login ? "Login":"Signup"}}</button>
-      <a (click)='toggleLogin()' class="link">{{login ? "I need to create an account":"I already have an account"}}</a>
+      <button mat-raised-button (click)='handleLoginSignup()' color='primary'>{{login ? "Login":"Signup"}}</button>
+      <button mat-raised-button color='accent'>Need to Sign Up?</button>
     </div>
   </div>
 </div>

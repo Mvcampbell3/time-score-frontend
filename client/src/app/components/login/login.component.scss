@@ -3,15 +3,16 @@
   padding-top: 100px;
 
   .login-wrapper {
-    width: 50vw;
-    min-width: 300px;
-    max-width: 700px;
+    width: 400px;
     margin: 0 auto;
+
+    .login-title {
+      margin-bottom: 1em;
+    }
 
     .button-area {
       display: flex;
       justify-content: space-between;
-      width: 90%;
       margin: 0 auto;
       align-items: center;
     }

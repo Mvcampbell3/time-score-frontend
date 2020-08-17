@@ -1,3 +1,6 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
 html,
 body {
   height: 100%;
@@ -59,3 +62,76 @@ body {
 .pt-2 {
   padding-top: 0.5em;
 }
+
+$mat-myapp-primary: (
+  50: #e8eaf6,
+  100: #c5cae9,
+  200: #9fa8da,
+  300: #7986cb,
+  400: #5c6bc0,
+  500: #3f51b5,
+  600: #3949ab,
+  700: #303f9f,
+  800: #283593,
+  900: #1a237e,
+  A100: #8c9eff,
+  A200: #536dfe,
+  A400: #3d5afe,
+  A700: #304ffe,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$mat-myapp-accent: (
+  50: #eefae9,
+  100: #d5f2c8,
+  200: #b9eaa3,
+  300: #9de17e,
+  400: #88da63,
+  500: #73d447,
+  600: #6bcf40,
+  700: #60c937,
+  800: #56c32f,
+  900: #43b920,
+  A100: #f5fff2,
+  A200: #ccffbf,
+  A400: #a4ff8c,
+  A700: #8fff73,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$primary: mat-palette($mat-myapp-primary);
+$accent: mat-palette($mat-myapp-accent);
+
+$theme: mat-light-theme($primary, $accent);
+
+@include angular-material-theme($theme);
