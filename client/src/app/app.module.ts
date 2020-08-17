@@ -16,7 +16,10 @@ import { GamePageComponent } from './components/game-page/game-page.component';
 import { InstructionsComponent } from './components/instructions/instructions.component';
 import { LoginComponent } from './components/login/login.component';
 import { GameInfoComponent } from './components/game-info/game-info.component';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
