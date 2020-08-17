@@ -2,6 +2,7 @@
   min-height: 100vh;
   width: 100vw;
   position: relative;
+  overflow: hidden;
 
   .bg-1 {
     position: absolute;
@@ -12,6 +13,12 @@
     clip-path: polygon(100% 0, 0% 100%, 100% 100%);
     background: linear-gradient(0deg, #444, #222);
     box-shadow: 0px -1px 1px 1px rgba(51, 51, 51, 0.183);
+    transition: all, 0.3s;
+
+    &.exit {
+      transform: translateX(60vh);
+      transition: all, 0.3s;
+    }
   }
 
   .bg-2 {
@@ -26,6 +33,12 @@
       rgb(31, 184, 255),
       darken(rgb(31, 184, 255), 10%)
     );
+    transition: all, 0.4s;
+
+    &.exit {
+      transform: translateY(-60vh);
+      transition: all, 0.8s;
+    }
   }
 
   .landing-wrapper {
@@ -38,6 +51,11 @@
     align-items: center;
     background: linear-gradient(90deg, rgb(243, 251, 255), rgb(235, 235, 235));
     box-shadow: 0px -1px 1px 1px rgba(51, 51, 51, 0.17);
+    transition: all, 0.8s;
+    &.exit {
+      transform: translateY(40vh);
+      transition: all, 0.8s;
+    }
 
     .landing-content {
       font-size: 34px;
@@ -49,6 +67,11 @@
     position: absolute;
     top: 10vh;
     left: 10vh;
+    transition: all, 0.8s;
+    &.exit {
+      transform: translateX(-100vh);
+      transition: all, 0.8s;
+    }
     .landing-title {
       font-size: 120px;
       font-weight: 700;

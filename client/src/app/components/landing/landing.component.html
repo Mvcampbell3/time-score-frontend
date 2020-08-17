@@ -1,17 +1,17 @@
 <div class="landing-container">
-  <div class="bg-1"></div>
-  <div class="bg-2"></div>
-  <div class="landing-text">
+  <div [ngClass]="move_bg ? 'bg-1 exit':'bg-1'"></div>
+  <div [ngClass]="move_bg ? 'bg-2 exit':'bg-2'"></div>
+  <div [ngClass]="move_text ? 'landing-text exit':'landing-text'">
     <h1 class="landing-title">Time Score</h1>
     <div class="link-holder">
       <a href="#" class="landing-link">Login</a>
       <div class="seperator"></div>
       <a href="#" class="landing-link">Game List</a>
       <div class="seperator"></div>
-      <a href="#" class="landing-link">How To</a>
+      <a (click)='handleOut("instructions")' class="landing-link">How To</a>
     </div>
   </div>
-  <div class="landing-wrapper">
+  <div [ngClass]="move_wrapper ? 'landing-wrapper exit':'landing-wrapper'">
     <p class="landing-content">"How did it get so late so soon" - Dr. Seuss</p>
   </div>
 </div>
