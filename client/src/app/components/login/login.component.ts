@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   email: string;
   password: string;
-  login: boolean = true;
+  action_login: boolean = true;
   saveEmail: boolean = false;
 
 
@@ -40,13 +40,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   toggleLogin() {
-    this.login = !this.login
+    this.action_login = !this.action_login
   }
 
   handleLoginSignup() {
-    console.log(this.login)
+    console.log(this.action_login)
     if (this.email && this.password) {
-      if (this.login) {
+      if (this.action_login) {
         this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password)
           .then(result => {
             console.log(result);
