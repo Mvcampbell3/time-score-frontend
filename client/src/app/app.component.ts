@@ -4,6 +4,7 @@ import { User } from 'firebase'
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ErrorModalService } from './services/error-modal.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -23,15 +24,22 @@ export class AppComponent {
   error_display_sub: Subscription;
   error_display: boolean = false;
 
+  error_title: string;
+  error_message: any;
+
   constructor(
     public userService: UserService,
     public db: AngularFireDatabase,
-    public errorModal: ErrorModalService
+    public errorModal: ErrorModalService,
+    public errorDialog: MatDialog
   ) {
     this.error_display_sub = this.errorModal.error_display.subscribe(
       (er_disp: boolean) => {
         console.log(er_disp);
         this.error_display = er_disp;
+        if (er_disp) {
+          this.handleErrorDisplay();
+        }
       },
       (err: any) => {
         console.log(err);
@@ -41,6 +49,10 @@ export class AppComponent {
 
   logoutUser() {
     this.userService.logoutUser()
+  }
+
+  handleErrorDisplay() {
+    this.errorDialog.open(ExampleDialog)
   }
 
   testingGameCreate() {
@@ -78,4 +90,12 @@ export class AppComponent {
         console.log(err)
       })
   }
+
+
 }
+
+@Component({
+  selector: 'dialog-example',
+  templateUrl: 'example-dialog.html'
+})
+export class ExampleDialog { }

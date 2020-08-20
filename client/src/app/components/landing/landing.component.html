@@ -4,7 +4,8 @@
   <div [ngClass]="move_text ? 'landing-text exit':'landing-text'">
     <h1 class="landing-title">Time Score</h1>
     <div class="link-holder">
-      <a (click)='handleOut("login")' class="landing-link">Login</a>
+      <a (click)='handleOut("login")' class="landing-link" *ngIf='!user'>Login</a>
+      <a (click)='handleOut("profile")' class="landing-link" *ngIf='user'>Profile</a>
       <div class="seperator"></div>
       <a href="#" class="landing-link">Game List</a>
       <div class="seperator"></div>

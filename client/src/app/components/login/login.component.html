@@ -1,5 +1,6 @@
 <div class="login-container">
-  <div class="login-wrapper">
+  <button mat-raised-button color='warn' class='backBtn' (click)='handleBack()'>Back</button>
+  <div [ngClass]="action_login ? 'login-wrapper':'login-wrapper long'">
     <h2 class="login-title">{{action_login ? "Login":"Sign up"}}</h2>
     <mat-form-field class='full'>
       <mat-label>Email</mat-label>
@@ -23,7 +24,8 @@
       </button>
     </mat-form-field>
     <div class="button-area">
-      <button mat-raised-button color='primary' (click)='handleLoginSignup()'>{{login ? "Login":"Signup"}}</button>
+      <button mat-raised-button color='primary'
+        (click)='handleLoginSignup()'>{{action_login ? "Login":"Signup"}}</button>
       <button mat-button color="primary" (click)='toggleLogin()'>Need to Sign Up?</button>
     </div>
   </div>
