@@ -18,20 +18,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   action_login: boolean = true;
   saveEmail: boolean = false;
 
-
   user: User | null;
-  userSub: Subscription = this.userService.user.subscribe(
-    (user: User | null) => {
-      this.user = user;
-      console.log(user)
-    }
-  )
+  userSub: Subscription;
   subscriptions: Subscription = new Subscription;
 
   constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router) { }
 
   ngOnInit() {
     this.retrieveEmail();
+    this.userSub = this.userService.user.subscribe(
+      (user: User | null) => {
+        this.user = user;
+        console.log(user)
+      }
+    )
     this.subscriptions.add(this.userSub);
   }
 

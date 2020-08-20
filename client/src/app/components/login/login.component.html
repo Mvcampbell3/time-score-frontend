@@ -1,10 +1,17 @@
 <div class="login-container">
   <div class="login-wrapper">
-    <h2 class="login-title">Login</h2>
+    <h2 class="login-title">{{action_login ? "Login":"Sign up"}}</h2>
     <mat-form-field class='full'>
       <mat-label>Email</mat-label>
       <input matInput type="text" autocomplete="email" placeholder="example@mail.com" [(ngModel)]="email">
       <button mat-button *ngIf="email" matSuffix aria-label="Clear" (click)="email=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class='full' *ngIf="!action_login">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" autocomplete="new-password" placeholder="John Doe" [(ngModel)]="username">
+      <button mat-button *ngIf="username" matSuffix aria-label="Clear" (click)="username=''">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>

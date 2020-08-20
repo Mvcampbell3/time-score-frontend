@@ -3,6 +3,7 @@ import { UserService } from './services/user.service';
 import { User } from 'firebase'
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { ErrorModalService } from './services/error-modal.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,6 @@ import { AngularFireDatabase } from '@angular/fire/database';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  @ViewChild('navBurger', { static: true }) navBurger: ElementRef;
-  @ViewChild('navMenu', { static: true }) navMenu: ElementRef;
-
-  showLanding: boolean = true;
-  showGameList: boolean = false;
-  showInstructions: boolean = false;
-
-  displayPage: string = 'landing';
 
   user: User | null;
   userSub: Subscription = this.userService.user.subscribe(
@@ -28,22 +20,23 @@ export class AppComponent {
     }
   );
 
-  constructor(public userService: UserService, public db: AngularFireDatabase) {
-  }
+  error_display_sub: Subscription;
+  error_display: boolean = false;
 
-  setDisplay(page) {
-    this.displayPage = page;
-    this.shutNavMobile()
-  }
-
-  shutNavMobile() {
-    this.navBurger.nativeElement.classList.remove('is-active');
-    this.navMenu.nativeElement.classList.remove('is-active');
-  }
-
-  toggleNavbar() {
-    this.navBurger.nativeElement.classList.toggle('is-active');
-    this.navMenu.nativeElement.classList.toggle('is-active');
+  constructor(
+    public userService: UserService,
+    public db: AngularFireDatabase,
+    public errorModal: ErrorModalService
+  ) {
+    this.error_display_sub = this.errorModal.error_display.subscribe(
+      (er_disp: boolean) => {
+        console.log(er_disp);
+        this.error_display = er_disp;
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    )
   }
 
   logoutUser() {
