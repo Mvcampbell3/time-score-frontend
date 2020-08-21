@@ -1,5 +1,7 @@
 <div class="login-container">
-  <button mat-raised-button color='warn' class='backBtn' (click)='handleBack()'>Back</button>
+  <button mat-raised-button color='primary' class='backBtn' (click)='handleBack()'>Back</button>
+  <div class="bg-1 start-1"></div>
+  <div class="bg-2 start-2"></div>
   <div [ngClass]="action_login ? 'login-wrapper':'login-wrapper long'">
     <h2 class="login-title">{{action_login ? "Login":"Sign up"}}</h2>
     <mat-form-field class='full'>

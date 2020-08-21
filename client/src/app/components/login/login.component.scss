@@ -1,12 +1,54 @@
 .login-container {
   min-height: 100vh;
   padding-top: 100px;
-  background-color: #f0f0f0;
+  background-color: #fff;
+  overflow: hidden;
+
+  .bg-1 {
+    width: 30vw;
+    height: 60vh;
+    background: linear-gradient(0deg, #444, #222);
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+  }
+
+  .bg-2 {
+    width: 15vw;
+    height: 30vh;
+    background: linear-gradient(
+      90deg,
+      rgb(31, 184, 255),
+      darken(rgb(31, 184, 255), 10%)
+    );
+    position: absolute;
+    top: 40vh;
+    left: 0;
+    clip-path: polygon(0 100%, 0 0, 100% 0);
+    z-index: 2;
+  }
+
+  .start-1 {
+    transform: translateY(-60vh);
+    animation-name: move-start-1;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .start-2 {
+    transform: translateX(100vw);
+    animation-name: move-start-2;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+  }
 
   .login-wrapper {
     width: 450px;
     margin: 0 auto;
-    background-color: white;
+    background-color: #f0f0f0;
     padding: 20px;
     border-radius: 10px;
 
@@ -70,4 +112,22 @@
   position: fixed;
   top: 20px;
   left: 20px;
+  z-index: 3;
+}
+
+@keyframes move-start-1 {
+  0% {
+    transform: translateY(-60vh);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes move-start-2 {
+  0% {
+    transform: translateX(100vh);
+  }
+  100% {
+    transform: translatex(0);
+  }
 }
