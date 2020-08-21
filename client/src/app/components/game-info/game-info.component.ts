@@ -49,6 +49,11 @@ export class GameInfoComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.game_sub);
   }
 
+  playGame() {
+    console.log(this.game)
+    this.router.navigate([`/play/${this.game_id}`])
+  }
+
   handleBack() {
     this.router.navigate(['/list'])
   }

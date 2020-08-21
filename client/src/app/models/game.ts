@@ -2,7 +2,7 @@ import { Answer } from './answer';
 
 export interface Game {
   name: string;
-  inputPlaceholder: string;
+  input_placeholder: string;
   description: string;
   instructions: string;
   id?: string;

@@ -1,6 +1,6 @@
-<div class="game-page-bg">
+<div class="game-page-bg" *ngIf='ready'>
 
-  <div class="modal" #endGameModal>
+  <!-- <div class="modal" #endGameModal>
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
@@ -8,7 +8,6 @@
         <button class="delete" aria-label="close" (click)='closeModal(false)'></button>
       </header>
       <section class="modal-card-body">
-        <!-- Content ... -->
         <div class="level">
           <div class="level-item">
             <p class='subtitle'>You got {{scoreGame}} right</p>
@@ -31,7 +30,7 @@
       <div class="modal-card-foot">
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="hero is-small is-info pb-2">
     <div class="hero-body">
@@ -72,7 +71,7 @@
     <div class="hero-footer">
       <div class="columns">
         <div class="column is-half is-offset-one-quarter">
-          <input #gameInput type="text" class='input gameInput' [placeholder]='game.inputPlaceholder' disabled
+          <input #gameInput type="text" class='input gameInput' [placeholder]='game.input_placeholder' disabled
             (input)='evaluateInput()' [(ngModel)]='guess'>
         </div>
       </div>

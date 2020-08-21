@@ -62,7 +62,7 @@ export class AppComponent {
       input_placeholder: 'baseball football hockey',
       description: 'This is just a test',
       instructions: 'Still just a test game',
-      questions: [
+      answers: [
         { display_text: 'Baseball', accepted_answers: ['baseball', 'basebal'] },
         { display_text: 'Football', accepted_answers: ['football', 'Football'] },
         { display_text: 'Hockey', accepted_answers: ['hockey', 'Hockey'] },

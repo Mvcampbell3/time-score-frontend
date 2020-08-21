@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Game } from '../../models/game';
 import { Answer } from '../../models/answer';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
   selector: 'app-game-page',
@@ -9,37 +11,36 @@ import { Answer } from '../../models/answer';
 })
 
 export class GamePageComponent implements OnInit, OnDestroy {
-  @ViewChild('gameInput', { static: true }) gameInputEl: ElementRef;
-  @ViewChild('endGameModal', { static: true }) endGameModal: ElementRef;
+  @ViewChild('gameInput', { static: false }) gameInputEl: ElementRef;
+  @ViewChild('endGameModal', { static: false }) endGameModal: ElementRef;
   @Input() gameTitle: string;
   @Output() back: EventEmitter<void> = new EventEmitter;
 
   game: Game;
   guess: string;
   timer: any;
-  time: number = 60;
+  time: number = 600;
   scoreGame: number = 0;
   play: boolean = true;
   firstLoad: boolean = true;
   ongoing: boolean = false;
 
-  constructor() { }
+  ready: boolean = false;
+
+  game_id: string;
+
+  constructor(
+    public db: AngularFireDatabase,
+    public route: ActivatedRoute,
+    public router: Router
+  ) { }
 
   ngOnInit() {
-    // switch (this.gameTitle) {
-    //   case 'baseball':
-    //     this.game = baseballTeam;
-    //     break;
-    //   case 'football':
-    //     this.game = footballTeams;
-    //     break;
-    //   case 'presidents':
-    //     this.game = presidentNames;
-    //     break;
-    //   default:
-    //     this.game = baseballTeam;
-    //     console.log('switch for game assign not working')
-    // }
+    this.route.paramMap.subscribe((params: Params) => {
+      this.game_id = params.params.id;
+      console.log(this.game_id);
+      this.getGame();
+    });
   }
 
   ngOnDestroy() {
@@ -51,21 +52,32 @@ export class GamePageComponent implements OnInit, OnDestroy {
     this.resetGame()
   }
 
+  getGame() {
+    console.log(this.game_id)
+    this.db.object(`games/${this.game_id}`).query.once('value')
+      .then((game_ref: any) => {
+        const game_db: Game = game_ref.val();
+        const questions = game_db.answers;
+        console.log(questions);
+        let real_answers = []
+        questions.forEach((answer: any) => {
+          console.log(answer)
+          const real_answer = new Answer(answer.display_text, answer.accepted_answers);
+          console.log(real_answer)
+          real_answers.push(real_answer);
+        })
+        game_db.answers = real_answers;
+        console.log(game_db)
+        this.game = game_db;
+        this.ready = true;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   clearGameAnswers() {
-    // console.log(this.gameTitle)
-    // switch (this.gameTitle) {
-    //   case 'baseball':
-    //     baseballTeam.answers.forEach(answer => answer.guessed = false);
-    //     break;
-    //   case 'football':
-    //     footballTeams.answers.forEach(answer => answer.guessed = false);
-    //     break;
-    //   case 'presidents':
-    //     presidentNames.answers.forEach(answer => answer.guessed = false);
-    //     break;
-    //   default:
-    //     console.log('switch for game answer clear not working')
-    // }
+    this.game.answers.forEach(answer => answer.guessed = false);
   }
 
   startGame() {
@@ -111,6 +123,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
 
   evaluateInput() {
     const answerArr: Answer[] = this.game.answers.filter(answer => answer.guessed === false);
+    console.log(answerArr)
     let wasRight: boolean = false;
     answerArr.forEach((item: Answer) => {
       const rightTeam: boolean = item.checkAnswer(this.guess.trim().toLowerCase());
@@ -125,6 +138,10 @@ export class GamePageComponent implements OnInit, OnDestroy {
 
   clearInput() {
     this.guess = '';
+    const left = this.game.answers.filter(answer => answer.guessed === false);
+    if (left.length === 0) {
+      console.log('Game over, all guessed')
+    }
   }
 
   gameOver() {
