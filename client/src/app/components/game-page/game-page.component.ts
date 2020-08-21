@@ -1,9 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Game } from '../../models/game';
 import { Answer } from '../../models/answer';
-import baseballTeam from '../../gameSeeds/baseball';
-import presidentNames from '../../gameSeeds/presidents';
-import footballTeams from '../../gameSeeds/football.js'
 
 @Component({
   selector: 'app-game-page',
@@ -29,20 +26,20 @@ export class GamePageComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    switch (this.gameTitle) {
-      case 'baseball':
-        this.game = baseballTeam;
-        break;
-      case 'football':
-        this.game = footballTeams;
-        break;
-      case 'presidents':
-        this.game = presidentNames;
-        break;
-      default:
-        this.game = baseballTeam;
-        console.log('switch for game assign not working')
-    }
+    // switch (this.gameTitle) {
+    //   case 'baseball':
+    //     this.game = baseballTeam;
+    //     break;
+    //   case 'football':
+    //     this.game = footballTeams;
+    //     break;
+    //   case 'presidents':
+    //     this.game = presidentNames;
+    //     break;
+    //   default:
+    //     this.game = baseballTeam;
+    //     console.log('switch for game assign not working')
+    // }
   }
 
   ngOnDestroy() {
@@ -55,20 +52,20 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   clearGameAnswers() {
-    console.log(this.gameTitle)
-    switch (this.gameTitle) {
-      case 'baseball':
-        baseballTeam.answers.forEach(answer => answer.guessed = false);
-        break;
-      case 'football':
-        footballTeams.answers.forEach(answer => answer.guessed = false);
-        break;
-      case 'presidents':
-        presidentNames.answers.forEach(answer => answer.guessed = false);
-        break;
-      default:
-        console.log('switch for game answer clear not working')
-    }
+    // console.log(this.gameTitle)
+    // switch (this.gameTitle) {
+    //   case 'baseball':
+    //     baseballTeam.answers.forEach(answer => answer.guessed = false);
+    //     break;
+    //   case 'football':
+    //     footballTeams.answers.forEach(answer => answer.guessed = false);
+    //     break;
+    //   case 'presidents':
+    //     presidentNames.answers.forEach(answer => answer.guessed = false);
+    //     break;
+    //   default:
+    //     console.log('switch for game answer clear not working')
+    // }
   }
 
   startGame() {

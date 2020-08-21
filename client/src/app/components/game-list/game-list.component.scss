@@ -1,41 +1,18 @@
-.list-bg {
-  min-height: calc(100vh - 52px);
-  background-color: #111;
-  transition: background-color 6s;
-}
+.games-container {
+  min-height: 100vh;
 
-.seeThrough {
-  background-color: rgba(255, 255, 255, 0.158);
-}
-
-.showMe {
-  color: white;
-}
-
-.newBG1 {
-  background-color: rgb(9, 5, 39);
-}
-
-.newBG2 {
-  background-color: rgb(5, 39, 20);
-}
-
-.newBG3 {
-  background-color: rgb(41, 0, 0);
-}
-
-.container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  .games-wrapper {
+    width: 900px;
+    padding: 20px;
+    border-radius: 20px;
+  }
 
   .game {
-    background-color: white;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
+    background-color: green;
+    color: white;
+    padding: 10px;
     border-radius: 10px;
+    width: fit-content;
+    cursor: pointer;
   }
 }

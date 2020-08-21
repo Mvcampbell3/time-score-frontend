@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Subscription } from 'rxjs';
@@ -8,14 +8,18 @@ import { Subscription } from 'rxjs';
   templateUrl: './game-info.component.html',
   styleUrls: ['./game-info.component.scss']
 })
-export class GameInfoComponent implements OnInit {
+export class GameInfoComponent implements OnInit, OnDestroy {
 
   game_id: string;
   game_sub: Subscription;
   game: any;
 
   subscriptions: Subscription = new Subscription;
-  constructor(public db: AngularFireDatabase, private route: ActivatedRoute) {
+  constructor(
+    public db: AngularFireDatabase,
+    private route: ActivatedRoute,
+    public router: Router
+  ) {
 
   }
 
@@ -27,11 +31,14 @@ export class GameInfoComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
   getGameInfo() {
     this.game_sub = this.db.object(`games/${this.game_id}`).valueChanges().subscribe(
       (data: any) => {
         console.log(data);
-        this.subscriptions.add(this.game_sub);
         this.game = data;
       },
       (err: any) => {
@@ -39,5 +46,10 @@ export class GameInfoComponent implements OnInit {
         this.game_sub.unsubscribe();
       }
     )
+    this.subscriptions.add(this.game_sub);
+  }
+
+  handleBack() {
+    this.router.navigate(['/list'])
   }
 }

@@ -1,22 +1,7 @@
-<div *ngIf='!selected else gameArea'>
-  <div #listbg class="list-bg">
-
-    <div class="hero is-small is-transparent seeThrough">
-      <div class='hero-body'>
-        <h1 class="title has-text-centered showMe">Games List</h1>
-      </div>
-    </div>
-
-
-    <div class="container pt-2">
-      <div class="game" *ngFor='let game of gamesArrayDisplay' [routerLink]="['/gameinfo/', game.id]">
-        <h3>{{game.title}}</h3>
-      </div>
-    </div>
+<div class="games-container">
+  <div class="games-wrapper">
+    <button mat-raised-button color='accent' (click)='handleBack()'>Back</button>
+    <div class="game-title">Games List</div>
+    <div class="game" *ngFor='let game of gamesArrayDisplay' (click)='selectGame(game)'>{{game.title}}</div>
   </div>
-
 </div>
-
-<ng-template #gameArea>
-  <app-game-page [gameTitle]='selectedGame' (back)='returnFromGame()'></app-game-page>
-</ng-template>

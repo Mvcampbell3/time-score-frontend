@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-list',
@@ -11,71 +13,69 @@ export class GameListComponent implements OnInit, OnDestroy {
 
   selected: boolean = false;
   selectedGame: string = '';
-
-  @ViewChild('listbg', { static: false }) listbg: ElementRef;
-
-
-  bgClasses: string[] = ['newBG1', 'newBG2', 'newBG3'];
   pos: number = 1;
   timerPlace: any;
   gamesArrayDisplay: any[] = [];
-  gamesSubscriptions: any = this.db.list('games').query.once('value')
-    .then(result => {
-      console.log(result);
-      result.forEach(game => { this.gamesArrayDisplay.push({ ...game.val(), id: game.key }) })
-      console.log(this.gamesArrayDisplay)
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  subscriptions: Subscription = new Subscription;
+  gamesSubscriptions: Subscription;
+  subscriptions: Subscription = new Subscription();
 
-  constructor(public db: AngularFireDatabase) { }
+  constructor(
+    public db: AngularFireDatabase,
+    public router: Router
+  ) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.setBackgroundColor(0);
-    }, 50)
-    this.startTimer();
+    this.pipeGames()
   }
 
-  startTimer() {
-    this.timerPlace = setInterval(() => {
-      if (this.pos < this.bgClasses.length) {
-        this.setBackgroundColor(this.pos);
-        this.pos++;
-      } else {
-        this.pos = 0;
-        this.setBackgroundColor(this.pos);
-        this.pos++;
+  grabGames() {
+    this.gamesSubscriptions = this.db.object('games').snapshotChanges().subscribe(
+      (games_ref: any) => {
+        const games_db = games_ref.payload.val();
+        console.log(games_db);
+      },
+      (err: any) => {
+        console.log(err);
       }
-    }, 6000)
-
+    )
+    this.subscriptions.add(this.gamesSubscriptions)
   }
+
+  pipeGames() {
+    this.gamesSubscriptions = this.db.object('games').snapshotChanges().pipe(
+      (map((games_ref: any) => {
+        const games_db = games_ref.payload.val();
+        let games_arr = [];
+        for (let game_id in games_db) {
+          games_arr.push({ ...games_db[game_id], id: game_id })
+        }
+        return games_arr;
+      }))
+    ).subscribe(
+      (games_db: any) => {
+        console.log(games_db)
+        this.gamesArrayDisplay = games_db;
+      },
+      (err: any) => {
+        console.log(err)
+      }
+    )
+    this.subscriptions.add(this.gamesSubscriptions);
+  }
+
 
   ngOnDestroy() {
-    this.timerPlace = null;
     this.subscriptions.unsubscribe();
   }
 
-  selectGame(gameName) {
-    this.selectedGame = gameName;
-    clearInterval(this.timerPlace);
-    this.selected = true;
+  selectGame(game) {
+    this.selectedGame = game;
+    console.log(game.id);
+    this.router.navigate([`/gameinfo/${game.id}`])
   }
 
-  setBackgroundColor(num: number) {
-    this.listbg.nativeElement.classList = 'list-bg';
-    this.listbg.nativeElement.classList.add(this.bgClasses[num]);
+  handleBack() {
+    this.router.navigate(['/'])
   }
 
-  returnFromGame() {
-    this.selectedGame = '';
-    this.selected = false;
-    this.startTimer()
-  }
-
-  getGames() {
-
-  }
 }

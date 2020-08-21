@@ -7,7 +7,7 @@
       <a (click)='handleOut("login")' class="landing-link" *ngIf='!user'>Login</a>
       <a (click)='handleOut("profile")' class="landing-link" *ngIf='user'>Profile</a>
       <div class="seperator"></div>
-      <a href="#" class="landing-link">Game List</a>
+      <a (click)='handleOut("list")' class="landing-link">Game List</a>
       <div class="seperator"></div>
       <a (click)='handleOut("instructions")' class="landing-link">How To</a>
     </div>
