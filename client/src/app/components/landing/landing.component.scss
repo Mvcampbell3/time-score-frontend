@@ -21,6 +21,13 @@
     }
   }
 
+  .start-1 {
+    animation-name: move-start-1;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+  }
+
   .bg-2 {
     position: absolute;
     top: 25vh;
@@ -39,6 +46,14 @@
       transform: translateY(-60vh);
       transition: all, 0.8s;
     }
+  }
+
+  .start-2 {
+    transform: translateY(-60vh);
+    animation-name: move-start-2;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
   }
 
   .landing-wrapper {
@@ -61,6 +76,14 @@
       font-size: 34px;
       color: #333;
     }
+  }
+
+  .start-wrapper {
+    transform: translateY(40vh);
+    animation-name: move-start-wrapper;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   .landing-text {
@@ -102,5 +125,48 @@
         background-color: #333;
       }
     }
+  }
+
+  .start-text {
+    animation-name: move-start-text;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+}
+
+@keyframes move-start-2 {
+  0% {
+    transform: translateY(-60vh);
+  }
+  100% {
+    transform: translateY(0vh);
+  }
+}
+
+@keyframes move-start-text {
+  0% {
+    transform: translateX(-100vh);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes move-start-1 {
+  0% {
+    transform: translateX(60vh);
+  }
+  100% {
+    transform: translateX(0vh);
+  }
+}
+
+@keyframes move-start-wrapper {
+  0% {
+    transform: translateY(40vh);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

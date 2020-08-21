@@ -1,7 +1,7 @@
 <div class="landing-container">
-  <div [ngClass]="move_bg ? 'bg-1 exit':'bg-1'"></div>
-  <div [ngClass]="move_bg ? 'bg-2 exit':'bg-2'"></div>
-  <div [ngClass]="move_text ? 'landing-text exit':'landing-text'">
+  <div [ngClass]="setBG1()"></div>
+  <div [ngClass]="setBG2()"></div>
+  <div [ngClass]="setText()">
     <h1 class="landing-title">Time Score</h1>
     <div class="link-holder">
       <a (click)='handleOut("login")' class="landing-link" *ngIf='!user'>Login</a>
@@ -12,7 +12,7 @@
       <a (click)='handleOut("instructions")' class="landing-link">How To</a>
     </div>
   </div>
-  <div [ngClass]="move_wrapper ? 'landing-wrapper exit':'landing-wrapper'">
+  <div [ngClass]="setWrapper()">
     <p class="landing-content">"How did it get so late so soon" - Dr. Seuss</p>
   </div>
 </div>

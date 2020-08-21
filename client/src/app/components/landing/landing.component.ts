@@ -15,7 +15,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   user: User | null;
   userSub: Subscription;
 
-
+  start_1: boolean = true;
 
 
   move_bg: boolean = false;
@@ -31,10 +31,17 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setUser();
+    this.setAnimations()
   }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  setAnimations() {
+    setTimeout(() => {
+      this.start_1 = false;
+    }, 800)
   }
 
   setUser() {
@@ -63,4 +70,39 @@ export class LandingComponent implements OnInit, OnDestroy {
     }, 850)
   }
 
+  setBG1() {
+    const classes = {
+      "bg-1": true,
+      "start-1": this.start_1,
+      "exit": this.move_bg
+    }
+    return classes;
+  }
+
+  setBG2() {
+    const classes = {
+      "bg-2": true,
+      "start-2": this.start_1,
+      "exit": this.move_bg
+    }
+    return classes;
+  }
+
+  setText() {
+    const classes = {
+      "landing-text": true,
+      "start-text": this.start_1,
+      "exit": this.move_text
+    }
+    return classes;
+  }
+
+  setWrapper() {
+    const classes = {
+      "landing-wrapper": true,
+      "start-wrapper": this.start_1,
+      "exit": this.move_wrapper
+    }
+    return classes;
+  }
 }
