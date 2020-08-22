@@ -1,17 +1,19 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { UserService } from './services/user.service';
 import { User } from 'firebase'
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ErrorModalService } from './services/error-modal.service';
 import { MatDialog } from '@angular/material/dialog';
+import * as moment from 'moment';
+import us_pres_seed from './seeds/uspres';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   user: User | null;
   userSub: Subscription = this.userService.user.subscribe(
@@ -45,6 +47,10 @@ export class AppComponent {
         console.log(err);
       }
     )
+  }
+
+  ngOnInit() {
+    // this.createPres();
   }
 
   logoutUser() {
@@ -91,7 +97,23 @@ export class AppComponent {
       })
   }
 
-
+  createPres() {
+    console.log(us_pres_seed)
+    const game_obj = { ...us_pres_seed, created: moment().format('X'), creator_id: '0sapwoIj1CZnaDUmX9zOHSIDAHg1' }
+    this.db.list('games').push(game_obj)
+      .then((result: any) => {
+        this.db.object(`users/0sapwoIj1CZnaDUmX9zOHSIDAHg1/games/${result.key}`).set('U.S. Presidents')
+          .then((res => {
+            console.log('game set')
+          }))
+          .catch(err => {
+            console.log(err);
+          })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 }
 
 @Component({

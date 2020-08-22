@@ -78,4 +78,8 @@ export class GameListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/'])
   }
 
+  handleCreate() {
+    this.router.navigate(['/create'])
+  }
+
 }

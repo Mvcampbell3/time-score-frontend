@@ -7,6 +7,7 @@ import { GameInfoComponent } from './components/game-info/game-info.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { GamePageComponent } from './components/game-page/game-page.component';
+import { CreateGameComponent } from './components/create-game/create-game.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'gameinfo/:id', component: GameInfoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'play/:id', component: GamePageComponent }
+  { path: 'play/:id', component: GamePageComponent },
+  { path: 'create', component: CreateGameComponent }
 ];
 
 @NgModule({

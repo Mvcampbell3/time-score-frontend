@@ -1,0 +1,78 @@
+.create-input {
+  margin-bottom: 1em;
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+}
+
+.full {
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+}
+
+.create-wrapper {
+  width: 95vw;
+  margin: 0 auto;
+}
+
+.create-one {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 100px;
+}
+
+.create-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+}
+
+.right-btn {
+  display: block;
+  margin: 0 0 0 auto;
+}
+
+.button-holder {
+  width: 200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.right-side,
+.left-side {
+  width: 100%;
+  max-width: 600px;
+  min-width: 350px;
+  overflow-y: auto;
+  padding: 10px;
+  max-height: 90vh;
+}
+
+.create-title {
+  text-align-last: center;
+  margin-bottom: 0.5em;
+}
+
+.create-subtitle {
+  font-weight: 500;
+  margin-bottom: 0.5em;
+}
+
+.instruct {
+  margin-bottom: 0.5em;
+}
+
+.flex-q {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5em;
+}

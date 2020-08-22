@@ -28,6 +28,7 @@ import { InstructionsComponent } from './components/instructions/instructions.co
 import { LoginComponent } from './components/login/login.component';
 import { GameInfoComponent } from './components/game-info/game-info.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CreateGameComponent } from './components/create-game/create-game.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     LoginComponent,
     GameInfoComponent,
     ExampleDialog,
-    ProfileComponent
+    ProfileComponent,
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,

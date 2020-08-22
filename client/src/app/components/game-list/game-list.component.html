@@ -1,6 +1,7 @@
 <div class="games-container">
   <div class="games-wrapper">
     <button mat-raised-button color='accent' (click)='handleBack()'>Back</button>
+    <button mat-raised-button color='primary' (click)='handleCreate()'>Create Game</button>
     <div class="game-title">Games List</div>
     <div class="game" *ngFor='let game of gamesArrayDisplay' (click)='selectGame(game)'>{{game.title}}</div>
   </div>
