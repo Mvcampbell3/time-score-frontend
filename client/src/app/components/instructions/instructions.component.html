@@ -8,10 +8,10 @@
       already existing games.</p>
     <p class="">Good Luck!</p>
     <div class="button-area">
-      <button mat-raised-button (click)='handleAction("")'>Home</button>
-      <button mat-raised-button (click)='handleAction("list")'>Game List</button>
-      <button mat-raised-button *ngIf='show_pro' (click)='handleAction("profile")'>Profile</button>
-      <button mat-raised-button *ngIf='!show_pro' (click)='handleAction("login")'>Login</button>
+      <button mat-raised-button (click)='handleAction("")' color='primary'>Home</button>
+      <button mat-raised-button (click)='handleAction("list")' color='accent'>Game List</button>
+      <button mat-raised-button *ngIf='show_pro' (click)='handleAction("profile")' color='primary'>Profile</button>
+      <button mat-raised-button *ngIf='!show_pro' (click)='handleAction("login")' color='primary'>Login</button>
     </div>
   </div>
 </div>

@@ -34,13 +34,17 @@
     <p class="end-info">with {{this.time}} seconds left</p>
     <p class="end-info">Your score for this round was {{score_total}}!</p>
     <div class="is-user" *ngIf='can_score'>
-      <p class="end-info">Your previous highscore was {{prev_score.score}}</p>
+      <p class="end-info" *ngIf='prev_score'>Your previous highscore was {{prev_score.score}}</p>
+      <div class="end-info" *ngIf='!prev_score'>This is your new highscore!</div>
     </div>
     <div class="not-user" *ngIf='!can_score'>
-
+      <p class="end-info">If you would like to track your highscores, please sign up!</p>
     </div>
     <div class="button-area">
+      <button mat-raised-button color='accent' (click)='handleOver("page")'>Game Info Page</button>
+      <button mat-raised-button color='primary' (click)='handleOver("stay")'>Play Again</button>
 
+      <button mat-raised-button color='accent' (click)='handleOver("list")'>Game List</button>
     </div>
   </div>
 </div>

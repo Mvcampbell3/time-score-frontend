@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-game-list',
@@ -21,7 +22,8 @@ export class GameListComponent implements OnInit, OnDestroy {
 
   constructor(
     public db: AngularFireDatabase,
-    public router: Router
+    public router: Router,
+    public loadingService: LoadingService
   ) { }
 
   ngOnInit() {

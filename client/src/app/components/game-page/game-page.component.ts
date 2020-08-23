@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'firebase';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-game-page',
@@ -50,7 +51,8 @@ export class GamePageComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     public router: Router,
     public userService: UserService,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    public loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -189,6 +191,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
     this.play = false;
     clearInterval(this.timer);
     this.endScoring()
+    this.loadingService.loading.next(true);
   }
 
   endScoring() {
@@ -220,6 +223,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
                 } else {
                   console.log('score was not higher than prev score')
                   this.show_end_modal = true;
+                  this.loadingService.loading.next(false);
                 }
               } else {
                 console.log('no highscore for player')
@@ -228,6 +232,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
             })
         } else {
           this.show_end_modal = true;
+          this.loadingService.loading.next(false);
           console.log('can not save highscores')
         }
       })
@@ -271,10 +276,28 @@ export class GamePageComponent implements OnInit, OnDestroy {
       .then(() => {
         console.log('highscores saved on user and game');
         this.show_end_modal = true;
+        this.loadingService.loading.next(false);
       })
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  handleOver(dest) {
+    switch (dest) {
+      case "page":
+        this.router.navigate([`/gameinfo/${this.game_id}`]);
+        break;
+      case "stay":
+        this.show_end_modal = false;
+        break;
+      case "list":
+        this.router.navigate(['list']);
+        break;
+      default:
+        console.log('handleOver switch not working as expected');
+        this.show_end_modal = false;
+    }
   }
 
 

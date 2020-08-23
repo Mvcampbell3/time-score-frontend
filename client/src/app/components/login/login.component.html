@@ -24,7 +24,11 @@
       <button mat-button *ngIf="password" matSuffix aria-label="Clear" (click)="password=''">
         <mat-icon>close</mat-icon>
       </button>
+      <mat-hint>Must be atleast 6 characters long</mat-hint>
     </mat-form-field>
+    <mat-checkbox [(ngModel)]="saveEmail" [disabled]='disabledReturn()' color='primary' (click)='toggleSavedEmail()'>
+      Save Email
+    </mat-checkbox>
     <div class="button-area">
       <button mat-raised-button color='primary'
         (click)='handleLoginSignup()'>{{action_login ? "Login":"Signup"}}</button>

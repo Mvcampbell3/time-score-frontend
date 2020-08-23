@@ -57,48 +57,57 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   handleLoginSignup() {
-    console.log(this.action_login)
-    if (this.email && this.password) {
-      if (this.action_login) {
-        this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password)
-          .then(result => {
-            console.log(result);
-            this.router.navigate(['']);
-          })
-          .catch(err => {
-            console.log(err)
-          })
+    if (this.action_login) {
+      if (this.email && this.password) {
+        this.loginUser();
       } else {
-        this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password)
-          .then((result: any) => {
-            console.log(result);
-            this.db.object(`users/${result.user.uid}`).set(
-              { email: this.email, username: this.username, created: moment().format('X') }
-            )
-              .then(() => {
-                console.log('user set');
-                result.user.updateProfile({ displayName: this.username })
-                  .then(() => {
-                    this.router.navigate(['']);
+        console.log('need to enter email and password');
+        this.errorModal.createErrorDisplay('Login Error', 'Please enter email and password', false, false);
+      }
+    } else {
+      if (this.email && this.username && this.password) {
+        this.signupUser();
+      } else {
+        console.log('need to enter email, password, and username')
+      }
+    }
+  }
 
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  })
+  loginUser() {
+    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password)
+      .then(result => {
+        console.log(result);
+        this.router.navigate(['']);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  signupUser() {
+    this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password)
+      .then((result: any) => {
+        console.log(result);
+        this.db.object(`users/${result.user.uid}`).set(
+          { email: this.email, username: this.username, created: moment().format('X') }
+        )
+          .then(() => {
+            console.log('user set');
+            result.user.updateProfile({ displayName: this.username })
+              .then(() => {
+                this.router.navigate(['']);
               })
               .catch((err) => {
                 console.log(err);
               })
           })
-          .catch(err => {
-            console.log(err)
+          .catch((err) => {
+            console.log(err);
           })
-      }
-    } else {
-      console.log('need to enter email and password');
-      this.errorModal.createErrorDisplay('Login Error', 'Please enter email and password', false, false);
-    }
-
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   handleBack() {
@@ -106,14 +115,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   toggleSavedEmail() {
-    console.log(this.saveEmail)
-    this.saveEmail = !this.saveEmail;
-    if (this.saveEmail) {
-      this.saveEmailStorage();
-    } else {
-      localStorage.removeItem('time-score-email');
-      this.email = '';
-    }
+    setTimeout(() => {
+      console.log(this.saveEmail)
+      if (this.saveEmail) {
+        this.saveEmailStorage();
+      } else {
+        localStorage.removeItem('time-score-email');
+        this.email = '';
+      }
+    }, 100)
+
   }
 
   retrieveEmail() {
@@ -129,5 +140,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   saveEmailStorage() {
     localStorage.setItem('time-score-email', JSON.stringify(this.email));
+  }
+
+  disabledReturn() {
+    if (this.saveEmail) {
+      return false;
+    }
+    if (this.email !== undefined && this.email !== "") {
+      return false;
+    }
+    return true;
   }
 }

@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import us_pres_seed from './seeds/uspres';
 import test_game from './seeds/testgame';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -29,12 +30,22 @@ export class AppComponent implements OnInit {
   error_title: string;
   error_message: any;
 
+  loading: boolean = false;
+  loading_sub: Subscription;
+
   constructor(
     public userService: UserService,
     public db: AngularFireDatabase,
     public errorModal: ErrorModalService,
-    public errorDialog: MatDialog
+    public errorDialog: MatDialog,
+    public loadingService: LoadingService
   ) {
+
+  }
+
+  ngOnInit() {
+    // this.createPres();
+    // this.createTestGame();
     this.error_display_sub = this.errorModal.error_display.subscribe(
       (er_disp: boolean) => {
         this.error_display = er_disp;
@@ -46,11 +57,11 @@ export class AppComponent implements OnInit {
         console.log(err);
       }
     )
-  }
-
-  ngOnInit() {
-    // this.createPres();
-    // this.createTestGame();
+    this.loading_sub = this.loadingService.loading.subscribe(
+      (loading: boolean) => {
+        this.loading = loading;
+      }
+    )
   }
 
 

@@ -3,6 +3,7 @@ import { User } from 'firebase';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-landing',
@@ -26,7 +27,8 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   constructor(
     public router: Router,
-    public userService: UserService
+    public userService: UserService,
+    public loadingService: LoadingService
   ) { }
 
   ngOnInit() {

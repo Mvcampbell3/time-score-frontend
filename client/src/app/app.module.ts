@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // Components
 
@@ -29,6 +30,7 @@ import { LoginComponent } from './components/login/login.component';
 import { GameInfoComponent } from './components/game-info/game-info.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CreateGameComponent } from './components/create-game/create-game.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import { CreateGameComponent } from './components/create-game/create-game.compon
     GameInfoComponent,
     ExampleDialog,
     ProfileComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { CreateGameComponent } from './components/create-game/create-game.compon
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],
