@@ -118,3 +118,40 @@
     margin: 0 auto;
   }
 }
+
+.end-game-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(51, 51, 51, 0.548);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 50px;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
+
+  .end-game-wrapper {
+    width: 50vh;
+    min-width: 350px;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+
+    .end-title {
+      text-align: center;
+    }
+
+    .end-info {
+      text-align: center;
+    }
+  }
+}

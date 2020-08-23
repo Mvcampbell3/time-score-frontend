@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   userSub: Subscription = this.userService.user.subscribe(
     (user: User | null) => {
       this.user = user;
-      console.log(user)
     }
   );
 
@@ -38,7 +37,6 @@ export class AppComponent implements OnInit {
   ) {
     this.error_display_sub = this.errorModal.error_display.subscribe(
       (er_disp: boolean) => {
-        console.log(er_disp);
         this.error_display = er_disp;
         if (er_disp) {
           this.handleErrorDisplay();
@@ -55,9 +53,6 @@ export class AppComponent implements OnInit {
     // this.createTestGame();
   }
 
-  logoutUser() {
-    this.userService.logoutUser()
-  }
 
   handleErrorDisplay() {
     this.errorDialog.open(ExampleDialog)

@@ -28,6 +28,8 @@ export class GamePageComponent implements OnInit, OnDestroy {
   firstLoad: boolean = true;
   ongoing: boolean = false;
 
+  prev_score: any;
+
   ready: boolean = false;
 
   game_id: string;
@@ -38,6 +40,8 @@ export class GamePageComponent implements OnInit, OnDestroy {
   user: User;
   user_sub: Subscription;
   can_score: boolean = false;
+
+  show_end_modal: boolean = false;
 
   subscriptions: Subscription = new Subscription();
 
@@ -52,7 +56,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.paramMap.subscribe((params: Params) => {
       this.game_id = params.params.id;
-      console.log(this.game_id);
       this.getGame();
       this.setUser();
     });
@@ -85,21 +88,16 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   getGame() {
-    console.log(this.game_id)
     this.db.object(`games/${this.game_id}`).query.once('value')
       .then((game_ref: any) => {
         const game_db: Game = game_ref.val();
         const questions = game_db.answers;
-        console.log(questions);
         let real_answers = []
         questions.forEach((answer: any) => {
-          console.log(answer)
           const real_answer = new Answer(answer.display_text, answer.accepted_answers);
-          console.log(real_answer)
           real_answers.push(real_answer);
         })
         game_db.answers = real_answers;
-        console.log(game_db)
         this.game = game_db;
         this.ready = true;
       })
@@ -169,8 +167,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
             this.guess = '';
             this.clearInput();
           }, 5)
-
-
         }
       }
     })
@@ -192,10 +188,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
     this.gameInputEl.nativeElement.disabled = true;
     this.play = false;
     clearInterval(this.timer);
-
-
-
-
     this.endScoring()
   }
 
@@ -210,7 +202,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
 
     console.log(this.score_total);
 
-
     const new_plays = this.game.plays + 1;
     const new_total = this.game.total_score + this.score_total;
 
@@ -223,10 +214,12 @@ export class GamePageComponent implements OnInit, OnDestroy {
               const prev_score = score_ref.val();
               console.log(prev_score, typeof prev_score)
               if (prev_score) {
+                this.prev_score = prev_score;
                 if (prev_score.score < this.score_total) {
                   this.saveScore();
                 } else {
                   console.log('score was not higher than prev score')
+                  this.show_end_modal = true;
                 }
               } else {
                 console.log('no highscore for player')
@@ -234,6 +227,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
               }
             })
         } else {
+          this.show_end_modal = true;
           console.log('can not save highscores')
         }
       })
@@ -276,6 +270,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
     Promise.all(promise_arr)
       .then(() => {
         console.log('highscores saved on user and game');
+        this.show_end_modal = true;
       })
       .catch((err) => {
         console.log(err);

@@ -14,7 +14,6 @@ export class UserService {
   constructor(public afAuth: AngularFireAuth) {
     this.test = this.afAuth.authState.subscribe(
       (data: any) => {
-        console.log(data);
         this.user.next(data);
       },
       (err: any) => {
