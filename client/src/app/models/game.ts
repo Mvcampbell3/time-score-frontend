@@ -1,12 +1,15 @@
 import { Answer } from './answer';
 
 export interface Game {
-  name: string;
+  title: string;
   input_placeholder: string;
   description: string;
   instructions: string;
-  id?: string;
   answers: Answer[];
+  plays: number,
+  total_score: number,
+  id?: string;
+  highscores?: any;
 }
 
 // export class Game {

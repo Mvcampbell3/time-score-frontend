@@ -119,7 +119,9 @@ export class CreateGameComponent implements OnInit {
       instructions: this.instructions,
       creator_id: this.user.uid,
       created: moment().format('X'),
-      answers: this.stored_answers
+      answers: this.stored_answers,
+      plays: 0,
+      total_score: 0
     }
     this.db.list('games').push(game_obj)
       .then((result: any) => {

@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.retrieveEmail();
     this.userSub = this.userService.user.subscribe(
-      (user: User | null) => {
+      (user: User) => {
         this.user = user;
         console.log(user)
       }
@@ -77,7 +77,14 @@ export class LoginComponent implements OnInit, OnDestroy {
             )
               .then(() => {
                 console.log('user set');
-                this.router.navigate(['']);
+                result.user.updateProfile({ displayName: this.username })
+                  .then(() => {
+                    this.router.navigate(['']);
+
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  })
               })
               .catch((err) => {
                 console.log(err);

@@ -3,6 +3,8 @@ const us_pres_seed = {
   description: 'How many U.S. Presidents can you name in 60 seconds? Good Luck!',
   instructions: 'All of the answers of the last names of the presidents, presidents that share last names will be answers all at once.',
   input_placeholder: 'Last Name',
+  plays: 0,
+  total_score: 0,
   answers: [
     { display_text: 'George Washington', accepted_answers: ['washington'] },
     { display_text: 'John Adams', accepted_answers: ['adams'] },

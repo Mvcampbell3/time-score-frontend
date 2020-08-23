@@ -1,91 +1,28 @@
 <div class="game-page-bg" *ngIf='ready'>
+  <div class="top-section">
+    <p class='game-title'>{{game.title}}</p>
+    <div class="buttons-holder">
+      <button mat-raised-button color='warn' (click)='leaveGame()'>Back</button>
 
-  <!-- <div class="modal" #endGameModal>
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Game Over!</p>
-        <button class="delete" aria-label="close" (click)='closeModal(false)'></button>
-      </header>
-      <section class="modal-card-body">
-        <div class="level">
-          <div class="level-item">
-            <p class='subtitle'>You got {{scoreGame}} right</p>
-          </div>
-        </div>
-        <div class="level">
-          <div class="level-item">
-            <p class="subtitle is-6">Thanks for playing!</p>
-          </div>
-        </div>
-        <div class="level">
-          <div class="level-left">
-            <button class="button is-info level-item" (click)='closeModal(false)'>View Results/Play Again</button>
-          </div>
-          <div class="level-right">
-            <button class="button is-success level-item" (click)='closeModal(true)'>Back to Games List</button>
-          </div>
-        </div>
-      </section>
-      <div class="modal-card-foot">
-      </div>
+      <h3 class='' *ngIf='play; else score'>Time left: {{time}}</h3>
+      <ng-template #score>
+        <h3 class=''>You got {{scoreGame}} right!</h3>
+      </ng-template>
+      <button mat-raised-button color='accent' (click)='startGame()'>{{ongoing ? "Restart":"Start"}}</button>
+
     </div>
-  </div> -->
-
-  <div class="hero is-small is-info pb-2">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns">
-          <div class="column">
-            <p class='title has-text-centered'>{{game.name}}</p>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column">
-            <p class='subtitle has-text-centered'>{{game.description}}</p>
-          </div>
-        </div>
-
-        <div class="columns">
-          <div class="column">
-            <p class='has-text-centered'>{{game.instructions}}</p>
-          </div>
-        </div>
-
-        <div class="level">
-          <div class="level-item has-text-centered">
-            <button class="button is-success" (click)='startGame()'>{{ongoing ? "Restart":"Start"}}</button>
-          </div>
-          <div class="level-item has-text-centered">
-            <h3 class='has-text-centered' *ngIf='play; else score'>Time left: {{time}}</h3>
-            <ng-template #score>
-              <h3 class='has-text-centered'>You got {{scoreGame}} right!</h3>
-            </ng-template>
-          </div>
-          <div class="level-item has-text-centered">
-            <button class="button is-danger" (click)='leaveGame()'>Back</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-footer">
-      <div class="columns">
-        <div class="column is-half is-offset-one-quarter">
-          <input #gameInput type="text" class='input gameInput' [placeholder]='game.input_placeholder' disabled
-            (input)='evaluateInput()' [(ngModel)]='guess'>
-        </div>
-      </div>
-    </div>
+    <p>
+      <mat-form-field appearance='outline' class='full'>
+        <mat-label>{{game.title}}</mat-label>
+        <input #gameInput type="text" matInput appearance='outline' [placeholder]='game.input_placeholder'
+          autocomplete='off' disabled (input)='evaluateInput()' [(ngModel)]='guess'>
+      </mat-form-field>
+    </p>
 
   </div>
-  <div class="bottom-half">
-    <div class="container">
-      <div class="answer-holder">
-        <div *ngFor='let answer of game.answers'>
-          <div [ngClass]='answer.guessed ? "guessed": play? "not-guessed": "missed"'>{{answer.display_value}}</div>
-        </div>
-      </div>
+  <div class="answer-holder">
+    <div *ngFor='let answer of game.answers'>
+      <div [ngClass]='answer.guessed ? "guessed": play? "not-guessed": "missed"'>{{answer.display_value}}</div>
     </div>
   </div>
-
 </div>

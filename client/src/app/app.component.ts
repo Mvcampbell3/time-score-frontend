@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from './services/user.service';
 import { User } from 'firebase'
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { ErrorModalService } from './services/error-modal.service';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import us_pres_seed from './seeds/uspres';
+import test_game from './seeds/testgame';
 
 @Component({
   selector: 'app-root',
@@ -51,6 +52,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // this.createPres();
+    // this.createTestGame();
   }
 
   logoutUser() {
@@ -61,48 +63,12 @@ export class AppComponent implements OnInit {
     this.errorDialog.open(ExampleDialog)
   }
 
-  testingGameCreate() {
-    console.log('running game test create')
-    this.db.list('games').push({
-      title: 'Test Game',
-      input_placeholder: 'baseball football hockey',
-      description: 'This is just a test',
-      instructions: 'Still just a test game',
-      answers: [
-        { display_text: 'Baseball', accepted_answers: ['baseball', 'basebal'] },
-        { display_text: 'Football', accepted_answers: ['football', 'Football'] },
-        { display_text: 'Hockey', accepted_answers: ['hockey', 'Hockey'] },
-      ]
-    })
-      .then((result) => {
-        console.log(result);
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-  testingGameGet() {
-    console.log('running game test get');
-    this.db.list('games').query.once('value')
-      .then(result => {
-        console.log(result);
-        result.forEach(game => {
-          console.log(game)
-          console.log(game.val())
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
   createPres() {
     console.log(us_pres_seed)
-    const game_obj = { ...us_pres_seed, created: moment().format('X'), creator_id: '0sapwoIj1CZnaDUmX9zOHSIDAHg1' }
+    const game_obj = { ...us_pres_seed, created: moment().format('X'), creator_id: 'Kw4gioehrngfqTgTOZpE9093d1e2' }
     this.db.list('games').push(game_obj)
       .then((result: any) => {
-        this.db.object(`users/0sapwoIj1CZnaDUmX9zOHSIDAHg1/games/${result.key}`).set('U.S. Presidents')
+        this.db.object(`users/Kw4gioehrngfqTgTOZpE9093d1e2/games/${result.key}`).set('U.S. Presidents')
           .then((res => {
             console.log('game set')
           }))
@@ -114,7 +80,26 @@ export class AppComponent implements OnInit {
         console.log(err);
       })
   }
+
+  createTestGame() {
+    const game_obj = { ...test_game, created: moment().format('X'), creator_id: 'Kw4gioehrngfqTgTOZpE9093d1e2' }
+    this.db.list('games').push(game_obj)
+      .then((result: any) => {
+        this.db.object(`users/Kw4gioehrngfqTgTOZpE9093d1e2/games/${result.key}`).set('Test Game')
+          .then((res => {
+            console.log('game set')
+          }))
+          .catch(err => {
+            console.log(err);
+          })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
 }
+
 
 @Component({
   selector: 'dialog-example',

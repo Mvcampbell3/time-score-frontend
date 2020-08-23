@@ -85,3 +85,36 @@
     opacity: 1;
   }
 }
+
+.top-section {
+  width: 50vw;
+  min-width: 350px;
+  margin: 0 auto;
+  padding: 10px;
+
+  .game-title {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .game-des {
+    font-size: 18px;
+    text-align: center;
+    font-weight: 550;
+  }
+
+  .buttons-holder {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .full {
+    display: block;
+    width: 50%;
+    min-width: 300px;
+    margin: 0 auto;
+  }
+}

@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { Game } from '../../models/game';
 import { Answer } from '../../models/answer';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'firebase';
+import { Subscription } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-game-page',
@@ -12,14 +16,13 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 
 export class GamePageComponent implements OnInit, OnDestroy {
   @ViewChild('gameInput', { static: false }) gameInputEl: ElementRef;
-  @ViewChild('endGameModal', { static: false }) endGameModal: ElementRef;
   @Input() gameTitle: string;
   @Output() back: EventEmitter<void> = new EventEmitter;
 
   game: Game;
   guess: string;
   timer: any;
-  time: number = 600;
+  time: number = 60;
   scoreGame: number = 0;
   play: boolean = true;
   firstLoad: boolean = true;
@@ -29,10 +32,21 @@ export class GamePageComponent implements OnInit, OnDestroy {
 
   game_id: string;
 
+  base_score: number = 100;
+  score_total: number;
+
+  user: User;
+  user_sub: Subscription;
+  can_score: boolean = false;
+
+  subscriptions: Subscription = new Subscription();
+
   constructor(
     public db: AngularFireDatabase,
     public route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    public userService: UserService,
+    public ngZone: NgZone
   ) { }
 
   ngOnInit() {
@@ -40,7 +54,25 @@ export class GamePageComponent implements OnInit, OnDestroy {
       this.game_id = params.params.id;
       console.log(this.game_id);
       this.getGame();
+      this.setUser();
     });
+  }
+
+  setUser() {
+    this.user_sub = this.userService.user.subscribe(
+      (user: User) => {
+        this.user = user;
+        console.log(user)
+        if (user) {
+          this.can_score = true;
+        } else {
+          this.can_score = false;
+        }
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    )
   }
 
   ngOnDestroy() {
@@ -101,11 +133,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   leaveGame() {
-    this.clearGameAnswers();
-    this.gameTitle = '';
-    this.game = null;
-    this.resetGame()
-    this.back.emit();
+    this.router.navigate([`/gameinfo/${this.game_id}`])
   }
 
   initTimer() {
@@ -125,38 +153,134 @@ export class GamePageComponent implements OnInit, OnDestroy {
     const answerArr: Answer[] = this.game.answers.filter(answer => answer.guessed === false);
     console.log(answerArr)
     let wasRight: boolean = false;
+    let checked = 0;
+    let left_to = answerArr.length;
     answerArr.forEach((item: Answer) => {
+      checked++;
       const rightTeam: boolean = item.checkAnswer(this.guess.trim().toLowerCase());
       if (rightTeam && wasRight === false) {
         wasRight = true
+        console.log(wasRight)
+      }
+      if (checked === left_to) {
+        console.log('looped')
+        if (wasRight) {
+          setTimeout(() => {
+            this.guess = '';
+            this.clearInput();
+          }, 5)
+
+
+        }
       }
     })
-    if (wasRight) {
-      this.clearInput();
-    }
+
   }
 
   clearInput() {
+    console.log('running clear Input')
     this.guess = '';
     const left = this.game.answers.filter(answer => answer.guessed === false);
     if (left.length === 0) {
       console.log('Game over, all guessed')
+      this.gameOver()
     }
   }
 
   gameOver() {
     this.ongoing = false;
     this.gameInputEl.nativeElement.disabled = true;
-    this.scoreGame = this.game.answers.filter(answer => answer.guessed === true).length;
     this.play = false;
-    this.endGameModal.nativeElement.classList.add('is-active')
+    clearInterval(this.timer);
+
+
+
+
+    this.endScoring()
   }
 
-  closeModal(goToList: boolean) {
-    this.endGameModal.nativeElement.classList.remove('is-active');
-    if (goToList) {
-      this.leaveGame()
-    }
+  endScoring() {
+    const time_left = this.time;
+    this.scoreGame = [...this.game.answers].filter(answer => answer.guessed === true).length;
+    let perc_right = Number((this.scoreGame / this.game.answers.length).toFixed(4)) * 100;
+    let score_start = perc_right * this.base_score;
+    const inv_time = 60 - time_left;
+    let time_score = inv_time * 10;
+    this.score_total = score_start - time_score;
+
+    console.log(this.score_total);
+
+
+    const new_plays = this.game.plays + 1;
+    const new_total = this.game.total_score + this.score_total;
+
+    this.db.object(`games/${this.game_id}`).update({ plays: new_plays, total_score: new_total })
+      .then(() => {
+        console.log('game updated');
+        if (this.can_score) {
+          this.db.object(`games/${this.game_id}/highscores/${this.user.uid}`).query.once('value')
+            .then((score_ref) => {
+              const prev_score = score_ref.val();
+              console.log(prev_score, typeof prev_score)
+              if (prev_score) {
+                if (prev_score.score < this.score_total) {
+                  this.saveScore();
+                } else {
+                  console.log('score was not higher than prev score')
+                }
+              } else {
+                console.log('no highscore for player')
+                this.saveScore();
+              }
+            })
+        } else {
+          console.log('can not save highscores')
+        }
+      })
+      .catch(() => {
+        console.log('game unable to be updated');
+      })
+
+
+
   }
+
+  saveScore() {
+
+    let username;
+
+    if (this.user.displayName !== null) {
+      username = this.user.displayName
+    } else {
+      username = this.user.email.split('@')[0];
+    }
+
+    const game_score = {
+      user_id: this.user.uid,
+      date: moment().format('X'),
+      score: this.score_total,
+      username: username
+    }
+
+    const user_score = {
+      game_title: this.game.title,
+      date: moment().format('X'),
+      score: this.score_total
+    }
+
+    const promise_arr = [
+      this.db.object(`games/${this.game_id}/highscores/${this.user.uid}`).set(game_score),
+      this.db.object(`users/${this.user.uid}/highscores/${this.game_id}`).set(user_score)
+    ]
+
+    Promise.all(promise_arr)
+      .then(() => {
+        console.log('highscores saved on user and game');
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
 
 }

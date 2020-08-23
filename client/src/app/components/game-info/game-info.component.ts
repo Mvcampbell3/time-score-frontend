@@ -14,6 +14,8 @@ export class GameInfoComponent implements OnInit, OnDestroy {
   game_sub: Subscription;
   game: any;
 
+  show_high: boolean = false;
+
   subscriptions: Subscription = new Subscription;
   constructor(
     public db: AngularFireDatabase,
@@ -40,6 +42,12 @@ export class GameInfoComponent implements OnInit, OnDestroy {
       (data: any) => {
         console.log(data);
         this.game = data;
+        if (data.highscores) {
+          this.show_high = true;
+          console.log(data.highscores)
+        } else {
+          this.show_high = false;
+        }
       },
       (err: any) => {
         console.log(err);
