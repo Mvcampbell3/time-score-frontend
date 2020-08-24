@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-game-list',
@@ -49,7 +50,13 @@ export class GameListComponent implements OnInit, OnDestroy {
         const games_db = games_ref.payload.val();
         let games_arr = [];
         for (let game_id in games_db) {
-          games_arr.push({ ...games_db[game_id], id: game_id })
+          const game_obj = { ...games_db[game_id] };
+          game_obj.avg_score = Number((game_obj.total_score / game_obj.plays).toFixed(0));
+          game_obj.id = game_id;
+          game_obj.created_num = Number(game_obj.created);
+          game_obj.formatted_date = moment(game_obj.created, 'X').format('MM/DD/YY')
+          console.log(game_obj)
+          games_arr.push(game_obj)
         }
         return games_arr;
       }))

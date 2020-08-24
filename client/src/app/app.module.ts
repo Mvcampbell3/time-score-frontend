@@ -21,7 +21,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 // Components
 
 import { AppComponent } from './app.component';
-import { ExampleDialog } from './app.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { GameListComponent } from './components/game-list/game-list.component';
 import { GamePageComponent } from './components/game-page/game-page.component';
@@ -31,6 +30,7 @@ import { GameInfoComponent } from './components/game-info/game-info.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CreateGameComponent } from './components/create-game/create-game.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 
 
 @NgModule({
@@ -42,10 +42,10 @@ import { LoadingComponent } from './components/loading/loading.component';
     InstructionsComponent,
     LoginComponent,
     GameInfoComponent,
-    ExampleDialog,
     ProfileComponent,
     CreateGameComponent,
-    LoadingComponent
+    LoadingComponent,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +64,6 @@ import { LoadingComponent } from './components/loading/loading.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ExampleDialog]
+  entryComponents: []
 })
 export class AppModule { }

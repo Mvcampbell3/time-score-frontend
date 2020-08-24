@@ -1,0 +1,7 @@
+<div class="error-container" *ngIf='display_error'>
+  <div class="error-wrapper">
+    <div class="error-title">{{error_title}}</div>
+    <div class="error-message">{{error_message}}</div>
+    <button mat-raised-button color='warn' class="error-close" (click)='closeError()'>Close</button>
+  </div>
+</div>

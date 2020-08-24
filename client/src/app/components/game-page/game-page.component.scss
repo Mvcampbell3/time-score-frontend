@@ -7,14 +7,15 @@
   min-height: 100vh;
 }
 
-.bottom-half {
-  padding-top: 1em;
+.answer-wrapper {
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .answer-holder {
   display: grid;
-  row-gap: 3px;
-  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  grid-template-columns: repeat(6, 200px);
   justify-items: center;
   align-items: center;
   @media screen and (max-width: 1000px) {

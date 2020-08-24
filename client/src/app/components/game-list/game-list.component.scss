@@ -5,14 +5,42 @@
     width: 900px;
     padding: 20px;
     border-radius: 20px;
+    margin: 0 auto;
+  }
+
+  .games-holder {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: fit-content;
+    margin: 1em auto 0;
   }
 
   .game {
-    background-color: green;
+    background-color: #1fb8ff;
+    box-shadow: 0px 1px 1px 1px rgba(51, 51, 51, 0.205);
     color: white;
     padding: 10px;
     border-radius: 10px;
-    width: fit-content;
+    width: 600px;
     cursor: pointer;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 1fr;
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: 0px 0px 0px 0px rgba(51, 51, 51, 0.205);
+      transition: box-shadow 0.3s;
+    }
+
+    .game-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0;
+      padding: 0;
+    }
   }
 }

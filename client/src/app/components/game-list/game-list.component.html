@@ -3,6 +3,14 @@
     <button mat-raised-button color='accent' (click)='handleBack()'>Back</button>
     <button mat-raised-button color='primary' (click)='handleCreate()'>Create Game</button>
     <div class="game-title">Games List</div>
-    <div class="game" *ngFor='let game of gamesArrayDisplay' (click)='selectGame(game)'>{{game.title}}</div>
+    <div class="games-holder">
+      <div class="game" *ngFor='let game of gamesArrayDisplay' (click)='selectGame(game)'>
+        <p class="game-title">{{game.title}}</p>
+        <p class="game-date">{{game.formatted_date}}</p>
+        <p class="game-score">Avg Score: {{game.avg_score}}</p>
+        <p class="game-plays">Plays: {{game.plays}}</p>
+      </div>
+    </div>
+
   </div>
 </div>

@@ -20,11 +20,14 @@
     </p>
 
   </div>
-  <div class="answer-holder">
-    <div *ngFor='let answer of game.answers'>
-      <div [ngClass]='answer.guessed ? "guessed": play? "not-guessed": "missed"'>{{answer.display_value}}</div>
+  <div class="answer-wrapper">
+    <div class="answer-holder">
+      <div *ngFor='let answer of game.answers'>
+        <div [ngClass]='answer.guessed ? "guessed": play? "not-guessed": "missed"'>{{answer.display_value}}</div>
+      </div>
     </div>
   </div>
+
 </div>
 
 <div [ngClass]="show_end_modal ? 'end-game-modal active':'end-game-modal'" *ngIf='show_end_modal'>
@@ -41,7 +44,7 @@
       <p class="end-info">If you would like to track your highscores, please sign up!</p>
     </div>
     <div class="button-area">
-      <button mat-raised-button color='accent' (click)='handleOver("page")'>Game Info Page</button>
+      <button mat-raised-button color='accent' (click)='handleOver("page")'>Game Info</button>
       <button mat-raised-button color='primary' (click)='handleOver("stay")'>Play Again</button>
 
       <button mat-raised-button color='accent' (click)='handleOver("list")'>Game List</button>
