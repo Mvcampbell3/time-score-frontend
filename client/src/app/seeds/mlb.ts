@@ -5,6 +5,7 @@ const mlb_game = {
   input_placeholder: 'Team Name',
   plays: 0,
   total_score: 0,
+  type: 'sports',
   answers: [
     // AL East
     { display_text: 'Baltimore Orioles', accepted_answers: ['orioles'] },

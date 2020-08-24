@@ -2,9 +2,10 @@ const test_game = {
   title: 'Test Game',
   instructions: 'Testing game for test purposes',
   description: 'Just a regular old test game',
-  input_placeholder: 'a b c d e f g',
+  input_placeholder: 'one through seven',
   plays: 0,
   total_score: 0,
+  type: 'other',
   answers: [
     { display_text: 'one', accepted_answers: ['one'] },
     { display_text: 'two', accepted_answers: ['two'] },

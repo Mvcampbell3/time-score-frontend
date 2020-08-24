@@ -5,6 +5,7 @@ const us_pres_seed = {
   input_placeholder: 'Last Name',
   plays: 0,
   total_score: 0,
+  type: 'history',
   answers: [
     { display_text: 'George Washington', accepted_answers: ['washington'] },
     { display_text: 'John Adams', accepted_answers: ['adams'] },

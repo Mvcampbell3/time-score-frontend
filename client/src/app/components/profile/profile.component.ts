@@ -5,6 +5,8 @@ import { User } from 'firebase';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/services/loading.service';
+import { ErrorModalService } from 'src/app/services/error-modal.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,10 +24,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public userService: UserService,
     public http: HttpService,
     public db: AngularFireDatabase,
-    public router: Router
+    public router: Router,
+    public loadingService: LoadingService,
+    public errorService: ErrorModalService
   ) { }
 
   ngOnInit() {
+    // this.loadingService.loading.next(true);
     this.setUser();
   }
 
@@ -54,6 +59,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .then((user_ref) => {
         this.user_db = user_ref.val();
         console.log(this.user_db);
+        this.loadingService.loading.next(false);
       })
       .catch((err: any) => {
         console.log(err);

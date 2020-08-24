@@ -5,6 +5,13 @@ import { User } from 'firebase';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { ErrorModalService } from 'src/app/services/error-modal.service';
+import { LoadingService } from 'src/app/services/loading.service';
+
+interface Game_Type {
+  display: string,
+  value: string
+}
 
 @Component({
   selector: 'app-create-game',
@@ -17,6 +24,17 @@ export class CreateGameComponent implements OnInit {
   first_step: boolean = true;
   unready_2: boolean = true;
   second_step: boolean = false;
+
+  selected_type: any;
+
+  game_types: Game_Type[] = [
+    { display: 'History', value: 'history' },
+    { display: 'Movies & T.V.', value: 'movies' },
+    { display: 'Music', value: 'music' },
+    { display: 'Sports', value: 'sports' },
+    { display: 'Video Games', value: 'video games' },
+    { display: 'Other', value: 'other' }
+  ]
 
   user: User;
   user_sub: Subscription;
@@ -33,12 +51,21 @@ export class CreateGameComponent implements OnInit {
 
   stored_answers: any[] = [];
 
+  has_title: boolean = false;
+  has_type: boolean = false;
+  has_instructions: boolean = false;
+  has_description: boolean = false;
+  has_input_placeholder: boolean = false;
+  has_answers: boolean = false;
+
   subscriptions: Subscription = new Subscription();
 
   constructor(
     public db: AngularFireDatabase,
     public userService: UserService,
-    public router: Router
+    public router: Router,
+    public errorService: ErrorModalService,
+    public loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -111,6 +138,51 @@ export class CreateGameComponent implements OnInit {
     }
   }
 
+  evalGame() {
+    let messages = []
+    if (this.title) {
+      this.has_title = true;
+    } else {
+      this.has_title = false;
+      messages.push('Missing game title.');
+    }
+    if (this.description) {
+      this.has_description = true;
+    } else {
+      this.has_description = false;
+      messages.push('Missing description');
+    }
+    if (this.instructions) {
+      this.has_instructions = true;
+    } else {
+      this.has_instructions = false;
+      messages.push('Missing instructions');
+    }
+    if (this.input_placeholder) {
+      this.has_input_placeholder = true;
+    } else {
+      this.has_input_placeholder = false;
+      messages.push('Missing input placeholder');
+    }
+    if (this.selected_type) {
+      this.has_type = true;
+    } else {
+      this.has_type = false;
+      messages.push('Missing game category');
+    }
+    if (this.stored_answers.length > 0) {
+      this.has_answers = true;
+    } else {
+      this.has_answers = false;
+      messages.push('Game must have at least one answer');
+    }
+    if (messages.length > 0) {
+      this.errorService.createErrorDisplay('Create Game Error', messages.join(' '), false, false);
+    } else {
+      this.handleCreate()
+    }
+  }
+
   handleCreate() {
     const game_obj = {
       title: this.title,
@@ -121,7 +193,8 @@ export class CreateGameComponent implements OnInit {
       created: moment().format('X'),
       answers: this.stored_answers,
       plays: 0,
-      total_score: 0
+      total_score: 0,
+      type: this.selected_type
     }
     this.db.list('games').push(game_obj)
       .then((result: any) => {

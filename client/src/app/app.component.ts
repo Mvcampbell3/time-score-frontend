@@ -70,6 +70,9 @@ export class AppComponent implements OnInit {
         console.log(err);
       }
     )
+    // this.createPres();
+    // this.createMLBGame();
+    // this.createTestGame();
   }
 
   createPres() {

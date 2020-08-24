@@ -56,6 +56,9 @@ export class LandingComponent implements OnInit, OnDestroy {
   }
 
   handleOut(link) {
+    if (link === 'list' || link === 'profile') {
+      this.loadingService.loading.next(true);
+    }
     console.log('clicked')
     setTimeout(() => {
       this.move_bg = true;

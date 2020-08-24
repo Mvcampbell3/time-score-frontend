@@ -51,7 +51,11 @@ export class GameListComponent implements OnInit, OnDestroy {
         let games_arr = [];
         for (let game_id in games_db) {
           const game_obj = { ...games_db[game_id] };
-          game_obj.avg_score = Number((game_obj.total_score / game_obj.plays).toFixed(0));
+          if (game_obj.plays > 0) {
+            game_obj.avg_score = Number((game_obj.total_score / game_obj.plays).toFixed(0));
+          } else {
+            game_obj.avg_score = 0;
+          }
           game_obj.id = game_id;
           game_obj.created_num = Number(game_obj.created);
           game_obj.formatted_date = moment(game_obj.created, 'X').format('MM/DD/YY')
@@ -64,6 +68,7 @@ export class GameListComponent implements OnInit, OnDestroy {
       (games_db: any) => {
         console.log(games_db)
         this.gamesArrayDisplay = games_db;
+        this.loadingService.loading.next(false);
       },
       (err: any) => {
         console.log(err)

@@ -3,6 +3,8 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { User } from 'firebase';
 import { Subscription } from 'rxjs';
+import { LoadingService } from 'src/app/services/loading.service';
+import { ErrorModalService } from 'src/app/services/error-modal.service';
 
 @Component({
   selector: 'app-instructions',
@@ -20,7 +22,9 @@ export class InstructionsComponent implements OnInit, OnDestroy {
 
   constructor(
     public userService: UserService,
-    public router: Router
+    public router: Router,
+    public loadingService: LoadingService,
+    public errorService: ErrorModalService
   ) { }
 
   ngOnInit() {
@@ -29,6 +33,7 @@ export class InstructionsComponent implements OnInit, OnDestroy {
         this.user = user;
         if (user) {
           this.show_pro = true;
+
         }
       }
     )

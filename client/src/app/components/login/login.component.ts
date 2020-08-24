@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.signupUser();
       } else {
         console.log('need to enter email, password, and username')
+        this.errorModal.createErrorDisplay('Sign Up Error', 'Please enter email, username, and password', false, false);
       }
     }
   }
@@ -81,6 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
       .catch(err => {
         console.log(err)
+        this.errorModal.createErrorDisplay('Login Error', err, false, false);
       })
   }
 
@@ -99,14 +101,19 @@ export class LoginComponent implements OnInit, OnDestroy {
               })
               .catch((err) => {
                 console.log(err);
+                this.errorModal.createErrorDisplay('Sign Up Error', err, false, false);
               })
           })
           .catch((err) => {
             console.log(err);
+            this.errorModal.createErrorDisplay('Sign Up Error', err, false, false);
+
           })
       })
       .catch(err => {
         console.log(err)
+        this.errorModal.createErrorDisplay('Sign Up Error', err, false, false);
+
       })
   }
 

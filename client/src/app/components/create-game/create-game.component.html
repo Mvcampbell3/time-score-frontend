@@ -7,7 +7,7 @@
       <button color='warn' mat-raised-button (click)='handleBack()' *ngIf='second_step'>Back</button>
 
       <button color='primary' [disabled]='unready_2' mat-raised-button *ngIf='second_step'
-        (click)='handleCreate()'>Create</button>
+        (click)='evalGame()'>Create</button>
     </div>
     <div class="create-one">
       <div class="left-side">
@@ -42,6 +42,14 @@
             <mat-hint>short title for your game</mat-hint>
           </mat-form-field>
         </p>
+        <mat-form-field appearance='outline'>
+          <mat-label>Game Category</mat-label>
+          <mat-select [(ngModel)]='selected_type'>
+            <mat-option *ngFor="let game_type of game_types" [value]="game_type.value">
+              {{game_type.display}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <p class='create-input'>
           <mat-form-field appearance='outline' class='full'>
             <mat-label>Input Placeholder</mat-label>
@@ -53,7 +61,7 @@
         <p class='create-input'>
           <mat-form-field appearance='outline' class='full'>
             <mat-label>Game Instructions</mat-label>
-            <textarea matInput cols="30" rows="5" placeholder='Instructions' (input)='evalChange()'
+            <textarea matInput cols="30" rows="3" placeholder='Instructions' (input)='evalChange()'
               [(ngModel)]='instructions'></textarea>
             <mat-hint>instructions to help a user play the game</mat-hint>
           </mat-form-field>
@@ -61,11 +69,12 @@
         <p class='create-input'>
           <mat-form-field appearance='outline' class='full'>
             <mat-label>Game Description</mat-label>
-            <textarea matInput cols="30" rows="5" placeholder='Description' (input)='evalChange()'
+            <textarea matInput cols="30" rows="3" placeholder='Description' (input)='evalChange()'
               [(ngModel)]='description'></textarea>
             <mat-hint>describes the game</mat-hint>
           </mat-form-field>
         </p>
+
       </div>
       <div class="right-side" *ngIf='second_step'>
         <div class="answer-input-holder">
