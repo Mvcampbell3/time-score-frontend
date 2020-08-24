@@ -10,7 +10,7 @@
         (click)='evalGame()'>Create</button>
     </div>
     <div class="create-one">
-      <div class="left-side">
+      <!-- <div class="left-side">
         <h2 class="create-title">Game Creation</h2>
         <p class="instruct">Welcome to the game creation area! There are two sections to game creation, Basic
           Information and Answers.</p>
@@ -33,8 +33,9 @@
         <hr>
         <p class="examp">Display Text: Toronto Blue Jays</p>
         <p class="examp">Acceptable Answers: "jays", "blue jays"</p>
-      </div>
-      <div class="right-side" *ngIf='first_step'>
+      </div> -->
+      <!-- <div class="right-side" *ngIf='first_step'> -->
+      <div class="left-side">
         <p class='create-input'>
           <mat-form-field appearance='outline' class='full'>
             <mat-label>Game Title</mat-label>
@@ -76,7 +77,8 @@
         </p>
 
       </div>
-      <div class="right-side" *ngIf='second_step'>
+      <!-- <div class="right-side" *ngIf='second_step'> -->
+      <div class="right-side">
         <div class="answer-input-holder">
           <p class="create-input">
             <mat-form-field appearance='outline' class='full'>
