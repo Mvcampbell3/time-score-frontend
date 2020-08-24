@@ -1,16 +1,12 @@
 <div class="create-container">
   <div class="create-wrapper">
     <div class="button-holder">
-      <button color='warn' mat-raised-button (click)='handleLeave()' *ngIf='first_step'>Game List</button>
-      <button color='primary' [disabled]='unready_1' *ngIf='first_step' mat-raised-button
-        (click)='handleNext()'>Next</button>
-      <button color='warn' mat-raised-button (click)='handleBack()' *ngIf='second_step'>Back</button>
+      <button color='accent' mat-stroked-button (click)='handleLeave()' *ngIf='first_step'>Game List</button>
+      <button mat-stroked-button (click)='handleInstructions()'>Instructions</button>
 
-      <button color='primary' [disabled]='unready_2' mat-raised-button *ngIf='second_step'
-        (click)='evalGame()'>Create</button>
+      <button color='primary' [disabled]='unready_1' mat-stroked-button (click)='evalGame()'>Create</button>
     </div>
-    <div class="create-one">
-      <!-- <div class="left-side">
+    <!-- <div class="left-side">
         <h2 class="create-title">Game Creation</h2>
         <p class="instruct">Welcome to the game creation area! There are two sections to game creation, Basic
           Information and Answers.</p>
@@ -34,82 +30,95 @@
         <p class="examp">Display Text: Toronto Blue Jays</p>
         <p class="examp">Acceptable Answers: "jays", "blue jays"</p>
       </div> -->
-      <!-- <div class="right-side" *ngIf='first_step'> -->
-      <div class="left-side">
-        <p class='create-input'>
-          <mat-form-field appearance='outline' class='full'>
-            <mat-label>Game Title</mat-label>
-            <input matInput placeholder="Title" autocomplete="off" (input)='evalChange()' [(ngModel)]='title'>
-            <mat-hint>short title for your game</mat-hint>
-          </mat-form-field>
-        </p>
-        <mat-form-field appearance='outline'>
-          <mat-label>Game Category</mat-label>
-          <mat-select [(ngModel)]='selected_type'>
-            <mat-option *ngFor="let game_type of game_types" [value]="game_type.value">
-              {{game_type.display}}
-            </mat-option>
-          </mat-select>
+    <!-- <div class="right-side" *ngIf='first_step'> -->
+    <div class="left-side">
+      <p class='create-input'>
+        <mat-form-field appearance='fill' class='full'>
+          <mat-label>Game Title</mat-label>
+          <input matInput placeholder="Title" autocomplete="off" (input)='evalChange()' [(ngModel)]='title'>
+          <mat-hint>short title for your game</mat-hint>
         </mat-form-field>
-        <p class='create-input'>
-          <mat-form-field appearance='outline' class='full'>
-            <mat-label>Input Placeholder</mat-label>
-            <input matInput placeholder="This is a placeholder" autocomplete="off" (input)='evalChange()'
-              [(ngModel)]='input_placeholder'>
-            <mat-hint>add a custom placeholder for the text input</mat-hint>
-          </mat-form-field>
-        </p>
-        <p class='create-input'>
-          <mat-form-field appearance='outline' class='full'>
-            <mat-label>Game Instructions</mat-label>
-            <textarea matInput cols="30" rows="3" placeholder='Instructions' (input)='evalChange()'
-              [(ngModel)]='instructions'></textarea>
-            <mat-hint>instructions to help a user play the game</mat-hint>
-          </mat-form-field>
-        </p>
-        <p class='create-input'>
-          <mat-form-field appearance='outline' class='full'>
-            <mat-label>Game Description</mat-label>
-            <textarea matInput cols="30" rows="3" placeholder='Description' (input)='evalChange()'
-              [(ngModel)]='description'></textarea>
-            <mat-hint>describes the game</mat-hint>
-          </mat-form-field>
-        </p>
+      </p>
+      <mat-form-field appearance='fill'>
+        <mat-label>Game Category</mat-label>
+        <mat-select [(ngModel)]='selected_type' (selectionChange)='evalChange()'>
+          <mat-option *ngFor="let game_type of game_types" [value]="game_type.value">
+            {{game_type.display}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <p class='create-input'>
+        <mat-form-field appearance='fill' class='full'>
+          <mat-label>Input Placeholder</mat-label>
+          <input matInput placeholder="This is a placeholder" autocomplete="off" (input)='evalChange()'
+            [(ngModel)]='input_placeholder'>
+          <mat-hint>add a custom placeholder for the text input</mat-hint>
+        </mat-form-field>
+      </p>
+      <p class='create-input'>
+        <mat-form-field appearance='fill' class='full'>
+          <mat-label>Game Instructions</mat-label>
+          <textarea matInput cols="30" rows="3" placeholder='Instructions' (input)='evalChange()'
+            [(ngModel)]='instructions'></textarea>
+          <mat-hint>instructions to help a user play the game</mat-hint>
+        </mat-form-field>
+      </p>
+      <p class='create-input'>
+        <mat-form-field appearance='fill' class='full'>
+          <mat-label>Game Description</mat-label>
+          <textarea matInput cols="30" rows="3" placeholder='Description' (input)='evalChange()'
+            [(ngModel)]='description'></textarea>
+          <mat-hint>describes the game</mat-hint>
+        </mat-form-field>
+      </p>
 
+    </div>
+    <!-- <div class="right-side" *ngIf='second_step'> -->
+    <div class="right-side">
+      <div class="answer-input-holder">
+        <p class="create-input">
+          <mat-form-field appearance='fill' class='full'>
+            <mat-label>Display text</mat-label>
+            <input type="text" matInput [(ngModel)]='display_text' autocomplete="off">
+            <mat-hint>What the player sees after guessing right</mat-hint>
+          </mat-form-field>
+        </p>
+        <p class="create-input full flex-q">
+          <mat-form-field appearance='fill'>
+            <mat-label>Answer 1</mat-label>
+            <input type="text" matInput [(ngModel)]='acc_ans_1' autocomplete="off">
+            <mat-hint>What the player has to type to get the answer right</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance='fill'>
+            <mat-label>Answer 2</mat-label>
+            <input type="text" matInput [(ngModel)]='acc_ans_2' autocomplete="off">
+            <mat-hint>leave blank if not needed</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance='fill'>
+            <mat-label>Answer 3</mat-label>
+            <input type="text" matInput [(ngModel)]='acc_ans_3' autocomplete="off">
+            <mat-hint>leave blank if not needed</mat-hint>
+          </mat-form-field>
+        </p>
+        <button class="add-btn" mat-raised-button color='primary' (click)='addAnswer()'>Add Answer</button>
       </div>
-      <!-- <div class="right-side" *ngIf='second_step'> -->
-      <div class="right-side">
-        <div class="answer-input-holder">
-          <p class="create-input">
-            <mat-form-field appearance='outline' class='full'>
-              <mat-label>Display text</mat-label>
-              <input type="text" matInput [(ngModel)]='display_text' autocomplete="off">
-              <mat-hint>What the player sees after guessing right</mat-hint>
-            </mat-form-field>
-          </p>
-          <p class="create-input full flex-q">
-            <mat-form-field>
-              <mat-label>Answer 1</mat-label>
-              <input type="text" matInput [(ngModel)]='acc_ans_1' autocomplete="off">
-              <mat-hint>What the player has to type to get the answer right</mat-hint>
-            </mat-form-field>
+      <div class="stored-answers-holder">
+        <div class=" answer" *ngFor='let answer of stored_answers; let i = index'>
+          <div class="answer-item place">{{i + 1}}.</div>
+          <div class="answer-item ans-title">{{answer.display_text}}</div>
+          <!-- <div class="acc-holder">
+            Accepted:
+            <div class="acc-item" *ngFor='let acc of answer.accepted_answers'>{{acc}}</div>
+          </div> -->
+          <div class="option-holder">
+            <div class="icon up-func"><i class="fas fa-angle-up"></i></div>
+            <div class="icon up-func"><i class="fas fa-angle-down"></i></div>
+            <div class="edit-btn"><i class="far fa-edit"></i></div>
+            <div class="del-btn"><i class="far fa-trash-alt"></i></div>
+          </div>
 
-            <mat-form-field>
-              <mat-label>Answer 2</mat-label>
-              <input type="text" matInput [(ngModel)]='acc_ans_2' autocomplete="off">
-              <mat-hint>leave blank if not needed</mat-hint>
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Answer 3</mat-label>
-              <input type="text" matInput [(ngModel)]='acc_ans_3' autocomplete="off">
-              <mat-hint>leave blank if not needed</mat-hint>
-            </mat-form-field>
-          </p>
-          <button class="full" mat-raised-button color='primary' (click)='addAnswer()'>Add Answer</button>
-        </div>
-        <div class="stored-answers-holder" *ngIf='stored_answers.length > 0'>
-          <div class="answer" *ngFor='let answer of stored_answers'>{{answer.display_text}}</div>
         </div>
       </div>
     </div>

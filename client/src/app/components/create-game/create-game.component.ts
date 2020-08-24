@@ -88,7 +88,7 @@ export class CreateGameComponent implements OnInit {
 
   evalChange() {
     console.log(this.title, this.instructions, this.input_placeholder, this.description)
-    if (this.title && this.instructions && this.input_placeholder && this.description) {
+    if (this.title && this.instructions && this.input_placeholder && this.description && this.selected_type && this.stored_answers.length > 0) {
       this.unready_1 = false;
     } else {
       this.unready_1 = true;
@@ -131,11 +131,7 @@ export class CreateGameComponent implements OnInit {
       this.acc_ans_2 = ''
       this.acc_ans_3 = ''
     }
-    if (this.stored_answers.length > 0) {
-      this.unready_2 = false;
-    } else {
-      this.unready_2 = true;
-    }
+    this.evalChange()
   }
 
   evalGame() {
@@ -144,7 +140,7 @@ export class CreateGameComponent implements OnInit {
       this.has_title = true;
     } else {
       this.has_title = false;
-      messages.push('Missing game title.');
+      messages.push('Missing game title');
     }
     if (this.description) {
       this.has_description = true;
@@ -177,7 +173,7 @@ export class CreateGameComponent implements OnInit {
       messages.push('Game must have at least one answer');
     }
     if (messages.length > 0) {
-      this.errorService.createErrorDisplay('Create Game Error', messages.join(' '), false, false);
+      this.errorService.createErrorDisplay('Create Game Error', messages.join(', '), false, false);
     } else {
       this.handleCreate()
     }
@@ -213,4 +209,7 @@ export class CreateGameComponent implements OnInit {
       })
   }
 
+  handleInstructions() {
+
+  }
 }
