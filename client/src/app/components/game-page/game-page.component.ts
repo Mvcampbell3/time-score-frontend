@@ -151,7 +151,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
 
   evaluateInput() {
     const answerArr: Answer[] = this.game.answers.filter(answer => answer.guessed === false);
-    console.log(answerArr)
     let wasRight: boolean = false;
     let checked = 0;
     let left_to = answerArr.length;
@@ -160,7 +159,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
       const rightTeam: boolean = item.checkAnswer(this.guess.trim().toLowerCase());
       if (rightTeam && wasRight === false) {
         wasRight = true
-        console.log(wasRight)
       }
       if (checked === left_to) {
         console.log('looped')

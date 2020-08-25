@@ -20,6 +20,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   user_db: any;
   subscriptions: Subscription = new Subscription;
 
+  user_highscores: any[] = [];
+  user_games: any[] = [];
+
   constructor(
     public userService: UserService,
     public http: HttpService,
@@ -59,6 +62,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .then((user_ref) => {
         this.user_db = user_ref.val();
         console.log(this.user_db);
+        if (this.user_db.games) {
+          for (let game_id in this.user_db.games) {
+            const game = { name: this.user_db.games[game_id], id: game_id };
+            this.user_games.push(game);
+          }
+        }
+        if (this.user_db.highscores) {
+          for (let high_id in this.user_db.highscores) {
+            const highscore = { ...this.user_db.highscores[high_id], id: high_id };
+            this.user_highscores.push(highscore);
+          }
+        }
+        this.user_highscores = this.user_highscores.sort((a, b) => b.score - a.score)
+        console.log(this.user_games)
+        console.log(this.user_highscores);
         this.loadingService.loading.next(false);
       })
       .catch((err: any) => {

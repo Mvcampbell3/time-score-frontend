@@ -1,2 +1,24 @@
-<button mat-raised-button color='primary' routerLink="/">Back</button>
-<button mat-raised-button (click)='handleLogOut()'>Sign Out</button>
+<div class="profile-container">
+  <div class="profile-wrapper">
+    <button mat-raised-button color='primary' routerLink="/">Back</button>
+    <button mat-raised-button (click)='handleLogOut()'>Sign Out</button>
+    <section class="user-games">
+      <p class="sec-title">User Created Games</p>
+      <div class="games-holder" *ngIf='user_games.length > 0'>
+        <div class="game" *ngFor='let game of user_games'>{{game.name}}</div>
+      </div>
+      <div class="empty-games" *ngIf='user_games.length === 0'>
+        You haven't created any games yet!
+      </div>
+    </section>
+    <section class="high-scores-section">
+      <div class="sec-title">User's Highscores</div>
+      <div class="scores-holder" *ngIf='user_highscores.length > 0'>
+        <div class="score" *ngFor='let score of user_highscores'>{{score.game_title}} {{score.score}}</div>
+      </div>
+      <div class="empty-scores" *ngIf='user_highscores.length === 0'>
+        You haven't recored any highscores yet!
+      </div>
+    </section>
+  </div>
+</div>
