@@ -49,6 +49,8 @@ export class CreateGameComponent implements OnInit {
   acc_ans_2: string = "";
   acc_ans_3: string = "";
 
+  display_create: boolean = true;
+
   stored_answers: any[] = [];
 
   has_title: boolean = false;
@@ -216,7 +218,7 @@ export class CreateGameComponent implements OnInit {
   }
 
   handleInstructions() {
-
+    this.display_create = !this.display_create;
   }
 
   handleIconClick(action, answer) {

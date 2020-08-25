@@ -1,36 +1,11 @@
 <div class="create-container">
-  <div class="create-wrapper">
+  <div class="create-wrapper" *ngIf='display_create'>
     <div class="button-holder">
       <button color='accent' mat-stroked-button (click)='handleLeave()' *ngIf='first_step'>Game List</button>
       <button mat-stroked-button (click)='handleInstructions()'>Instructions</button>
 
       <button color='primary' [disabled]='unready_1' mat-stroked-button (click)='evalGame()'>Create</button>
     </div>
-    <!-- <div class="left-side">
-        <h2 class="create-title">Game Creation</h2>
-        <p class="instruct">Welcome to the game creation area! There are two sections to game creation, Basic
-          Information and Answers.</p>
-        <h3 class="create-subtitle">Basic Information Section</h3>
-        <p class="instruct">Every game has a few required fields of information to help a player understand what answers
-          they need to input in order to score points. The placeholder will appear inside of the text input on the
-          actual game page, while the instructions and description will be shown on the game information page before
-          someone starts the game.</p>
-        <h3 class="create-subtitle">Answers Section</h3>
-        <p class="instruct">This section is where you create the answers for your game. You can have as little or as
-          many as you like, however, for display purposes, it will make it easier on the player if you limit the number
-          of answers to less than 50.</p>
-        <p class="instruct">There are two important areas to an answer, the display text, and the list of acceptable
-          answers. The display text is what the player will see after they successfully guess te word. Acceptable
-          answers is a list of up to three different ways to guess an answer. Do not worry about capitalizaion on the
-          accpectable answers, we've already got you covered. Here are some examples:</p>
-        <hr>
-        <p class="examp">Display Text: Tampa Bay Rays</p>
-        <p class="examp">Acceptable Answers: "rays"</p>
-        <hr>
-        <p class="examp">Display Text: Toronto Blue Jays</p>
-        <p class="examp">Acceptable Answers: "jays", "blue jays"</p>
-      </div> -->
-    <!-- <div class="right-side" *ngIf='first_step'> -->
     <div class="left-side">
       <p class='create-input'>
         <mat-form-field appearance='fill' class='full'>
@@ -73,7 +48,6 @@
       </p>
 
     </div>
-    <!-- <div class="right-side" *ngIf='second_step'> -->
     <div class="right-side">
       <div class="answer-input-holder">
         <p class="create-input">
@@ -108,22 +82,47 @@
         <div class=" answer" *ngFor='let answer of stored_answers; let i = index'>
           <div class="answer-item place">{{i + 1}}.</div>
           <div class="answer-item ans-title">{{answer.display_text}}</div>
-          <!-- <div class="acc-holder">
-            Accepted:
-            <div class="acc-item" *ngFor='let acc of answer.accepted_answers'>{{acc}}</div>
-          </div> -->
           <div class="option-holder">
             <div class="icon up-func" (click)='handleIconClick("up", answer)'><i class="fas fa-angle-up"></i></div>
             <div class="icon up-func" (click)='handleIconClick("down", answer)'><i class="fas fa-angle-down"></i></div>
             <div class="icon edit-btn" (click)='handleIconClick("edit", answer)'><i class="far fa-edit"></i></div>
             <div class="icon del-btn" (click)='handleIconClick("del", answer)'><i class="far fa-trash-alt"></i></div>
           </div>
-
         </div>
       </div>
     </div>
 
 
 
+  </div>
+  <div class="create-instruction" *ngIf='!display_create'>
+    <div class="button-holder">
+      <button color='accent' mat-stroked-button (click)='handleLeave()' *ngIf='first_step'>Game List</button>
+      <button mat-stroked-button (click)='handleInstructions()'>Back</button>
+
+      <button color='primary' [disabled]='unready_1' mat-stroked-button (click)='evalGame()'>Create</button>
+    </div>
+    <h2 class="create-title">Game Creation</h2>
+    <p class="instruct">Welcome to the game creation area! There are two sections to game creation, Basic
+      Information and Answers.</p>
+    <h3 class="create-subtitle">Basic Information Section</h3>
+    <p class="instruct">Every game has a few required fields of information to help a player understand what answers
+      they need to input in order to score points. The placeholder will appear inside of the text input on the
+      actual game page, while the instructions and description will be shown on the game information page before
+      someone starts the game.</p>
+    <h3 class="create-subtitle">Answers Section</h3>
+    <p class="instruct">This section is where you create the answers for your game. You can have as little or as
+      many as you like, however, for display purposes, it will make it easier on the player if you limit the number
+      of answers to less than 50.</p>
+    <p class="instruct">There are two important areas to an answer, the display text, and the list of acceptable
+      answers. The display text is what the player will see after they successfully guess te word. Acceptable
+      answers is a list of up to three different ways to guess an answer. Do not worry about capitalizaion on the
+      accpectable answers, we've already got you covered. Here are some examples:</p>
+    <hr>
+    <p class="examp">Display Text: Tampa Bay Rays</p>
+    <p class="examp">Acceptable Answers: "rays"</p>
+    <hr>
+    <p class="examp">Display Text: Toronto Blue Jays</p>
+    <p class="examp">Acceptable Answers: "jays", "blue jays"</p>
   </div>
 </div>
