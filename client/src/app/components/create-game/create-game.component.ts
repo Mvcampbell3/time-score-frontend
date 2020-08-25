@@ -123,7 +123,13 @@ export class CreateGameComponent implements OnInit {
       answers.push(this.acc_ans_3);
     }
     if (answers.length > 0 && this.display_text) {
-      const answer = { display_text: this.display_text, accepted_answers: answers }
+      const id_arr: string[] = 'abcdefghijklmnopqrstuvwxyz1234567890'.split('');
+      let temp_id_arr: string[] = [];
+      for (let i = 0; i < 9; i++) {
+        const ran_num = Math.floor((Math.random() * id_arr.length));
+        temp_id_arr.push(id_arr[ran_num])
+      }
+      const answer = { display_text: this.display_text, accepted_answers: answers, id: temp_id_arr.join('') }
       console.log(answer);
       this.stored_answers.push(answer);
       this.display_text = '';
@@ -211,5 +217,69 @@ export class CreateGameComponent implements OnInit {
 
   handleInstructions() {
 
+  }
+
+  handleIconClick(action, answer) {
+    switch (action) {
+      case "up":
+        this.moveUp(answer);
+        break;
+      case "down":
+        this.moveDown(answer);
+        break;
+      case "edit":
+        this.editAnswer(answer);
+        break;
+      case "del":
+        this.delAnswer(answer);
+        break;
+      default:
+        console.log('handleIconClick switch not working as expected')
+    }
+  }
+
+  moveUp(answer) {
+    const display_arr = [...this.stored_answers].map(ans => ans.id);
+    const index = display_arr.indexOf(answer.id);
+    console.log(index);
+    if (index > 0) {
+      const temp_ans = this.stored_answers[index - 1];
+      this.stored_answers[index - 1] = answer;
+      this.stored_answers[index] = temp_ans;
+    }
+  }
+
+  moveDown(answer) {
+    const display_arr = [...this.stored_answers].map(ans => ans.id);
+    const index = display_arr.indexOf(answer.id);
+    if (index < (display_arr.length - 1)) {
+      const temp_ans = this.stored_answers[index + 1];
+      this.stored_answers[index + 1] = answer;
+      this.stored_answers[index] = temp_ans;
+    }
+  }
+
+  editAnswer(answer) {
+    const display_arr = [...this.stored_answers].map(ans => ans.id);
+    const index = display_arr.indexOf(answer.id);
+    this.stored_answers.splice(index, 1);
+    this.display_text = answer.display_text;
+    answer.accepted_answers.forEach((answer, i) => {
+      if (i === 0) {
+        this.acc_ans_1 = answer;
+      }
+      if (i === 1) {
+        this.acc_ans_2 = answer;
+      }
+      if (i === 2) {
+        this.acc_ans_3 = answer
+      }
+    })
+  }
+
+  delAnswer(answer) {
+    const display_arr = [...this.stored_answers].map(ans => ans.id);
+    const index = display_arr.indexOf(answer.id);
+    this.stored_answers.splice(index, 1);
   }
 }

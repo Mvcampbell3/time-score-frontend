@@ -113,10 +113,10 @@
             <div class="acc-item" *ngFor='let acc of answer.accepted_answers'>{{acc}}</div>
           </div> -->
           <div class="option-holder">
-            <div class="icon up-func"><i class="fas fa-angle-up"></i></div>
-            <div class="icon up-func"><i class="fas fa-angle-down"></i></div>
-            <div class="edit-btn"><i class="far fa-edit"></i></div>
-            <div class="del-btn"><i class="far fa-trash-alt"></i></div>
+            <div class="icon up-func" (click)='handleIconClick("up", answer)'><i class="fas fa-angle-up"></i></div>
+            <div class="icon up-func" (click)='handleIconClick("down", answer)'><i class="fas fa-angle-down"></i></div>
+            <div class="icon edit-btn" (click)='handleIconClick("edit", answer)'><i class="far fa-edit"></i></div>
+            <div class="icon del-btn" (click)='handleIconClick("del", answer)'><i class="far fa-trash-alt"></i></div>
           </div>
 
         </div>

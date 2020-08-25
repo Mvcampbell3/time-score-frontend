@@ -111,5 +111,9 @@
     justify-items: center;
     align-items: center;
     gap: 5px;
+
+    .icon {
+      cursor: pointer;
+    }
   }
 }
