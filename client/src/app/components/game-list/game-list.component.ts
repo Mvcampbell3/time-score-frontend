@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators'
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
 import * as moment from 'moment';
+import { ErrorModalService } from 'src/app/services/error-modal.service';
 
 @Component({
   selector: 'app-game-list',
@@ -24,24 +25,12 @@ export class GameListComponent implements OnInit, OnDestroy {
   constructor(
     public db: AngularFireDatabase,
     public router: Router,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    public errorService: ErrorModalService
   ) { }
 
   ngOnInit() {
     this.pipeGames()
-  }
-
-  grabGames() {
-    this.gamesSubscriptions = this.db.object('games').snapshotChanges().subscribe(
-      (games_ref: any) => {
-        const games_db = games_ref.payload.val();
-        console.log(games_db);
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    )
-    this.subscriptions.add(this.gamesSubscriptions)
   }
 
   pipeGames() {
@@ -72,6 +61,7 @@ export class GameListComponent implements OnInit, OnDestroy {
       },
       (err: any) => {
         console.log(err)
+        this.errorService.createErrorDisplay('Game Retrieve Error', 'There was an error getting all of the games from the database', true, false)
       }
     )
     this.subscriptions.add(this.gamesSubscriptions);

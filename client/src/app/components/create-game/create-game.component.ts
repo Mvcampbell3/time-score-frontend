@@ -87,6 +87,7 @@ export class CreateGameComponent implements OnInit {
       },
       (err: any) => {
         console.log(err);
+        this.errorService.createErrorDisplay('User Account Error', 'There was an error retrieving your user account', true, true)
       }
     )
   }
@@ -217,10 +218,12 @@ export class CreateGameComponent implements OnInit {
           })
           .catch((err: any) => {
             console.log(err);
+            this.errorService.createErrorDisplay('User Update Error', 'There was an error updating your user account', true, false);
           })
       })
       .catch((err: any) => {
         console.log(err);
+        this.errorService.createErrorDisplay('Game Create Error', 'There was an error creating your game', true, false);
       })
   }
 

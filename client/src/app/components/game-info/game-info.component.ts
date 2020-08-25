@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Subscription } from 'rxjs';
+import { ErrorModalService } from 'src/app/services/error-modal.service';
 
 @Component({
   selector: 'app-game-info',
@@ -20,7 +21,8 @@ export class GameInfoComponent implements OnInit, OnDestroy {
   constructor(
     public db: AngularFireDatabase,
     private route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    public errorService: ErrorModalService
   ) {
 
   }
@@ -52,6 +54,7 @@ export class GameInfoComponent implements OnInit, OnDestroy {
       (err: any) => {
         console.log(err);
         this.game_sub.unsubscribe();
+        this.errorService.createErrorDisplay('Game Retrieve Error', 'There was an error retrieving your game', false, true);
       }
     )
     this.subscriptions.add(this.game_sub);

@@ -8,6 +8,7 @@ import { User } from 'firebase';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { LoadingService } from 'src/app/services/loading.service';
+import { ErrorModalService } from 'src/app/services/error-modal.service';
 
 @Component({
   selector: 'app-game-page',
@@ -52,7 +53,8 @@ export class GamePageComponent implements OnInit, OnDestroy {
     public router: Router,
     public userService: UserService,
     public ngZone: NgZone,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    public errorService: ErrorModalService
   ) { }
 
   ngOnInit() {
@@ -105,6 +107,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
       })
       .catch(err => {
         console.log(err);
+        this.errorService.createErrorDisplay('Game Retrieve Error', 'There was an error retrieving the game', true, false);
       })
   }
 
@@ -228,6 +231,10 @@ export class GamePageComponent implements OnInit, OnDestroy {
                 this.saveScore();
               }
             })
+            .catch((err => {
+              console.log(err);
+              this.errorService.createErrorDisplay('Game Update Error', 'There was an error updating the game', true, false);
+            }))
         } else {
           this.show_end_modal = true;
           this.loadingService.loading.next(false);
@@ -236,6 +243,8 @@ export class GamePageComponent implements OnInit, OnDestroy {
       })
       .catch(() => {
         console.log('game unable to be updated');
+        this.errorService.createErrorDisplay('Game Update Error', 'There was an error updating the game', true, false);
+
       })
 
 
@@ -278,6 +287,8 @@ export class GamePageComponent implements OnInit, OnDestroy {
       })
       .catch((err) => {
         console.log(err);
+        this.errorService.createErrorDisplay('Game Update Error', 'There was an error updating the game', true, false);
+
       })
   }
 

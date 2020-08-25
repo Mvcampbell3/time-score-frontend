@@ -81,6 +81,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       })
       .catch((err: any) => {
         console.log(err);
+        this.errorService.createErrorDisplay('Profile Error', 'There was an error accessing your profile', true, false);
+
       })
   }
 
