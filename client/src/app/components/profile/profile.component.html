@@ -5,7 +5,7 @@
     <section class="user-games">
       <p class="sec-title">User Created Games</p>
       <div class="games-holder" *ngIf='user_games.length > 0'>
-        <div class="game" *ngFor='let game of user_games'>{{game.name}}</div>
+        <div class="game" *ngFor='let game of user_games' (click)='handleGameClick(game)'>{{game.name}}</div>
       </div>
       <div class="empty-games" *ngIf='user_games.length === 0'>
         You haven't created any games yet!

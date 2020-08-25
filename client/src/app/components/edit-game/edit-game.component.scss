@@ -83,7 +83,7 @@
   overflow-y: auto;
   border: 1px #ccc solid;
   margin-top: 8px;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
   width: 100%;
   max-width: 450px;
@@ -96,6 +96,19 @@
   display: block;
 }
 
+.answer-buttons {
+  width: 200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  &.edit {
+    width: fit-content;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
+
 .answer {
   display: grid;
   grid-template-columns: 24px 1fr 87px;
@@ -103,7 +116,7 @@
   padding: 5px;
   background-color: #eee;
   border-radius: 5px;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 
   .option-holder {
     display: grid;

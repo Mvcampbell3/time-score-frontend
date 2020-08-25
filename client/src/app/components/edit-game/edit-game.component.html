@@ -1,0 +1,130 @@
+<div class="create-container">
+  <div class="create-wrapper" *ngIf='display_create'>
+    <div class="button-holder">
+      <button color='accent' mat-stroked-button (click)='handleLeave()' *ngIf='first_step'>Profile</button>
+      <button mat-stroked-button (click)='handleInstructions()'>Instructions</button>
+
+      <button color='primary' [disabled]='unready_1' mat-stroked-button (click)='evalGame()'>Save Edit</button>
+    </div>
+    <div class="left-side">
+      <p class='create-input'>
+        <mat-form-field appearance='fill' class='full'>
+          <mat-label>Game Title</mat-label>
+          <input matInput placeholder="Title" autocomplete="off" (input)='evalChange()' [(ngModel)]='title'>
+          <mat-hint>short title for your game</mat-hint>
+        </mat-form-field>
+      </p>
+      <mat-form-field appearance='fill'>
+        <mat-label>Game Category</mat-label>
+        <mat-select [(ngModel)]='selected_type' (selectionChange)='evalChange()'>
+          <mat-option *ngFor="let game_type of game_types" [value]="game_type.value">
+            {{game_type.display}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <p class='create-input'>
+        <mat-form-field appearance='fill' class='full'>
+          <mat-label>Input Placeholder</mat-label>
+          <input matInput placeholder="This is a placeholder" autocomplete="off" (input)='evalChange()'
+            [(ngModel)]='input_placeholder'>
+          <mat-hint>add a custom placeholder for the text input</mat-hint>
+        </mat-form-field>
+      </p>
+      <p class='create-input'>
+        <mat-form-field appearance='fill' class='full'>
+          <mat-label>Game Instructions</mat-label>
+          <textarea matInput cols="30" rows="3" placeholder='Instructions' (input)='evalChange()'
+            [(ngModel)]='instructions'></textarea>
+          <mat-hint>instructions to help a user play the game</mat-hint>
+        </mat-form-field>
+      </p>
+      <p class='create-input'>
+        <mat-form-field appearance='fill' class='full'>
+          <mat-label>Game Description</mat-label>
+          <textarea matInput cols="30" rows="3" placeholder='Description' (input)='evalChange()'
+            [(ngModel)]='description'></textarea>
+          <mat-hint>describes the game</mat-hint>
+        </mat-form-field>
+      </p>
+
+    </div>
+    <div class="right-side">
+      <div class="answer-input-holder">
+        <p class="create-input">
+          <mat-form-field appearance='fill' class='full'>
+            <mat-label>Display text</mat-label>
+            <input type="text" matInput [(ngModel)]='display_text' autocomplete="off">
+            <mat-hint>What the player sees after guessing right</mat-hint>
+          </mat-form-field>
+        </p>
+        <p class="create-input full flex-q">
+          <mat-form-field appearance='fill'>
+            <mat-label>Answer 1</mat-label>
+            <input type="text" matInput [(ngModel)]='acc_ans_1' autocomplete="off">
+            <mat-hint>What the player has to type to get the answer right</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance='fill'>
+            <mat-label>Answer 2</mat-label>
+            <input type="text" matInput [(ngModel)]='acc_ans_2' autocomplete="off">
+            <mat-hint>leave blank if not needed</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance='fill'>
+            <mat-label>Answer 3</mat-label>
+            <input type="text" matInput [(ngModel)]='acc_ans_3' autocomplete="off">
+            <mat-hint>leave blank if not needed</mat-hint>
+          </mat-form-field>
+        </p>
+        <div [ngClass]="editing ? 'answer-buttons edit':'answer-buttons'">
+          <button class="add-btn" mat-raised-button color='primary' (click)='addAnswer()' *ngIf='!editing'>Add
+            Answer</button>
+          <button mat-raised-button color='warn' *ngIf='editing' (click)='cancelEdit()'>Cancel Edit</button>
+          <button mat-raised-button color='accent' *ngIf='editing' (click)='confirmEdit()'>Confirm Edit</button>
+        </div>
+      </div>
+      <div class="stored-answers-holder">
+        <div class=" answer" *ngFor='let answer of stored_answers; let i = index'>
+          <div class="answer-item place">{{i + 1}}.</div>
+          <div class="answer-item ans-title">{{answer.display_text}}</div>
+          <div class="option-holder">
+            <div class="icon up-func" (click)='handleIconClick("up", answer)'><i class="fas fa-angle-up"></i></div>
+            <div class="icon up-func" (click)='handleIconClick("down", answer)'><i class="fas fa-angle-down"></i></div>
+            <div class="icon edit-btn" (click)='handleIconClick("edit", answer)'><i class="far fa-edit"></i></div>
+            <div class="icon del-btn" (click)='handleIconClick("del", answer)'><i class="far fa-trash-alt"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="create-instruction" *ngIf='!display_create'>
+    <div class="button-holder">
+      <button color='accent' mat-stroked-button (click)='handleLeave()' *ngIf='first_step'>Game List</button>
+      <button mat-stroked-button (click)='handleInstructions()'>Back</button>
+
+      <button color='primary' [disabled]='unready_1' mat-stroked-button (click)='evalGame()'>Create</button>
+    </div>
+    <h2 class="create-title">Game Creation</h2>
+    <p class="instruct">Welcome to the game creation area! There are two sections to game creation, Basic
+      Information and Answers.</p>
+    <h3 class="create-subtitle">Basic Information Section</h3>
+    <p class="instruct">Every game has a few required fields of information to help a player understand what answers
+      they need to input in order to score points. The placeholder will appear inside of the text input on the
+      actual game page, while the instructions and description will be shown on the game information page before
+      someone starts the game.</p>
+    <h3 class="create-subtitle">Answers Section</h3>
+    <p class="instruct">This section is where you create the answers for your game. You can have as little or as
+      many as you like, however, for display purposes, it will make it easier on the player if you limit the number
+      of answers to less than 50.</p>
+    <p class="instruct">There are two important areas to an answer, the display text, and the list of acceptable
+      answers. The display text is what the player will see after they successfully guess te word. Acceptable
+      answers is a list of up to three different ways to guess an answer. Do not worry about capitalizaion on the
+      accpectable answers, we've already got you covered. Here are some examples:</p>
+    <hr>
+    <p class="examp">Display Text: Tampa Bay Rays</p>
+    <p class="examp">Acceptable Answers: "rays"</p>
+    <hr>
+    <p class="examp">Display Text: Toronto Blue Jays</p>
+    <p class="examp">Acceptable Answers: "jays", "blue jays"</p>
+  </div>
+</div>

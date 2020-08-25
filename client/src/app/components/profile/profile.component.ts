@@ -89,4 +89,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.router.navigate([''])
   }
 
+  handleGameClick(game) {
+    this.router.navigate([`/edit/${game.id}`])
+  }
+
 }

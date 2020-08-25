@@ -32,6 +32,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { CreateGameComponent } from './components/create-game/create-game.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ErrorModalComponent } from './components/error-modal/error-modal.component';
+import { EditGameComponent } from './components/edit-game/edit-game.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { ErrorModalComponent } from './components/error-modal/error-modal.compon
     ProfileComponent,
     CreateGameComponent,
     LoadingComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    EditGameComponent
   ],
   imports: [
     BrowserModule,
