@@ -34,7 +34,10 @@ export class CreateGameComponent implements OnInit {
     { display: 'Sports', value: 'sports' },
     { display: 'Video Games', value: 'video games' },
     { display: 'Other', value: 'other' }
-  ]
+  ];
+
+  editing: boolean = false;
+  edit_id: string;
 
   user: User;
   user_sub: Subscription;
@@ -134,12 +137,16 @@ export class CreateGameComponent implements OnInit {
       const answer = { display_text: this.display_text, accepted_answers: answers, id: temp_id_arr.join('') }
       console.log(answer);
       this.stored_answers.push(answer);
-      this.display_text = '';
-      this.acc_ans_1 = ''
-      this.acc_ans_2 = ''
-      this.acc_ans_3 = ''
+      this.clearAnswerInputs();
     }
     this.evalChange()
+  }
+
+  clearAnswerInputs() {
+    this.display_text = '';
+    this.acc_ans_1 = ''
+    this.acc_ans_2 = ''
+    this.acc_ans_3 = ''
   }
 
   evalGame() {
@@ -262,9 +269,10 @@ export class CreateGameComponent implements OnInit {
   }
 
   editAnswer(answer) {
+    console.log(answer);
+    this.edit_id = answer.id;
     const display_arr = [...this.stored_answers].map(ans => ans.id);
     const index = display_arr.indexOf(answer.id);
-    this.stored_answers.splice(index, 1);
     this.display_text = answer.display_text;
     answer.accepted_answers.forEach((answer, i) => {
       if (i === 0) {
@@ -277,11 +285,43 @@ export class CreateGameComponent implements OnInit {
         this.acc_ans_3 = answer
       }
     })
+    this.editing = true;
   }
 
   delAnswer(answer) {
     const display_arr = [...this.stored_answers].map(ans => ans.id);
     const index = display_arr.indexOf(answer.id);
     this.stored_answers.splice(index, 1);
+  }
+
+  cancelEdit() {
+    this.clearAnswerInputs();
+    this.editing = false;
+    this.edit_id = '';
+  }
+
+  confirmEdit() {
+    console.log(this.edit_id);
+    const index = [...this.stored_answers].map(answer => answer.id).indexOf(this.edit_id);
+    console.log(index)
+
+    let answers = [];
+    if (this.acc_ans_1) {
+      answers.push(this.acc_ans_1);
+    }
+    if (this.acc_ans_2) {
+      answers.push(this.acc_ans_2);
+    }
+    if (this.acc_ans_3) {
+      answers.push(this.acc_ans_3);
+    }
+    if (answers.length > 0 && this.display_text) {
+
+      const new_answer = { display_text: this.display_text, accepted_answers: answers, id: this.edit_id }
+      this.stored_answers[index] = new_answer
+      this.edit_id = '';
+      this.clearAnswerInputs();
+      this.editing = false;
+    }
   }
 }

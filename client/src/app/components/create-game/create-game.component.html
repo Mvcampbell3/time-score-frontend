@@ -76,7 +76,12 @@
             <mat-hint>leave blank if not needed</mat-hint>
           </mat-form-field>
         </p>
-        <button class="add-btn" mat-raised-button color='primary' (click)='addAnswer()'>Add Answer</button>
+        <div [ngClass]="editing ? 'answer-buttons edit':'answer-buttons'">
+          <button class="add-btn" mat-raised-button color='primary' (click)='addAnswer()' *ngIf='!editing'>Add
+            Answer</button>
+          <button mat-raised-button color='warn' *ngIf='editing' (click)='cancelEdit()'>Cancel Edit</button>
+          <button mat-raised-button color='accent' *ngIf='editing' (click)='confirmEdit()'>Confirm Edit</button>
+        </div>
       </div>
       <div class="stored-answers-holder">
         <div class=" answer" *ngFor='let answer of stored_answers; let i = index'>

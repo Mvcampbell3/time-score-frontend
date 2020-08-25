@@ -302,7 +302,6 @@ export class EditGameComponent implements OnInit {
     this.edit_id = answer.id;
     const display_arr = [...this.stored_answers].map(ans => ans.id);
     const index = display_arr.indexOf(answer.id);
-    // this.stored_answers.splice(index, 1);
     this.display_text = answer.display_text;
     answer.accepted_answers.forEach((answer, i) => {
       if (i === 0) {
