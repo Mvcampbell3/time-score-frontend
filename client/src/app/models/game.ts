@@ -8,6 +8,7 @@ export interface Game {
   answers: Answer[];
   plays: number,
   total_score: number,
+  username: string,
   id?: string;
   highscores?: any;
 }

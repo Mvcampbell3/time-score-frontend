@@ -2,7 +2,6 @@
   min-height: 100vh;
 
   .games-wrapper {
-    width: 900px;
     padding: 20px;
     border-radius: 20px;
     margin: 0 auto;
@@ -50,5 +49,11 @@
       margin: 0;
       padding: 0;
     }
+  }
+}
+
+.hide-mobile {
+  @media screen and (max-width: 600px) {
+    display: none;
   }
 }

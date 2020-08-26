@@ -196,6 +196,12 @@ export class CreateGameComponent implements OnInit {
   }
 
   handleCreate() {
+    let username;
+    if (this.user.displayName) {
+      username = this.user.displayName;
+    } else {
+      username = this.user.email.split('@')[0];
+    }
     const game_obj = {
       title: this.title,
       input_placeholder: this.input_placeholder,
@@ -204,6 +210,7 @@ export class CreateGameComponent implements OnInit {
       creator_id: this.user.uid,
       created: moment().format('X'),
       answers: this.stored_answers,
+      username: username,
       plays: 0,
       total_score: 0,
       type: this.selected_type

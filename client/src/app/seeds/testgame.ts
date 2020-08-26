@@ -4,6 +4,7 @@ const test_game = {
   description: 'Just a regular old test game',
   input_placeholder: 'one through seven',
   plays: 0,
+  username: 'mvcampbell3',
   total_score: 0,
   type: 'other',
   answers: [

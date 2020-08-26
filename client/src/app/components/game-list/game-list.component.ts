@@ -25,7 +25,7 @@ export class GameListComponent implements OnInit, OnDestroy {
 
   search_term: string = '';
 
-  displayedColumns: string[] = ['title', 'date', 'avg_score', 'plays'];
+  displayedColumns: string[] = ['title', 'date', 'avg_score', 'plays', 'username'];
   dataSource: any[] = [];
 
   constructor(

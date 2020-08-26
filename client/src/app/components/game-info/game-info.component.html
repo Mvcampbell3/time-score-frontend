@@ -5,5 +5,8 @@
     <p class="content">{{game.description}}</p>
     <p class="content">{{game.instructions}}</p>
     <button mat-raised-button color='primary' (click)='playGame()'>Play</button>
+    <div class="highscores-holder" *ngIf='show_high'>
+      <div class="highscore" *ngFor='let score of highscores'>{{score.username}} {{score.score}}</div>
+    </div>
   </div>
 </div>

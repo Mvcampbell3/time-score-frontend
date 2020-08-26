@@ -16,6 +16,7 @@ export class GameInfoComponent implements OnInit, OnDestroy {
   game: any;
 
   show_high: boolean = false;
+  highscores: any[] = [];
 
   subscriptions: Subscription = new Subscription;
   constructor(
@@ -45,6 +46,12 @@ export class GameInfoComponent implements OnInit, OnDestroy {
         console.log(data);
         this.game = data;
         if (data.highscores) {
+          let scores = []
+          for (let user_id in data.highscores) {
+            const score = { ...data.highscores[user_id] }
+            scores.push(score);
+          }
+          this.highscores = scores;
           this.show_high = true;
           console.log(data.highscores)
         } else {

@@ -19,7 +19,7 @@
         <mat-cell *matCellDef="let game"> {{game.title}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="date">
+      <ng-container matColumnDef="date" class='hide-mobile'>
         <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
         <mat-cell *matCellDef="let game"> {{game.formatted_date}} </mat-cell>
       </ng-container>
@@ -29,10 +29,17 @@
         <mat-cell *matCellDef="let game"> {{game.avg_score}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="plays">
+      <ng-container matColumnDef="plays" class='hide-mobile'>
         <mat-header-cell *matHeaderCellDef> Plays </mat-header-cell>
         <mat-cell *matCellDef="let game"> {{game.plays}} </mat-cell>
       </ng-container>
+
+      <ng-container matColumnDef="username" class='hide-mobile'>
+        <mat-header-cell *matHeaderCellDef> Creator </mat-header-cell>
+        <mat-cell *matCellDef="let game"> {{game.username}} </mat-cell>
+      </ng-container>
+
+
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row (click)='selectGame(row)' [ngStyle]="{cursor:'pointer'}"
