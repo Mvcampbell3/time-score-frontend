@@ -18,9 +18,15 @@ export class GameListComponent implements OnInit, OnDestroy {
   selectedGame: string = '';
   pos: number = 1;
   timerPlace: any;
+  gamesArrayStore: any[] = [];
   gamesArrayDisplay: any[] = [];
   gamesSubscriptions: Subscription;
   subscriptions: Subscription = new Subscription();
+
+  search_term: string = '';
+
+  displayedColumns: string[] = ['title', 'date', 'avg_score', 'plays'];
+  dataSource: any[] = [];
 
   constructor(
     public db: AngularFireDatabase,
@@ -57,6 +63,7 @@ export class GameListComponent implements OnInit, OnDestroy {
       (games_db: any) => {
         console.log(games_db)
         this.gamesArrayDisplay = games_db;
+        this.gamesArrayStore = games_db;
         this.loadingService.loading.next(false);
       },
       (err: any) => {
@@ -67,6 +74,15 @@ export class GameListComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.gamesSubscriptions);
   }
 
+  handleSearch(e) {
+    console.log(this.search_term);
+    this.gamesArrayDisplay = [...this.gamesArrayStore].filter(game => game.title.toLowerCase().includes(this.search_term.toLowerCase()))
+  }
+
+  handleClear() {
+    this.search_term = '';
+    this.gamesArrayDisplay = [...this.gamesArrayStore]
+  }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();

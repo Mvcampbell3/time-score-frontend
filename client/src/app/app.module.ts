@@ -18,6 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTableModule } from '@angular/material/table';
 
 // Components
 
@@ -64,7 +66,9 @@ import { EditGameComponent } from './components/edit-game/edit-game.component';
     MatButtonModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonToggleModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],

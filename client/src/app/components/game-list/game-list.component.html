@@ -2,14 +2,41 @@
   <div class="games-wrapper">
     <button mat-raised-button color='accent' (click)='handleBack()'>Back</button>
     <button mat-raised-button color='primary' (click)='handleCreate()'>Create Game</button>
-    <div class="game-title">Games List</div>
-    <div class="games-holder">
-      <div class="game" *ngFor='let game of gamesArrayDisplay' (click)='selectGame(game)'>
-        <p class="game-title">{{game.title}}</p>
-        <p class="game-date">{{game.formatted_date}}</p>
-        <p class="game-score">Avg Score: {{game.avg_score}}</p>
-        <p class="game-plays">Plays: {{game.plays}}</p>
-      </div>
+    <div class="games-top">
+      <div class="list-title">Game List</div>
+      <mat-form-field appearance='legacy' class='search-input'>
+        <mat-label>Search Games</mat-label>
+        <input type="search" matInput [(ngModel)]='search_term' autocomplete="off" placeholder="Game Title"
+          (input)='handleSearch($event)'>
+        <button mat-button *ngIf="search_term" matSuffix aria-label="Clear" (click)="handleClear()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
     </div>
+    <mat-table [dataSource]="gamesArrayDisplay" class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+        <mat-cell *matCellDef="let game"> {{game.title}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let game"> {{game.formatted_date}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="avg_score">
+        <mat-header-cell *matHeaderCellDef> Avg. Score </mat-header-cell>
+        <mat-cell *matCellDef="let game"> {{game.avg_score}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="plays">
+        <mat-header-cell *matHeaderCellDef> Plays </mat-header-cell>
+        <mat-cell *matCellDef="let game"> {{game.plays}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row (click)='selectGame(row)' [ngStyle]="{cursor:'pointer'}"
+        *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
   </div>
 </div>

@@ -18,17 +18,20 @@
   grid-template-columns: repeat(6, 200px);
   justify-items: center;
   align-items: center;
-  @media screen and (max-width: 1000px) {
-    grid-template-columns: repeat(6, 1fr);
+  @media screen and (max-width: 1250px) {
+    grid-template-columns: repeat(5, 200px);
   }
-  @media screen and (max-width: 800px) {
-    grid-template-columns: repeat(5, 1fr);
+  @media screen and (max-width: 1040px) {
+    grid-template-columns: repeat(4, 200px);
   }
-  @media screen and (max-width: 600px) {
-    grid-template-columns: repeat(4, 1fr);
+  @media screen and (max-width: 850px) {
+    grid-template-columns: repeat(3, 200px);
   }
-  @media screen and (max-width: 400px) {
-    grid-template-columns: repeat(3, 1fr);
+  @media screen and (max-width: 640px) {
+    grid-template-columns: repeat(2, 200px);
+  }
+  @media screen and (max-width: 450px) {
+    grid-template-columns: repeat(2, 150px);
   }
 }
 
