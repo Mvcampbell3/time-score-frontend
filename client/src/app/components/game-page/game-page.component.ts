@@ -45,6 +45,9 @@ export class GamePageComponent implements OnInit, OnDestroy {
 
   show_end_modal: boolean = false;
 
+  last_plays: number;
+  last_score: number;
+
   subscriptions: Subscription = new Subscription();
 
   constructor(
@@ -103,6 +106,8 @@ export class GamePageComponent implements OnInit, OnDestroy {
         })
         game_db.answers = real_answers;
         this.game = game_db;
+        this.last_plays = game_db.plays;
+        this.last_score = game_db.total_score;
         this.ready = true;
       })
       .catch(err => {
@@ -206,8 +211,22 @@ export class GamePageComponent implements OnInit, OnDestroy {
 
     console.log(this.score_total);
 
-    const new_plays = this.game.plays + 1;
-    const new_total = this.game.total_score + this.score_total;
+    this.db.object(`games/${this.game_id}`).query.once('value')
+      .then((game_raw) => {
+        const game_db = game_raw.val();
+        this.last_plays = game_db.plays;
+        this.last_score = game_db.total_score;
+        this.updateScore();
+      })
+      .catch((err) => {
+        console.log(err);
+        this.errorService.createErrorDisplay('Game Update Error', 'There was an error updating the game', true, false);
+      })
+  }
+
+  updateScore() {
+    const new_plays = this.last_plays + 1;
+    const new_total = this.last_score + this.score_total;
 
     this.db.object(`games/${this.game_id}`).update({ plays: new_plays, total_score: new_total })
       .then(() => {
@@ -246,9 +265,6 @@ export class GamePageComponent implements OnInit, OnDestroy {
         this.errorService.createErrorDisplay('Game Update Error', 'There was an error updating the game', true, false);
 
       })
-
-
-
   }
 
   saveScore() {

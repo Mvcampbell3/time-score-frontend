@@ -1,7 +1,10 @@
 <div class="games-container">
   <div class="games-wrapper">
-    <button mat-raised-button color='accent' (click)='handleBack()'>Back</button>
-    <button mat-raised-button color='primary' (click)='handleCreate()'>Create Game</button>
+    <div class="top-button-holder">
+      <button mat-raised-button color='primary' (click)='handleBack()'>Back</button>
+      <button mat-raised-button (click)='handleCreate()'>Create Game</button>
+    </div>
+
     <div class="games-top">
       <div class="list-title">Game List</div>
       <mat-form-field appearance='legacy' class='search-input'>
@@ -13,7 +16,7 @@
         </button>
       </mat-form-field>
     </div>
-    <mat-table [dataSource]="gamesArrayDisplay" class="mat-elevation-z8">
+    <mat-table [dataSource]="gamesArrayDisplay" class="mat-elevation-z8" *ngIf='games_loaded'>
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
         <mat-cell *matCellDef="let game"> {{game.title}} </mat-cell>

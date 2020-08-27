@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
+import * as moment from 'moment';
 import { ErrorModalService } from 'src/app/services/error-modal.service';
 
 @Component({
@@ -22,6 +23,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   user_highscores: any[] = [];
   user_games: any[] = [];
+  games_loaded: boolean = false;
+
+  display_games: any[] = [];
+  display_scores: any[] = [];
+
+  displayColumnsGames: string[] = ['title', 'date', 'avg_score', 'plays'];
+  displayColumnsScores: string[];
 
   constructor(
     public userService: UserService,
@@ -64,7 +72,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log(this.user_db);
         if (this.user_db.games) {
           for (let game_id in this.user_db.games) {
-            const game = { name: this.user_db.games[game_id], id: game_id };
+            const game: any = { title: this.user_db.games[game_id], id: game_id };
             this.user_games.push(game);
           }
         }
@@ -77,13 +85,52 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.user_highscores = this.user_highscores.sort((a, b) => b.score - a.score)
         console.log(this.user_games)
         console.log(this.user_highscores);
-        this.loadingService.loading.next(false);
+
+        if (this.user_games.length > 0) {
+          this.getGames();
+        } else {
+          this.finsihedLoading();
+        }
       })
       .catch((err: any) => {
         console.log(err);
         this.errorService.createErrorDisplay('Profile Error', 'There was an error accessing your profile', true, false);
-
       })
+  }
+
+  getGames() {
+    let got_games: any[] = [];
+    if (this.user_games.length > 0) {
+      this.user_games.forEach(game => {
+        this.db.object(`games/${game.id}`).query.once('value')
+          .then((game_raw: any) => {
+            const db_game = { ...game_raw.val(), id: game.id };
+            console.log(db_game);
+            if (db_game.plays > 0) {
+              db_game.avg_score = Number((db_game.total_score / db_game.plays).toFixed(0))
+            } else {
+              db_game.avg_score = 0
+            }
+            db_game.formatted_date = moment(db_game.created, 'X').format('MM/DD/YY');
+            got_games.push(db_game);
+            if (got_games.length === this.user_games.length) {
+              console.log(got_games);
+              this.display_games = got_games;
+
+              this.finsihedLoading();
+            }
+          })
+          .catch((err: any) => {
+            console.log(err);
+            this.errorService.createErrorDisplay('Profile Error', 'There was an error accessing your profile', true, false);
+          })
+      })
+    }
+  }
+
+  finsihedLoading() {
+    this.games_loaded = true;
+    this.loadingService.loading.next(false);
   }
 
   handleLogOut() {

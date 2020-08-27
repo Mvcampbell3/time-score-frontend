@@ -1,12 +1,52 @@
 <div class="profile-container">
   <div class="profile-wrapper">
-    <button mat-raised-button color='primary' routerLink="/">Back</button>
-    <button mat-raised-button (click)='handleLogOut()'>Sign Out</button>
+    <div class="top-button-holder">
+      <button mat-raised-button color='primary' routerLink="/">Back</button>
+      <button mat-raised-button (click)='handleLogOut()'>Sign Out</button>
+    </div>
+
+    <section class="user-info">
+      <p class="sec-title">User Information</p>
+      <div class="if-user" *ngIf='user'>
+        <p class="sec-info">Email: {{user.email}}</p>
+        <p class="sec-info" *ngIf='user.displayName'>Username: {{user.displayName}}</p>
+      </div>
+
+    </section>
+
     <section class="user-games">
       <p class="sec-title">User Created Games</p>
-      <div class="games-holder" *ngIf='user_games.length > 0'>
+      <!-- <div class="games-holder" *ngIf='user_games.length > 0'>
         <div class="game" *ngFor='let game of user_games' (click)='handleGameClick(game)'>{{game.name}}</div>
-      </div>
+      </div> -->
+
+      <mat-table [dataSource]="display_games" class="mat-elevation-z8" *ngIf='games_loaded'>
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+          <mat-cell *matCellDef="let game"> {{game.title}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="date" class='hide-mobile'>
+          <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+          <mat-cell *matCellDef="let game"> {{game.formatted_date}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="avg_score">
+          <mat-header-cell *matHeaderCellDef> Avg. Score </mat-header-cell>
+          <mat-cell *matCellDef="let game"> {{game.avg_score}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="plays" class='hide-mobile'>
+          <mat-header-cell *matHeaderCellDef> Plays </mat-header-cell>
+          <mat-cell *matCellDef="let game"> {{game.plays}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayColumnsGames"></mat-header-row>
+        <mat-row (click)='handleGameClick(row)' [ngStyle]="{cursor:'pointer'}"
+          *matRowDef="let row; columns: displayColumnsGames;">
+        </mat-row>
+      </mat-table>
+
       <div class="empty-games" *ngIf='user_games.length === 0'>
         You haven't created any games yet!
       </div>

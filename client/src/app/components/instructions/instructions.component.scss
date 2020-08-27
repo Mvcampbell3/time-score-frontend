@@ -1,22 +1,20 @@
 .how-container {
   min-height: 100vh;
   width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 20px;
 
   .how-wrapper {
-    width: 50vw;
-    min-width: 350px;
-    max-width: 500px;
+    padding: 20px;
 
     .button-area {
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
-      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    .mar-right {
+      margin-right: 10px;
     }
   }
 }

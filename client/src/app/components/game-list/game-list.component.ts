@@ -22,20 +22,23 @@ export class GameListComponent implements OnInit, OnDestroy {
   gamesArrayDisplay: any[] = [];
   gamesSubscriptions: Subscription;
   subscriptions: Subscription = new Subscription();
-
+  currentScreenWidth: any;
   search_term: string = '';
+  games_loaded: boolean = false;
 
-  displayedColumns: string[] = ['title', 'date', 'avg_score', 'plays', 'username'];
-  dataSource: any[] = [];
+  innerWidth: any;
+
+  displayedColumns: string[];
 
   constructor(
     public db: AngularFireDatabase,
     public router: Router,
     public loadingService: LoadingService,
-    public errorService: ErrorModalService
+    public errorService: ErrorModalService,
   ) { }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
     this.pipeGames()
   }
 
@@ -53,7 +56,7 @@ export class GameListComponent implements OnInit, OnDestroy {
           }
           game_obj.id = game_id;
           game_obj.created_num = Number(game_obj.created);
-          game_obj.formatted_date = moment(game_obj.created, 'X').format('MM/DD/YY')
+          game_obj.formatted_date = moment(game_obj.created, 'X').format('MM/DD/YY');
           console.log(game_obj)
           games_arr.push(game_obj)
         }
@@ -62,8 +65,13 @@ export class GameListComponent implements OnInit, OnDestroy {
     ).subscribe(
       (games_db: any) => {
         console.log(games_db)
+        this.displayedColumns = ['title', 'date', 'avg_score', 'plays', 'username'];
+        if (this.innerWidth < 600) {
+          this.displayedColumns = ['title', 'plays', 'username']
+        }
         this.gamesArrayDisplay = games_db;
         this.gamesArrayStore = games_db;
+        this.games_loaded = true;
         this.loadingService.loading.next(false);
       },
       (err: any) => {

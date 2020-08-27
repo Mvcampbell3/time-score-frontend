@@ -1,5 +1,19 @@
 <div class="how-container">
   <div class="how-wrapper">
+    <div class="button-area">
+      <p class='mar-right'>
+        <button mat-raised-button (click)='handleAction("")' color='primary'>Home</button>
+      </p>
+      <p class='mar-right'>
+        <button mat-raised-button (click)='handleAction("list")'>Game List</button>
+      </p>
+      <p>
+        <button mat-raised-button *ngIf='show_pro' (click)='handleAction("profile")' color='primary'>Profile</button>
+      </p>
+      <p>
+        <button mat-raised-button *ngIf='!show_pro' (click)='handleAction("login")' color='primary'>Login</button>
+      </p>
+    </div>
     <h1 class="">How to play</h1>
     <p class="">Select a game to play from the game list page. Make sure you read
       instructions as the top of the page, they will help you. Press start when you are ready and start typing,
@@ -7,11 +21,6 @@
     <p class="class">If you are logged in, you will be able to create games of your own, and record high scores for
       already existing games.</p>
     <p class="">Good Luck!</p>
-    <div class="button-area">
-      <button mat-raised-button (click)='handleAction("")' color='primary'>Home</button>
-      <button mat-raised-button (click)='handleAction("list")' color='accent'>Game List</button>
-      <button mat-raised-button *ngIf='show_pro' (click)='handleAction("profile")' color='primary'>Profile</button>
-      <button mat-raised-button *ngIf='!show_pro' (click)='handleAction("login")' color='primary'>Login</button>
-    </div>
+
   </div>
 </div>
