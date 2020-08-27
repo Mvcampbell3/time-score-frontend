@@ -29,7 +29,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   display_scores: any[] = [];
 
   displayColumnsGames: string[] = ['title', 'date', 'avg_score', 'plays'];
-  displayColumnsScores: string[];
+  displayColumnsScores: string[] = ['game_title', 'score', 'date'];
+
+  account_creation: string;
+
 
   constructor(
     public userService: UserService,
@@ -55,6 +58,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log(user);
         this.user = user;
         if (this.user) {
+          console.log(this.user.metadata)
+          this.account_creation = moment(this.user.metadata.creationTime, 'ddd, D MMM YYYY HH:mm:ss').format('MM/DD/YY');
           this.setUserDB();
         }
       },
@@ -79,6 +84,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if (this.user_db.highscores) {
           for (let high_id in this.user_db.highscores) {
             const highscore = { ...this.user_db.highscores[high_id], id: high_id };
+            highscore.formatted_date = moment(highscore.date, 'X').format('MM/DD/YY');
             this.user_highscores.push(highscore);
           }
         }

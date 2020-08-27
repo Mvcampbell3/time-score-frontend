@@ -4,7 +4,7 @@
     padding: 20px;
 
     section {
-      margin: 1.5em 0;
+      padding: 20px;
 
       .special-case {
         display: flex;
@@ -21,6 +21,14 @@
         display: block;
         font-size: 14px;
         margin-left: 5px;
+      }
+
+      .sec-info {
+        font-weight: 600;
+        margin-bottom: 0.5em;
+        .info {
+          font-weight: 400;
+        }
       }
 
       .games-holder {

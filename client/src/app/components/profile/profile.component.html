@@ -6,23 +6,20 @@
     </div>
 
     <section class="user-info">
-      <p class="sec-title">User Information</p>
+      <p class="sec-title mb-3">Information</p>
       <div class="if-user" *ngIf='user'>
-        <p class="sec-info">Email: {{user.email}}</p>
-        <p class="sec-info" *ngIf='user.displayName'>Username: {{user.displayName}}</p>
+        <p class="sec-info">Email: <span class='info'>{{user.email}}</span></p>
+        <p class="sec-info" *ngIf='user.displayName'>Username: <span class="info">{{user.displayName}}</span></p>
+        <p class="sec-info">Account Created: <span class="info">{{account_creation}}</span></p>
       </div>
 
     </section>
 
     <section class="user-games">
       <div class="special-case">
-        <p class="sec-title">User Created Games </p>
+        <p class="sec-title">Created Games </p>
         <span class='helper'>(clicking on a game will allow you to edit it)</span>
       </div>
-
-      <!-- <div class="games-holder" *ngIf='user_games.length > 0'>
-        <div class="game" *ngFor='let game of user_games' (click)='handleGameClick(game)'>{{game.name}}</div>
-      </div> -->
 
       <mat-table [dataSource]="display_games" class="mat-elevation-z8" *ngIf='games_loaded'>
         <ng-container matColumnDef="title">
@@ -56,9 +53,29 @@
       </div>
     </section>
     <section class="high-scores-section">
-      <div class="sec-title">User's Highscores</div>
+      <div class="sec-title mb-3">Highscores</div>
       <div class="scores-holder" *ngIf='user_highscores.length > 0'>
-        <div class="score" *ngFor='let score of user_highscores'>{{score.game_title}} {{score.score}}</div>
+        <mat-table [dataSource]="user_highscores" class="mat-elevation-z8" *ngIf='games_loaded'>
+          <ng-container matColumnDef="game_title">
+            <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+            <mat-cell *matCellDef="let score"> {{score.game_title}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="score" class='hide-mobile'>
+            <mat-header-cell *matHeaderCellDef> Score </mat-header-cell>
+            <mat-cell *matCellDef="let score"> {{score.score}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+            <mat-cell *matCellDef="let score"> {{score.formatted_date}} </mat-cell>
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="displayColumnsScores"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayColumnsScores;">
+          </mat-row>
+        </mat-table>
       </div>
       <div class="empty-scores" *ngIf='user_highscores.length === 0'>
         You haven't recored any highscores yet!
