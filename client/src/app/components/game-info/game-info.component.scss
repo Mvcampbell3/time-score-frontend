@@ -1,3 +1,19 @@
 .info-container {
-  padding: 20px;
+  min-height: 100vh;
+  .info-wrapper {
+    padding: 20px;
+
+    .game-holder {
+      margin: 1em 0;
+    }
+
+    .game-title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .sub {
+      margin: 1em 0;
+    }
+  }
 }

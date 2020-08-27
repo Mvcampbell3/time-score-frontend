@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Subscription } from 'rxjs';
+import * as moment from 'moment';
 import { ErrorModalService } from 'src/app/services/error-modal.service';
 
 @Component({
@@ -17,6 +18,8 @@ export class GameInfoComponent implements OnInit, OnDestroy {
 
   show_high: boolean = false;
   highscores: any[] = [];
+
+  displayColumns: string[] = ['username', 'score', 'date']
 
   subscriptions: Subscription = new Subscription;
   constructor(
@@ -49,9 +52,11 @@ export class GameInfoComponent implements OnInit, OnDestroy {
           let scores = []
           for (let user_id in data.highscores) {
             const score = { ...data.highscores[user_id] }
+            score.formatted_date = moment(score.date, 'X').format('MM/DD/YY');
             scores.push(score);
           }
           this.highscores = scores;
+          console.log(this.highscores)
           this.show_high = true;
           console.log(data.highscores)
         } else {

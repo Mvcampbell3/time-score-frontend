@@ -88,7 +88,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             this.user_highscores.push(highscore);
           }
         }
-        this.user_highscores = this.user_highscores.sort((a, b) => b.score - a.score)
+        this.user_highscores = this.user_highscores.sort((a, b) => Number(b.date) - Number(a.date))
         console.log(this.user_games)
         console.log(this.user_highscores);
 

@@ -1,12 +1,52 @@
 <div class="info-container">
   <div class="info-wrapper" *ngIf='game'>
-    <button mat-raised-button color='accent' (click)='handleBack()'>Back</button>
-    <p class="content">{{game.title}}</p>
-    <p class="content">{{game.description}}</p>
-    <p class="content">{{game.instructions}}</p>
-    <button mat-raised-button color='primary' (click)='playGame()'>Play</button>
-    <div class="highscores-holder" *ngIf='show_high'>
-      <div class="highscore" *ngFor='let score of highscores'>{{score.username}} {{score.score}}</div>
+    <div class="top-button-holder">
+      <button mat-raised-button color='primary' (click)='handleBack()'>Back</button>
+      <button mat-raised-button (click)='playGame()'>Play</button>
     </div>
+
+    <div class="game-holder">
+      <h2 class="game-title">{{game.title}}</h2>
+      <h3 class="sub">Description</h3>
+      <p class="content">{{game.description}}</p>
+      <h3 class="sub">Instructions</h3>
+      <p class="content">{{game.instructions}}</p>
+      <h3 class="sub">Number of plays</h3>
+      <p class="content">{{game.plays}}</p>
+      <h3 class="sub">Average Score</h3>
+      <p class="content" *ngIf='game.plays > 0'>{{(game.total_score/game.plays).toFixed(0)}}</p>
+      <p class="content" *ngIf='game.plays === 0'>Not Available Yet</p>
+    </div>
+
+    <div class="scores-holder">
+      <h3 class="sub">Highscores</h3>
+      <div class="has-scores" *ngIf='highscores.length > 0'>
+        <mat-table [dataSource]="highscores" class="mat-elevation-z8">
+          <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
+            <mat-cell *matCellDef="let score"> {{score.username}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="score" class='hide-mobile'>
+            <mat-header-cell *matHeaderCellDef> Score </mat-header-cell>
+            <mat-cell *matCellDef="let score"> {{score.score}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+            <mat-cell *matCellDef="let score"> {{score.formatted_date}} </mat-cell>
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayColumns;">
+          </mat-row>
+        </mat-table>
+      </div>
+      <div class="empty-scores" *ngIf='highscores.length === 0'>
+        There aren't any highscores yet!
+      </div>
+    </div>
+
   </div>
 </div>
