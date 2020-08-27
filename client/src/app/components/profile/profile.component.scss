@@ -2,14 +2,24 @@
   min-height: 100vh;
   .profile-wrapper {
     padding: 20px;
+    @media screen and (max-width: 700px) {
+      padding: 5px;
+    }
 
     section {
       padding: 20px;
+
+      @media screen and (max-width: 700px) {
+        padding: 20px 5px;
+      }
 
       .special-case {
         display: flex;
         align-items: center;
         margin-bottom: 1em;
+        @media screen and (max-width: 700px) {
+          flex-direction: column;
+        }
       }
 
       .sec-title {

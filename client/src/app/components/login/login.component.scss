@@ -12,6 +12,10 @@
     top: 10vh;
     left: 0;
     clip-path: polygon(0 0, 0% 100%, 100% 100%);
+
+    @media screen and (max-width: 700px) {
+      display: none;
+    }
   }
 
   .bg-2 {
@@ -27,6 +31,10 @@
     left: 0;
     clip-path: polygon(0 100%, 0 0, 100% 0);
     z-index: 2;
+
+    @media screen and (max-width: 700px) {
+      display: none;
+    }
   }
 
   .start-1 {
@@ -51,6 +59,11 @@
     // background-color: #f0f0f0;
     padding: 20px;
     border-radius: 10px;
+
+    @media screen and (max-width: 700px) {
+      padding: 5px;
+      width: 350px;
+    }
 
     .login-title {
       margin-bottom: 1em;

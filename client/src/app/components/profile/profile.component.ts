@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { HttpService } from 'src/app/services/http.service';
 import { User } from 'firebase';
@@ -32,6 +32,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
   displayColumnsScores: string[] = ['game_title', 'score', 'date'];
 
   account_creation: string;
+  innerWidth: number;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    if (this.innerWidth < 700) {
+      this.displayColumnsGames = ['title', 'avg_score', 'plays']
+    } else {
+      this.displayColumnsGames = ['title', 'date', 'avg_score', 'plays'];
+    }
+  }
 
 
   constructor(
@@ -46,6 +57,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.loadingService.loading.next(true);
     this.setUser();
+
   }
 
   ngOnDestroy() {

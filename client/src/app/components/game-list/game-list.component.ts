@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
@@ -29,6 +29,15 @@ export class GameListComponent implements OnInit, OnDestroy {
   innerWidth: any;
 
   displayedColumns: string[];
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    if (this.innerWidth < 700) {
+      this.displayedColumns = ['title', 'plays', 'username']
+    } else {
+      this.displayedColumns = ['title', 'date', 'avg_score', 'plays', 'username'];
+    }
+  }
 
   constructor(
     public db: AngularFireDatabase,
@@ -66,7 +75,7 @@ export class GameListComponent implements OnInit, OnDestroy {
       (games_db: any) => {
         console.log(games_db)
         this.displayedColumns = ['title', 'date', 'avg_score', 'plays', 'username'];
-        if (this.innerWidth < 600) {
+        if (this.innerWidth < 700) {
           this.displayedColumns = ['title', 'plays', 'username']
         }
         this.gamesArrayDisplay = games_db;
