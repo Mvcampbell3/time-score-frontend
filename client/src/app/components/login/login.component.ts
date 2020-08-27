@@ -8,6 +8,7 @@ import { ErrorModalService } from 'src/app/services/error-modal.service';
 import { HttpService } from 'src/app/services/http.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as moment from 'moment';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     public router: Router,
     public errorModal: ErrorModalService,
     public http: HttpService,
+    public loadingService: LoadingService,
     public db: AngularFireDatabase
   ) { }
 
@@ -59,6 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   handleLoginSignup() {
     if (this.action_login) {
       if (this.email && this.password) {
+        this.loadingService.loading.next(true);
         this.loginUser();
       } else {
         console.log('need to enter email and password');
@@ -66,7 +69,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     } else {
       if (this.email && this.username && this.password) {
-        this.signupUser();
+        // this.signupUser();
+        this.loadingService.loading.next(true);
+        this.checkUsernames()
       } else {
         console.log('need to enter email, password, and username')
         this.errorModal.createErrorDisplay('Sign Up Error', 'Please enter email, username, and password', false, false);
@@ -78,6 +83,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password)
       .then(result => {
         console.log(result);
+        this.loadingService.loading.next(false);
         this.router.navigate(['']);
       })
       .catch(err => {
@@ -86,33 +92,59 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
   }
 
+  checkUsernames() {
+    this.db.object('usernames').query.once('value')
+      .then((usernames_raw: any) => {
+        const usernames_db = usernames_raw.val();
+        console.log(usernames_db);
+        let usernames = [];
+        for (let id in usernames_db) {
+          usernames.push(usernames_db[id]);
+        }
+        if (usernames.indexOf(this.username) === -1) {
+          this.signupUser()
+        } else {
+          console.log('already exits');
+          this.errorModal.createErrorDisplay('Username Error', 'That username is already in use.', true, false)
+        }
+      })
+      .catch((err: any) => {
+
+      })
+  }
+
   signupUser() {
     this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password)
       .then((result: any) => {
         console.log(result);
-        this.db.object(`users/${result.user.uid}`).set(
-          { email: this.email, username: this.username, created: moment().format('X') }
-        )
-          .then(() => {
-            console.log('user set');
-            result.user.updateProfile({ displayName: this.username })
-              .then(() => {
-                this.router.navigate(['']);
-              })
-              .catch((err) => {
-                console.log(err);
-                this.errorModal.createErrorDisplay('Sign Up Error', err, false, false);
-              })
-          })
+        const user_db_obj = { email: this.email, username: this.username, created: moment().format('X') };
+
+        let promise_arr = [
+          this.db.object(`users/${result.user.uid}`).set(user_db_obj),
+          this.db.object(`usernames/${result.user.uid}`).set(this.username)
+        ]
+
+        Promise.all(promise_arr).then(() => {
+          console.log('user set');
+          result.user.updateProfile({ displayName: this.username })
+            .then(() => {
+              this.loadingService.loading.next(false);
+              this.router.navigate(['']);
+            })
+            .catch((err) => {
+              console.log(err);
+              this.errorModal.createErrorDisplay('Sign Up Error', err, true, false);
+            })
+        })
           .catch((err) => {
             console.log(err);
-            this.errorModal.createErrorDisplay('Sign Up Error', err, false, false);
+            this.errorModal.createErrorDisplay('Sign Up Error', err, true, false);
 
           })
       })
       .catch(err => {
         console.log(err)
-        this.errorModal.createErrorDisplay('Sign Up Error', err, false, false);
+        this.errorModal.createErrorDisplay('Sign Up Error', err, true, false);
 
       })
   }

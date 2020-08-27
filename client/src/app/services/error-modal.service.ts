@@ -24,6 +24,7 @@ export class ErrorModalService {
     this.error_message = message;
     if (loading) {
       this.error_loading = true;
+      this.loadingService.loading.next(false);
     }
     if (redirect) {
       // button will run a redirect
