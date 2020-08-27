@@ -99,7 +99,7 @@
   </div>
   <div class="create-instruction" *ngIf='!display_create'>
     <div class="button-holder">
-      <button color='primary' mat-raised-button (click)='handleLeave()' *ngIf='first_step'>Game List</button>
+      <button color='primary' mat-raised-button (click)='handleLeave()' *ngIf='first_step'>Profile</button>
       <button mat-raised-button (click)='handleInstructions()'>Back</button>
 
       <button color='primary' [disabled]='unready_1' mat-stroked-button (click)='evalGame()'>Create</button>
