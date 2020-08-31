@@ -44,15 +44,9 @@ export class InstructionsComponent implements OnInit, OnDestroy {
   }
 
   handleAction(dest) {
+    if (dest === 'list' || dest === 'profile') {
+      this.loadingService.loading.next(true);
+    }
     this.router.navigate([`/${dest}`])
   }
-
-  toHomePage() {
-    this.sendToPage.emit('landing')
-  }
-
-  toGamesList() {
-    this.sendToPage.emit('list');
-  }
-
 }

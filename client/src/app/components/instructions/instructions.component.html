@@ -1,4 +1,6 @@
 <div class="how-container">
+  <div class="bg-3"></div>
+  <div class="bg-4"></div>
   <div class="how-wrapper">
     <div class="button-area">
       <p class='mar-right'>
@@ -14,13 +16,15 @@
         <button mat-raised-button *ngIf='!show_pro' (click)='handleAction("login")' color='primary'>Login</button>
       </p>
     </div>
-    <h1 class="">How to play</h1>
-    <p class="">Select a game to play from the game list page. Make sure you read
-      instructions as the top of the page, they will help you. Press start when you are ready and start typing,
-      any correct answer will automatically be accepted!</p>
-    <p class="class">If you are logged in, you will be able to create games of your own, and record high scores for
-      already existing games.</p>
-    <p class="">Good Luck!</p>
-
+    <div class="content-wrapper">
+      <h1 class="">How to play</h1>
+      <p class="info">Welcome to Time Score, a game that tests both your typing speed and your knowledge of different
+        categories.</p>
+      <p class="info">Select a game to play from the game list page. Make sure you read
+        the game specific instructions on the game information page, they will help you. Press start when you are ready
+        and start typing! Any correct answers will automatically be accepted!</p>
+      <p class="info">If you are logged in, you will be able to create games of your own and record your high scores</p>
+      <p class="info">Good Luck!</p>
+    </div>
   </div>
 </div>

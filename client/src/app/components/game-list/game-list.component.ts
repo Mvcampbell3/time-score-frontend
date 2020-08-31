@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/services/loading.service';
 import * as moment from 'moment';
 import { ErrorModalService } from 'src/app/services/error-modal.service';
+import { User } from 'firebase';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-game-list',
@@ -25,7 +27,9 @@ export class GameListComponent implements OnInit, OnDestroy {
   currentScreenWidth: any;
   search_term: string = '';
   games_loaded: boolean = false;
-
+  user: User;
+  user_subscription: Subscription;
+  can_create: boolean = false;
   innerWidth: any;
 
   displayedColumns: string[];
@@ -44,11 +48,24 @@ export class GameListComponent implements OnInit, OnDestroy {
     public router: Router,
     public loadingService: LoadingService,
     public errorService: ErrorModalService,
+    public userService: UserService
   ) { }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
+    this.getUser();
     this.pipeGames()
+  }
+
+  getUser() {
+    this.user_subscription = this.userService.user.subscribe(
+      (user: User) => {
+        this.user = user;
+        if (user) {
+          this.can_create = true;
+        }
+      }
+    )
   }
 
   pipeGames() {

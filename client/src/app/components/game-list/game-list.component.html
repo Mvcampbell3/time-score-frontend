@@ -2,7 +2,7 @@
   <div class="games-wrapper">
     <div class="top-button-holder">
       <button mat-raised-button color='primary' (click)='handleBack()'>Back</button>
-      <button mat-raised-button (click)='handleCreate()'>Create Game</button>
+      <button mat-raised-button (click)='handleCreate()' *ngIf='can_create'>Create Game</button>
     </div>
 
     <div class="games-top">
