@@ -66,6 +66,7 @@ export class GameListComponent implements OnInit, OnDestroy {
         }
       }
     )
+    this.subscriptions.add(this.user_subscription);
   }
 
   pipeGames() {
