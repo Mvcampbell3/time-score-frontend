@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
       .catch(err => {
         console.log(err)
-        this.errorModal.createErrorDisplay('Login Error', err, false, false);
+        this.errorModal.createErrorDisplay('Login Error', err, true, false);
       })
   }
 
